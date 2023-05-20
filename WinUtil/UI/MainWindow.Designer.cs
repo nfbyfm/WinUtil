@@ -40,8 +40,12 @@
             uC_Rename1 = new UI.Frames.UC_Rename();
             tabPageMove = new TabPage();
             tabPageMP3Tag = new TabPage();
+            tabPageDirectoryInfo = new TabPage();
             groupBox1 = new GroupBox();
             outputRichTextBox = new RichTextBox();
+            uC_Move1 = new UI.Frames.UC_Move();
+            uC_mP3TagEditor1 = new UI.Frames.UC_MP3TagEditor();
+            uC_DirectoryInfo1 = new UI.Frames.UC_DirectoryInfo();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -50,6 +54,9 @@
             tabPageImageDownload.SuspendLayout();
             tabPageBatchDownload.SuspendLayout();
             tabPageRename.SuspendLayout();
+            tabPageMove.SuspendLayout();
+            tabPageMP3Tag.SuspendLayout();
+            tabPageDirectoryInfo.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -94,6 +101,7 @@
             mainTabControl.Controls.Add(tabPageRename);
             mainTabControl.Controls.Add(tabPageMove);
             mainTabControl.Controls.Add(tabPageMP3Tag);
+            mainTabControl.Controls.Add(tabPageDirectoryInfo);
             mainTabControl.Dock = DockStyle.Fill;
             mainTabControl.Location = new Point(0, 0);
             mainTabControl.Name = "mainTabControl";
@@ -107,7 +115,7 @@
             tabPageImageDownload.Location = new Point(4, 21);
             tabPageImageDownload.Name = "tabPageImageDownload";
             tabPageImageDownload.Padding = new Padding(3);
-            tabPageImageDownload.Size = new Size(688, 362);
+            tabPageImageDownload.Size = new Size(548, 395);
             tabPageImageDownload.TabIndex = 0;
             tabPageImageDownload.Text = "Image download";
             tabPageImageDownload.UseVisualStyleBackColor = true;
@@ -117,7 +125,7 @@
             uC_ImageDownload1.Dock = DockStyle.Fill;
             uC_ImageDownload1.Location = new Point(3, 3);
             uC_ImageDownload1.Name = "uC_ImageDownload1";
-            uC_ImageDownload1.Size = new Size(682, 356);
+            uC_ImageDownload1.Size = new Size(542, 389);
             uC_ImageDownload1.TabIndex = 0;
             // 
             // tabPageBatchDownload
@@ -126,7 +134,7 @@
             tabPageBatchDownload.Location = new Point(4, 21);
             tabPageBatchDownload.Name = "tabPageBatchDownload";
             tabPageBatchDownload.Padding = new Padding(3);
-            tabPageBatchDownload.Size = new Size(688, 362);
+            tabPageBatchDownload.Size = new Size(548, 395);
             tabPageBatchDownload.TabIndex = 3;
             tabPageBatchDownload.Text = "Batch download";
             tabPageBatchDownload.UseVisualStyleBackColor = true;
@@ -136,7 +144,7 @@
             uC_Batchdownload1.Dock = DockStyle.Fill;
             uC_Batchdownload1.Location = new Point(3, 3);
             uC_Batchdownload1.Name = "uC_Batchdownload1";
-            uC_Batchdownload1.Size = new Size(682, 356);
+            uC_Batchdownload1.Size = new Size(542, 389);
             uC_Batchdownload1.TabIndex = 0;
             // 
             // tabPageRename
@@ -160,6 +168,7 @@
             // 
             // tabPageMove
             // 
+            tabPageMove.Controls.Add(uC_Move1);
             tabPageMove.Location = new Point(4, 21);
             tabPageMove.Name = "tabPageMove";
             tabPageMove.Padding = new Padding(3);
@@ -170,13 +179,25 @@
             // 
             // tabPageMP3Tag
             // 
+            tabPageMP3Tag.Controls.Add(uC_mP3TagEditor1);
             tabPageMP3Tag.Location = new Point(4, 21);
             tabPageMP3Tag.Name = "tabPageMP3Tag";
             tabPageMP3Tag.Padding = new Padding(3);
-            tabPageMP3Tag.Size = new Size(792, 241);
+            tabPageMP3Tag.Size = new Size(548, 395);
             tabPageMP3Tag.TabIndex = 4;
             tabPageMP3Tag.Text = "mp3 tags";
             tabPageMP3Tag.UseVisualStyleBackColor = true;
+            // 
+            // tabPageDirectoryInfo
+            // 
+            tabPageDirectoryInfo.Controls.Add(uC_DirectoryInfo1);
+            tabPageDirectoryInfo.Location = new Point(4, 21);
+            tabPageDirectoryInfo.Name = "tabPageDirectoryInfo";
+            tabPageDirectoryInfo.Padding = new Padding(3);
+            tabPageDirectoryInfo.Size = new Size(548, 395);
+            tabPageDirectoryInfo.TabIndex = 5;
+            tabPageDirectoryInfo.Text = "Directory info";
+            tabPageDirectoryInfo.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -198,6 +219,30 @@
             outputRichTextBox.TabIndex = 0;
             outputRichTextBox.Text = "";
             // 
+            // uC_Move1
+            // 
+            uC_Move1.Dock = DockStyle.Fill;
+            uC_Move1.Location = new Point(3, 3);
+            uC_Move1.Name = "uC_Move1";
+            uC_Move1.Size = new Size(542, 389);
+            uC_Move1.TabIndex = 0;
+            // 
+            // uC_mP3TagEditor1
+            // 
+            uC_mP3TagEditor1.Dock = DockStyle.Fill;
+            uC_mP3TagEditor1.Location = new Point(3, 3);
+            uC_mP3TagEditor1.Name = "uC_mP3TagEditor1";
+            uC_mP3TagEditor1.Size = new Size(542, 389);
+            uC_mP3TagEditor1.TabIndex = 0;
+            // 
+            // uC_DirectoryInfo1
+            // 
+            uC_DirectoryInfo1.Dock = DockStyle.Fill;
+            uC_DirectoryInfo1.Location = new Point(3, 3);
+            uC_DirectoryInfo1.Name = "uC_DirectoryInfo1";
+            uC_DirectoryInfo1.Size = new Size(542, 389);
+            uC_DirectoryInfo1.TabIndex = 0;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(6F, 12F);
@@ -217,6 +262,9 @@
             tabPageImageDownload.ResumeLayout(false);
             tabPageBatchDownload.ResumeLayout(false);
             tabPageRename.ResumeLayout(false);
+            tabPageMove.ResumeLayout(false);
+            tabPageMP3Tag.ResumeLayout(false);
+            tabPageDirectoryInfo.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -238,5 +286,9 @@
         private UI.Frames.UC_ImageDownload uC_ImageDownload1;
         private UI.Frames.UC_Batchdownload uC_Batchdownload1;
         private UI.Frames.UC_Rename uC_Rename1;
+        private TabPage tabPageDirectoryInfo;
+        private UI.Frames.UC_Move uC_Move1;
+        private UI.Frames.UC_MP3TagEditor uC_mP3TagEditor1;
+        private UI.Frames.UC_DirectoryInfo uC_DirectoryInfo1;
     }
 }
