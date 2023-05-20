@@ -84,7 +84,7 @@ namespace WinUtil.UI.Frames
                     for (int i = (int)nUD_StartNumber.Value; i <= (int)nUD_EndNumber.Value; i++)
                     {
                         string url = prefix + i.ToString() + suffix;
-                        string filePath = prefix.Remove(0, prefix.LastIndexOf(@"/")+1) + i.ToString() + suffix;
+                        string filePath = prefix.Remove(0, prefix.LastIndexOf(@"/") + 1) + i.ToString() + suffix;
                         filePath = Path.Combine(targetDirectory, filePath);
 
                         Log.Debug("Added the following file to the download list: url: '" + url + "'; filepath: '" + filePath + "'.");
@@ -118,7 +118,7 @@ namespace WinUtil.UI.Frames
                     errorMsg += "Suffix isn't set. ";
 
                 if (!numbersOk)
-                    errorMsg += "End number ("+nUD_EndNumber.Value.ToString()+") is smaller than or equal to start number ("+nUD_StartNumber.Value.ToString()+"). ";
+                    errorMsg += "End number (" + nUD_EndNumber.Value.ToString() + ") is smaller than or equal to start number (" + nUD_StartNumber.Value.ToString() + "). ";
 
                 if (!directorySet)
                     errorMsg += "Download directory isn't set. ";

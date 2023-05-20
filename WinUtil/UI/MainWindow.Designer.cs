@@ -33,19 +33,21 @@
             splitContainer1 = new SplitContainer();
             mainTabControl = new TabControl();
             tabPageImageDownload = new TabPage();
+            uC_ImageDownload1 = new UI.Frames.UC_ImageDownload();
             tabPageBatchDownload = new TabPage();
             tabPageRename = new TabPage();
             tabPageMove = new TabPage();
             tabPageMP3Tag = new TabPage();
             groupBox1 = new GroupBox();
             outputRichTextBox = new RichTextBox();
-            uC_ImageDownload1 = new UI.Frames.UC_ImageDownload();
+            uC_Batchdownload1 = new UI.Frames.UC_Batchdownload();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
             mainTabControl.SuspendLayout();
             tabPageImageDownload.SuspendLayout();
+            tabPageBatchDownload.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -108,8 +110,17 @@
             tabPageImageDownload.Text = "Image download";
             tabPageImageDownload.UseVisualStyleBackColor = true;
             // 
+            // uC_ImageDownload1
+            // 
+            uC_ImageDownload1.Dock = DockStyle.Fill;
+            uC_ImageDownload1.Location = new Point(3, 3);
+            uC_ImageDownload1.Name = "uC_ImageDownload1";
+            uC_ImageDownload1.Size = new Size(786, 235);
+            uC_ImageDownload1.TabIndex = 0;
+            // 
             // tabPageBatchDownload
             // 
+            tabPageBatchDownload.Controls.Add(uC_Batchdownload1);
             tabPageBatchDownload.Location = new Point(4, 21);
             tabPageBatchDownload.Name = "tabPageBatchDownload";
             tabPageBatchDownload.Padding = new Padding(3);
@@ -168,13 +179,13 @@
             outputRichTextBox.TabIndex = 0;
             outputRichTextBox.Text = "";
             // 
-            // uC_ImageDownload1
+            // uC_Batchdownload1
             // 
-            uC_ImageDownload1.Dock = DockStyle.Fill;
-            uC_ImageDownload1.Location = new Point(3, 3);
-            uC_ImageDownload1.Name = "uC_ImageDownload1";
-            uC_ImageDownload1.Size = new Size(786, 235);
-            uC_ImageDownload1.TabIndex = 0;
+            uC_Batchdownload1.Dock = DockStyle.Fill;
+            uC_Batchdownload1.Location = new Point(3, 3);
+            uC_Batchdownload1.Name = "uC_Batchdownload1";
+            uC_Batchdownload1.Size = new Size(786, 235);
+            uC_Batchdownload1.TabIndex = 0;
             // 
             // MainWindow
             // 
@@ -193,6 +204,7 @@
             splitContainer1.ResumeLayout(false);
             mainTabControl.ResumeLayout(false);
             tabPageImageDownload.ResumeLayout(false);
+            tabPageBatchDownload.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -212,5 +224,6 @@
         private TabPage tabPageBatchDownload;
         private TabPage tabPageMP3Tag;
         private UI.Frames.UC_ImageDownload uC_ImageDownload1;
+        private UI.Frames.UC_Batchdownload uC_Batchdownload1;
     }
 }

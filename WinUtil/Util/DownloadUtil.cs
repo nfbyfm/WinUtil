@@ -3,8 +3,17 @@ using WinUtil.Model;
 
 namespace WinUtil.Util
 {
+    /// <summary>
+    /// Utility class with functions for downloading files
+    /// </summary>
     public static class DownloadUtil
     {
+        /// <summary>
+        /// asyncronously downloads a list of files
+        /// </summary>
+        /// <param name="urls">list of files</param>
+        /// <param name="limit">max. number of simultaneous downloads</param>
+        /// <returns></returns>
         public static async Task DownloadUrlsAsync(List<DownloadFileInfo> urls, int limit)
         {
             using (var client = new HttpClient())
@@ -17,6 +26,14 @@ namespace WinUtil.Util
             }
         }
 
+        /// <summary>
+        /// downloads a specific file
+        /// </summary>
+        /// <param name="url">the url of the file</param>
+        /// <param name="filePath">the absolute filepath / where the file is supposed to be saved</param>
+        /// <param name="semaphore"></param>
+        /// <param name="client">the web client to be used for downloading the data</param>
+        /// <returns></returns>
         static async Task DownloadUrlHelperAsync(string url, string filePath, SemaphoreSlim semaphore, HttpClient client)
         {
             await semaphore.WaitAsync().ConfigureAwait(false);
@@ -72,7 +89,7 @@ namespace WinUtil.Util
                     }
                     else
                     {
-                        return (url, null);
+                        return (url, new byte[0]);
                     }
                 }
             }
