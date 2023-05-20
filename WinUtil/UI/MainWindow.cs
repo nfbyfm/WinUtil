@@ -3,12 +3,19 @@ using Serilog.Sinks.RichTextBoxForms.Themes;
 
 namespace WinUtil
 {
+    /// <summary>
+    /// the main window of the application
+    /// </summary>
     public partial class MainWindow : Form
     {
+        /// <summary>
+        /// constructor of the main window of the application
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
 
+            //setup the logger (send / display in the rich textbox)
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.RichTextBox(this.outputRichTextBox,
