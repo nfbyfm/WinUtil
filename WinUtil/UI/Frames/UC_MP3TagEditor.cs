@@ -174,7 +174,11 @@ namespace WinUtil.UI.Frames
 
                 for (int i = 0; i < pathCount; i++)
                 {
-                    Task.Run(() => SetMp3FileTags(filePaths[i], setTitlefromFileName, setTrackNumber, setTrackNumberFromFileName, (uint)(i + 1), (uint)pathCount, albumTitle, artistNames, publishYear, cover));
+                    uint trackNumber = (uint)(i+1);
+                    string filePath = filePaths[i];
+                    Log.Debug("Setting tags for element " + trackNumber + " in list (" + filePath + ").");
+
+                    Task.Run(() => SetMp3FileTags(filePath, setTitlefromFileName, setTrackNumber, setTrackNumberFromFileName, trackNumber, (uint)pathCount, albumTitle, artistNames, publishYear, cover));
                 }
             }
             else
@@ -325,7 +329,7 @@ namespace WinUtil.UI.Frames
 
                     tFile.Save();
 
-                    Log.Information("Successfully changed tags of '" + fileName + "'.");
+                    Log.Information("Successfully written tags of '" + fileName + "'.");
                 }
                 catch (Exception ex)
                 {
