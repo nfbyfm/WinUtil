@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             menuStrip1 = new MenuStrip();
             statusStrip1 = new StatusStrip();
             splitContainer1 = new SplitContainer();
@@ -39,13 +40,15 @@
             tabPageRename = new TabPage();
             uC_Rename1 = new UI.Frames.UC_Rename();
             tabPageMove = new TabPage();
+            uC_Move1 = new UI.Frames.UC_Move();
             tabPageMP3Tag = new TabPage();
+            uC_mP3TagEditor1 = new UI.Frames.UC_MP3TagEditor();
             tabPageDirectoryInfo = new TabPage();
+            uC_DirectoryInfo1 = new UI.Frames.UC_DirectoryInfo();
+            tabPageVideoAudioConvert = new TabPage();
+            tabPageVideoEdit = new TabPage();
             groupBox1 = new GroupBox();
             outputRichTextBox = new RichTextBox();
-            uC_Move1 = new UI.Frames.UC_Move();
-            uC_mP3TagEditor1 = new UI.Frames.UC_MP3TagEditor();
-            uC_DirectoryInfo1 = new UI.Frames.UC_DirectoryInfo();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -102,6 +105,8 @@
             mainTabControl.Controls.Add(tabPageMove);
             mainTabControl.Controls.Add(tabPageMP3Tag);
             mainTabControl.Controls.Add(tabPageDirectoryInfo);
+            mainTabControl.Controls.Add(tabPageVideoAudioConvert);
+            mainTabControl.Controls.Add(tabPageVideoEdit);
             mainTabControl.Dock = DockStyle.Fill;
             mainTabControl.Location = new Point(0, 0);
             mainTabControl.Name = "mainTabControl";
@@ -177,6 +182,14 @@
             tabPageMove.Text = "Move";
             tabPageMove.UseVisualStyleBackColor = true;
             // 
+            // uC_Move1
+            // 
+            uC_Move1.Dock = DockStyle.Fill;
+            uC_Move1.Location = new Point(3, 3);
+            uC_Move1.Name = "uC_Move1";
+            uC_Move1.Size = new Size(542, 389);
+            uC_Move1.TabIndex = 0;
+            // 
             // tabPageMP3Tag
             // 
             tabPageMP3Tag.Controls.Add(uC_mP3TagEditor1);
@@ -188,6 +201,14 @@
             tabPageMP3Tag.Text = "mp3 tags";
             tabPageMP3Tag.UseVisualStyleBackColor = true;
             // 
+            // uC_mP3TagEditor1
+            // 
+            uC_mP3TagEditor1.Dock = DockStyle.Fill;
+            uC_mP3TagEditor1.Location = new Point(3, 3);
+            uC_mP3TagEditor1.Name = "uC_mP3TagEditor1";
+            uC_mP3TagEditor1.Size = new Size(542, 389);
+            uC_mP3TagEditor1.TabIndex = 0;
+            // 
             // tabPageDirectoryInfo
             // 
             tabPageDirectoryInfo.Controls.Add(uC_DirectoryInfo1);
@@ -198,6 +219,34 @@
             tabPageDirectoryInfo.TabIndex = 5;
             tabPageDirectoryInfo.Text = "Directory info";
             tabPageDirectoryInfo.UseVisualStyleBackColor = true;
+            // 
+            // uC_DirectoryInfo1
+            // 
+            uC_DirectoryInfo1.Dock = DockStyle.Fill;
+            uC_DirectoryInfo1.Location = new Point(3, 3);
+            uC_DirectoryInfo1.Name = "uC_DirectoryInfo1";
+            uC_DirectoryInfo1.Size = new Size(542, 389);
+            uC_DirectoryInfo1.TabIndex = 0;
+            // 
+            // tabPageVideoAudioConvert
+            // 
+            tabPageVideoAudioConvert.Location = new Point(4, 21);
+            tabPageVideoAudioConvert.Name = "tabPageVideoAudioConvert";
+            tabPageVideoAudioConvert.Padding = new Padding(3);
+            tabPageVideoAudioConvert.Size = new Size(548, 395);
+            tabPageVideoAudioConvert.TabIndex = 2;
+            tabPageVideoAudioConvert.Text = "Video to audio convert";
+            tabPageVideoAudioConvert.UseVisualStyleBackColor = true;
+            // 
+            // tabPageVideoEdit
+            // 
+            tabPageVideoEdit.Location = new Point(4, 21);
+            tabPageVideoEdit.Name = "tabPageVideoEdit";
+            tabPageVideoEdit.Padding = new Padding(3);
+            tabPageVideoEdit.Size = new Size(548, 395);
+            tabPageVideoEdit.TabIndex = 2;
+            tabPageVideoEdit.Text = "Video edit";
+            tabPageVideoEdit.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -219,30 +268,6 @@
             outputRichTextBox.TabIndex = 0;
             outputRichTextBox.Text = "";
             // 
-            // uC_Move1
-            // 
-            uC_Move1.Dock = DockStyle.Fill;
-            uC_Move1.Location = new Point(3, 3);
-            uC_Move1.Name = "uC_Move1";
-            uC_Move1.Size = new Size(542, 389);
-            uC_Move1.TabIndex = 0;
-            // 
-            // uC_mP3TagEditor1
-            // 
-            uC_mP3TagEditor1.Dock = DockStyle.Fill;
-            uC_mP3TagEditor1.Location = new Point(3, 3);
-            uC_mP3TagEditor1.Name = "uC_mP3TagEditor1";
-            uC_mP3TagEditor1.Size = new Size(542, 389);
-            uC_mP3TagEditor1.TabIndex = 0;
-            // 
-            // uC_DirectoryInfo1
-            // 
-            uC_DirectoryInfo1.Dock = DockStyle.Fill;
-            uC_DirectoryInfo1.Location = new Point(3, 3);
-            uC_DirectoryInfo1.Name = "uC_DirectoryInfo1";
-            uC_DirectoryInfo1.Size = new Size(542, 389);
-            uC_DirectoryInfo1.TabIndex = 0;
-            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(6F, 12F);
@@ -251,6 +276,7 @@
             Controls.Add(splitContainer1);
             Controls.Add(statusStrip1);
             Controls.Add(menuStrip1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Name = "MainWindow";
             Text = "Windows Utility Tool";
@@ -283,6 +309,8 @@
         private TabPage tabPageMove;
         private TabPage tabPageBatchDownload;
         private TabPage tabPageMP3Tag;
+        private TabPage tabPageVideoAudioConvert;
+        private TabPage tabPageVideoEdit;
         private UI.Frames.UC_ImageDownload uC_ImageDownload1;
         private UI.Frames.UC_Batchdownload uC_Batchdownload1;
         private UI.Frames.UC_Rename uC_Rename1;

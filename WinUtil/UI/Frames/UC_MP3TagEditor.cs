@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using WinUtil.Extensions;
 using YACUF.Utilities;
 
 namespace WinUtil.UI.Frames
@@ -18,9 +19,11 @@ namespace WinUtil.UI.Frames
             UpdateCheckBoxCheckedStates();
         }
 
-        #region user interaction functions
+        #region user input event listeners
         private void FileListFromFile_Click(object sender, EventArgs e)
         {
+            rTB_FileList.SetFileListFromTextFile();
+            /*
             //show user a dialog for selection of text files with file paths
             OpenFileDialog oDi = new()
             {
@@ -41,7 +44,7 @@ namespace WinUtil.UI.Frames
 
                         if (filePaths.HasElements(out int pathCount))
                         {
-                            SetFilePathList(filePaths, true);
+                            rTB_FileList.SetFilePathList(filePaths, true);
                             Log.Information("Added " + pathCount + " file paths from '" + Path.GetFileName(filePath) + "'.");
                         }
                         else
@@ -55,53 +58,17 @@ namespace WinUtil.UI.Frames
                     }
                 }
             }
+            */
         }
 
         private void FromDirectory_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fDi = new()
-            {
-                ShowNewFolderButton = true
-            };
-
-            if (fDi.ShowDialog() == DialogResult.OK)
-            {
-                string directoryPath = fDi.SelectedPath;
-                string messageBoxTitle = "file paths from directory";
-                SearchOption fileSearchOption = SearchOption.TopDirectoryOnly;
-
-                if (Directory.GetDirectories(directoryPath).Length > 0)
-                {
-                    if (MessageBox.Show("Include files in sub directories?", messageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        fileSearchOption = SearchOption.AllDirectories;
-                    }
-                }
-
-                List<string> newFilePaths = Directory.GetFiles(directoryPath, "*.mp3", fileSearchOption).ToList();
-
-                if (newFilePaths.HasElements())
-                {
-                    bool appendList = AppendFilePathList(messageBoxTitle);
-                    SetFilePathList(newFilePaths, appendList);
-                }
-                else
-                {
-                    Log.Error("Couldn't find any mp3 files in the '" + directoryPath + "' directory.");
-                }
-            }
+            rTB_FileList.SetFileListFromDirectorySimple("*.mp3");
         }
 
         private void FileListFromClipboard_Click(object sender, EventArgs e)
         {
-            if (Clipboard.ContainsText())
-            {
-                rTB_FileList.Text = Clipboard.GetText();
-            }
-            else
-            {
-                Log.Error("Clipboard doesn't contain any text.");
-            }
+            rTB_FileList.SetFileListFromClipboard();
         }
 
         private void SelectAlbumCoverFilePath_Click(object sender, EventArgs e)
@@ -174,7 +141,7 @@ namespace WinUtil.UI.Frames
 
                 for (int i = 0; i < pathCount; i++)
                 {
-                    uint trackNumber = (uint)(i+1);
+                    uint trackNumber = (uint)(i + 1);
                     string filePath = filePaths[i];
                     Log.Debug("Setting tags for element " + trackNumber + " in list (" + filePath + ").");
 
@@ -189,6 +156,12 @@ namespace WinUtil.UI.Frames
 
         private void SelectSingleFiles_Click(object sender, EventArgs e)
         {
+            rTB_FileList.SetFileListViaFileDialog("Select mp3 files", "mp3 files|*.mp3");
+            /*
+            if (FileListUtil.GetFilePathsFromTextFile(out List<string> filePaths, "mp3 files|*.mp3"))
+                rTB_FileList.SetFilePathList(filePaths);
+            */
+            /*
             //show file dialog to the user to select single files
             OpenFileDialog oDi = new()
             {
@@ -209,55 +182,12 @@ namespace WinUtil.UI.Frames
                     SetFilePathList(newFilePaths, appendList);
                 }
             }
+            */
         }
 
         private void SetTrackNumber_CheckedChanged(object sender, EventArgs e)
         {
             UpdateCheckBoxCheckedStates();
-        }
-        #endregion
-
-        #region helper / logic functions
-        /// <summary>
-        /// sets or append the current list of file paths
-        /// </summary>
-        /// <param name="newFilePaths">list of new file paths</param>
-        /// <param name="appendList">if true, the current list gets appended, cleared before adding new paths beforehand</param>
-        private void SetFilePathList(List<string> newFilePaths, bool appendList)
-        {
-            if (newFilePaths.HasElements(out int pathCount))
-            {
-                if (appendList)
-                {
-                    List<string> existingLines = rTB_FileList.Lines.ToList();
-                    newFilePaths = existingLines.Concat(newFilePaths).ToList();
-                }
-
-                rTB_FileList.Clear();
-                rTB_FileList.Lines = newFilePaths.ToArray();
-
-                Log.Information("Added " + pathCount + " new file paths to the current list.");
-            }
-        }
-
-        /// <summary>
-        /// checks if there are already file paths in the list and if so, asks the user if the list is to be appended with the new paths
-        /// </summary>
-        /// <param name="messageBoxTitle">(optional) title of the message box</param>
-        /// <returns>true if appending of the current list of file paths is wanted, false otherwise</returns>
-        private bool AppendFilePathList(string messageBoxTitle = "Add new file paths")
-        {
-            bool appendList = false;
-
-            if (rTB_FileList.Lines.Length > 0)
-            {
-                if (MessageBox.Show("Append the current list?", messageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    appendList = true;
-                }
-            }
-
-            return appendList;
         }
 
         /// <summary>
@@ -267,6 +197,9 @@ namespace WinUtil.UI.Frames
         {
             cB_TrackNumberFromFilename.Enabled = cB_SetTrackNumber.Checked;
         }
+        #endregion
+
+        #region logic
 
         /// <summary>
         /// sets the tags of a mp3 file

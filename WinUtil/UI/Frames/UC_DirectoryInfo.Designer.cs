@@ -68,6 +68,7 @@
             tB_Directory.Name = "tB_Directory";
             tB_Directory.Size = new Size(614, 21);
             tB_Directory.TabIndex = 1;
+            tB_Directory.TextChanged += Directory_TextChanged;
             // 
             // b_SelectDirectory
             // 
@@ -78,7 +79,7 @@
             b_SelectDirectory.TabIndex = 2;
             b_SelectDirectory.Text = "select";
             b_SelectDirectory.UseVisualStyleBackColor = true;
-            b_SelectDirectory.Click += b_SelectDirectory_Click;
+            b_SelectDirectory.Click += SelectDirectory_Click;
             // 
             // groupBox1
             // 

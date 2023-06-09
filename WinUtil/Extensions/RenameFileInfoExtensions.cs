@@ -6,7 +6,7 @@ namespace WinUtil.Extensions
     /// <summary>
     /// extensions class for RenameFileinfo
     /// </summary>
-    internal static class RenameFileInfoExtension
+    internal static class RenameFileInfoExtensions
     {
         /// <summary>
         /// converts a list of filepaths into a list of renamefileinfos
