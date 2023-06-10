@@ -30,11 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             menuStrip1 = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            quitToolStripMenuItem = new ToolStripMenuItem();
+            extrasToolStripMenuItem = new ToolStripMenuItem();
+            aboutToolStripMenuItem = new ToolStripMenuItem();
             statusStrip1 = new StatusStrip();
             splitContainer1 = new SplitContainer();
             mainTabControl = new TabControl();
-            tabPageImageDownload = new TabPage();
-            uC_ImageDownload1 = new UI.Frames.UC_ImageDownload();
             tabPageBatchDownload = new TabPage();
             uC_Batchdownload1 = new UI.Frames.UC_Batchdownload();
             tabPageRename = new TabPage();
@@ -49,12 +51,12 @@
             tabPageVideoEdit = new TabPage();
             groupBox1 = new GroupBox();
             outputRichTextBox = new RichTextBox();
+            menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
             mainTabControl.SuspendLayout();
-            tabPageImageDownload.SuspendLayout();
             tabPageBatchDownload.SuspendLayout();
             tabPageRename.SuspendLayout();
             tabPageMove.SuspendLayout();
@@ -65,11 +67,42 @@
             // 
             // menuStrip1
             // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, extrasToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(556, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { quitToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(31, 20);
+            fileToolStripMenuItem.Text = "&File";
+            // 
+            // quitToolStripMenuItem
+            // 
+            quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            quitToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Q;
+            quitToolStripMenuItem.Size = new Size(126, 22);
+            quitToolStripMenuItem.Text = "&Quit";
+            quitToolStripMenuItem.Click += QuitToolStripMenuItem_Click;
+            // 
+            // extrasToolStripMenuItem
+            // 
+            extrasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
+            extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
+            extrasToolStripMenuItem.Size = new Size(42, 20);
+            extrasToolStripMenuItem.Text = "&Extras";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            aboutToolStripMenuItem.ShortcutKeys = Keys.F1;
+            aboutToolStripMenuItem.Size = new Size(112, 22);
+            aboutToolStripMenuItem.Text = "&About";
+            aboutToolStripMenuItem.Click += AboutToolStripMenuItem_Click;
             // 
             // statusStrip1
             // 
@@ -99,7 +132,6 @@
             // 
             // mainTabControl
             // 
-            mainTabControl.Controls.Add(tabPageImageDownload);
             mainTabControl.Controls.Add(tabPageBatchDownload);
             mainTabControl.Controls.Add(tabPageRename);
             mainTabControl.Controls.Add(tabPageMove);
@@ -109,29 +141,11 @@
             mainTabControl.Controls.Add(tabPageVideoEdit);
             mainTabControl.Dock = DockStyle.Fill;
             mainTabControl.Location = new Point(0, 0);
+            mainTabControl.Multiline = true;
             mainTabControl.Name = "mainTabControl";
             mainTabControl.SelectedIndex = 0;
             mainTabControl.Size = new Size(556, 420);
             mainTabControl.TabIndex = 0;
-            // 
-            // tabPageImageDownload
-            // 
-            tabPageImageDownload.Controls.Add(uC_ImageDownload1);
-            tabPageImageDownload.Location = new Point(4, 21);
-            tabPageImageDownload.Name = "tabPageImageDownload";
-            tabPageImageDownload.Padding = new Padding(3);
-            tabPageImageDownload.Size = new Size(548, 395);
-            tabPageImageDownload.TabIndex = 0;
-            tabPageImageDownload.Text = "Image download";
-            tabPageImageDownload.UseVisualStyleBackColor = true;
-            // 
-            // uC_ImageDownload1
-            // 
-            uC_ImageDownload1.Dock = DockStyle.Fill;
-            uC_ImageDownload1.Location = new Point(3, 3);
-            uC_ImageDownload1.Name = "uC_ImageDownload1";
-            uC_ImageDownload1.Size = new Size(542, 389);
-            uC_ImageDownload1.TabIndex = 0;
             // 
             // tabPageBatchDownload
             // 
@@ -141,7 +155,7 @@
             tabPageBatchDownload.Padding = new Padding(3);
             tabPageBatchDownload.Size = new Size(548, 395);
             tabPageBatchDownload.TabIndex = 3;
-            tabPageBatchDownload.Text = "Batch download";
+            tabPageBatchDownload.Text = "batch download files";
             tabPageBatchDownload.UseVisualStyleBackColor = true;
             // 
             // uC_Batchdownload1
@@ -160,7 +174,7 @@
             tabPageRename.Padding = new Padding(3);
             tabPageRename.Size = new Size(548, 395);
             tabPageRename.TabIndex = 1;
-            tabPageRename.Text = "Rename";
+            tabPageRename.Text = "rename files";
             tabPageRename.UseVisualStyleBackColor = true;
             // 
             // uC_Rename1
@@ -179,7 +193,7 @@
             tabPageMove.Padding = new Padding(3);
             tabPageMove.Size = new Size(548, 395);
             tabPageMove.TabIndex = 2;
-            tabPageMove.Text = "Move";
+            tabPageMove.Text = "move files";
             tabPageMove.UseVisualStyleBackColor = true;
             // 
             // uC_Move1
@@ -198,7 +212,7 @@
             tabPageMP3Tag.Padding = new Padding(3);
             tabPageMP3Tag.Size = new Size(548, 395);
             tabPageMP3Tag.TabIndex = 4;
-            tabPageMP3Tag.Text = "mp3 tags";
+            tabPageMP3Tag.Text = "edit mp3 tags";
             tabPageMP3Tag.UseVisualStyleBackColor = true;
             // 
             // uC_mP3TagEditor1
@@ -217,7 +231,7 @@
             tabPageDirectoryInfo.Padding = new Padding(3);
             tabPageDirectoryInfo.Size = new Size(548, 395);
             tabPageDirectoryInfo.TabIndex = 5;
-            tabPageDirectoryInfo.Text = "Directory info";
+            tabPageDirectoryInfo.Text = "directory info";
             tabPageDirectoryInfo.UseVisualStyleBackColor = true;
             // 
             // uC_DirectoryInfo1
@@ -235,7 +249,7 @@
             tabPageVideoAudioConvert.Padding = new Padding(3);
             tabPageVideoAudioConvert.Size = new Size(548, 395);
             tabPageVideoAudioConvert.TabIndex = 2;
-            tabPageVideoAudioConvert.Text = "Video to audio convert";
+            tabPageVideoAudioConvert.Text = "video to audio convert";
             tabPageVideoAudioConvert.UseVisualStyleBackColor = true;
             // 
             // tabPageVideoEdit
@@ -245,7 +259,7 @@
             tabPageVideoEdit.Padding = new Padding(3);
             tabPageVideoEdit.Size = new Size(548, 395);
             tabPageVideoEdit.TabIndex = 2;
-            tabPageVideoEdit.Text = "Video edit";
+            tabPageVideoEdit.Text = "video edit";
             tabPageVideoEdit.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -280,12 +294,13 @@
             MainMenuStrip = menuStrip1;
             Name = "MainWindow";
             Text = "Windows Utility Tool";
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
             mainTabControl.ResumeLayout(false);
-            tabPageImageDownload.ResumeLayout(false);
             tabPageBatchDownload.ResumeLayout(false);
             tabPageRename.ResumeLayout(false);
             tabPageMove.ResumeLayout(false);
@@ -302,7 +317,6 @@
         private StatusStrip statusStrip1;
         private SplitContainer splitContainer1;
         private TabControl mainTabControl;
-        private TabPage tabPageImageDownload;
         private TabPage tabPageRename;
         private GroupBox groupBox1;
         private RichTextBox outputRichTextBox;
@@ -311,12 +325,15 @@
         private TabPage tabPageMP3Tag;
         private TabPage tabPageVideoAudioConvert;
         private TabPage tabPageVideoEdit;
-        private UI.Frames.UC_ImageDownload uC_ImageDownload1;
         private UI.Frames.UC_Batchdownload uC_Batchdownload1;
         private UI.Frames.UC_Rename uC_Rename1;
         private TabPage tabPageDirectoryInfo;
         private UI.Frames.UC_Move uC_Move1;
         private UI.Frames.UC_MP3TagEditor uC_mP3TagEditor1;
         private UI.Frames.UC_DirectoryInfo uC_DirectoryInfo1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem quitToolStripMenuItem;
+        private ToolStripMenuItem extrasToolStripMenuItem;
+        private ToolStripMenuItem aboutToolStripMenuItem;
     }
 }

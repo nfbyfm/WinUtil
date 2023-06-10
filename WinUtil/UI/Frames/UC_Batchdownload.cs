@@ -1,18 +1,21 @@
 ﻿using Serilog;
-using System.Security.Cryptography;
 using WinUtil.Extensions;
 using WinUtil.Model;
+using WinUtil.UI.Dialogs;
 using WinUtil.Util;
 using YACUF.Utilities;
 
 namespace WinUtil.UI.Frames
 {
+    /// <summary>
+    /// Usercontrol for batch downloading files
+    /// </summary>
     public partial class UC_Batchdownload : UserControl
     {
         public UC_Batchdownload()
         {
             InitializeComponent();
-            
+
             rTB_Urls.DragDrop += RTB_Urls_DragDrop;
             rTB_Urls.AllowDrop = true;
 
@@ -37,7 +40,7 @@ namespace WinUtil.UI.Frames
                     {
                         string filePath = list[0];
 
-                        if(filePath.IsValidString())
+                        if (filePath.IsValidString())
                         {
                             rTB_Urls.Clear();
 
@@ -56,9 +59,12 @@ namespace WinUtil.UI.Frames
             }
         }
 
-        //todo: support drag and drop of text files
-
-        private void Select_Click(object sender, EventArgs e)
+        /// <summary>
+        /// lets the user select the download directory via dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SelectDownloadDirectory_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrowserDialog = new()
             {
@@ -103,6 +109,8 @@ namespace WinUtil.UI.Frames
         /// <param name="e"></param>
         private void FromFile_Click(object sender, EventArgs e)
         {
+            rTB_Urls.SetFileListFromTextFile();
+            /*
             //create and show file select dialog
             OpenFileDialog oDi = new()
             {
@@ -123,6 +131,7 @@ namespace WinUtil.UI.Frames
                     Log.Error("Failed to load text from file '" + oDi.FileName + "': " + ex.Message);
                 }
             }
+            */
         }
 
         /// <summary>
@@ -132,6 +141,8 @@ namespace WinUtil.UI.Frames
         /// <param name="e"></param>
         private void FromClipboard_Click(object sender, EventArgs e)
         {
+            rTB_Urls.SetFileListFromClipboard();
+            /*
             if (Clipboard.ContainsText())
             {
                 rTB_Urls.Text = Clipboard.GetText();
@@ -140,6 +151,7 @@ namespace WinUtil.UI.Frames
             {
                 Log.Error("Clipboard doesn't contain any text.");
             }
+            */
         }
 
         /// <summary>
@@ -150,74 +162,111 @@ namespace WinUtil.UI.Frames
         private void Start_Click(object sender, EventArgs e)
         {
             List<string> urls = rTB_Urls.Lines.ToList();
+            string targetDirectory = tB_DownloadDirectory.Text;
 
-            if (urls.HasElements(out int elemCount))
+            bool urlsOK = urls.HasElements(out int elemCount);
+            bool directorySet = targetDirectory.IsValidString();
+
+            if (urlsOK && directorySet)
             {
-                string targetDirectory = tB_DownloadDirectory.Text;
+                //get parameters from UI
+                bool overWriteExistingFiles = cB_OverWriteExistingFiles.Checked;
+                int numberOfParallelDownloads = (int)Math.Max(1, nUD_ParallelDownloads.Value);
+                bool createNewFileName = rB_CreateNewFileNames.Checked;
+                string prefix = tB_Prefix.Text;
+                string suffix = tB_Suffix.Text;
 
-                if (targetDirectory.IsValidString())
+                //check if the directory exists and if not, try to create it
+                bool directoryOk = true;
+                if (!Directory.Exists(targetDirectory))
                 {
-                    //check if the directory exists and if not, try to create it
-                    bool directoryOk = true;
-                    if (!Directory.Exists(targetDirectory))
+                    try
                     {
-                        try
+                        Directory.CreateDirectory(targetDirectory);
+                        Log.Debug("Download directory '" + targetDirectory + "' has been successfully created.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error("Failed to create the download directory '" + targetDirectory + "': " + ex.Message);
+                        directoryOk = false;
+                    }
+                }
+
+                if (directoryOk)
+                {
+                    List<DownloadFileInfo> dataList = new();
+                    int maxDigits = elemCount.Digits();
+
+                    for (int i = 0; i < elemCount; i++)
+                    {
+
+                        string filePath = urls[i].Remove(0, urls[i].LastIndexOf(@"/") + 1);
+
+                        if (createNewFileName)
                         {
-                            Directory.CreateDirectory(targetDirectory);
-                            Log.Debug("Download directory '" + targetDirectory + "' has been successfully created.");
+                            string fileExtension = filePath.Remove(0, filePath.LastIndexOf("."));
+
+                            filePath = prefix + i.ToString("D" + maxDigits.ToString()) + suffix + fileExtension;
                         }
-                        catch (Exception ex)
+
+                        filePath = Path.Combine(targetDirectory, filePath);
+
+                        if (File.Exists(filePath) && !overWriteExistingFiles)
                         {
-                            Log.Error("Failed to create the download directory '" + targetDirectory + "': " + ex.Message);
-                            directoryOk = false;
+                            Log.Debug("File '" + filePath + "' already exists (not added to the download list).");
+                        }
+                        else
+                        {
+                            dataList.Add(new(urls[i], filePath));
+                            Log.Debug("Added the following file to the download list: url: '" + urls[i] + "'; filepath: '" + filePath + "'.");
                         }
                     }
 
-                    if (directoryOk)
+                    if (dataList.Count > 0)
                     {
-                        List<DownloadFileInfo> dataList = new();
-
-                        bool createNewFileName = rB_CreateNewFileNames.Checked;
-                        string prefix = tB_Prefix.Text;
-                        string suffix = tB_Suffix.Text;
-                        int maxDigits = elemCount.Digits();
-
-                        for (int i = 0; i < elemCount; i++)
-                        {
-
-                            string filePath = urls[i].Remove(0, urls[i].LastIndexOf(@"/") + 1);
-
-                            if (createNewFileName)
-                            {
-                                string fileExtension = filePath.Remove(0, filePath.LastIndexOf("."));
-
-                                filePath = prefix + i.ToString("D" + maxDigits.ToString()) + suffix + fileExtension;
-                            }
-
-                            filePath = Path.Combine(targetDirectory, filePath);
-
-                            dataList.Add(new(urls[i], filePath));
-
-                            Log.Debug("Added the following file to the download list: url: '" + urls[i] + "'; filepath: '" + filePath + "'.");
-                        }
-
                         Log.Information("Starting download of " + dataList.Count + " files ...");
 
                         //download all files
                         try
                         {
-                            Task.Run(async () => await DownloadUtil.DownloadUrlsAsync(dataList, 10));
+                            Task.Run(async () => await DownloadUtil.DownloadUrlsAsync(dataList, numberOfParallelDownloads));
                         }
                         catch (Exception ex)
                         {
                             Log.Error("An error occured while downloading files: " + ex.Message);
                         }
                     }
+                    else
+                    {
+                        Log.Information("All files have been (already) downloaded.");
+                    }
                 }
             }
             else
             {
-                Log.Error("Current list of urls is empty.");
+                if (!urlsOK)
+                    Log.Error("Current list of urls is empty.");
+
+                if (!directorySet)
+                    Log.Error("The target directroy hasn't been set yet.");
+            }
+        }
+
+        /// <summary>
+        /// lets user generate multiple URLs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GenerateURLs_Click(object sender, EventArgs e)
+        {
+            GenerateURLsDialog urlDialog = new();
+
+            if (urlDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (urlDialog.GetURLList(out List<string> urls))
+                    rTB_Urls.SetFilePathList(urls);
+                else
+                    Log.Error("Failed to generate list of URLs from dialog inputs.");
             }
         }
     }

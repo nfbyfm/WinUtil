@@ -1,5 +1,7 @@
 using Serilog;
 using Serilog.Sinks.RichTextBoxForms.Themes;
+using System.Reflection;
+using YACUF.Utilities;
 
 namespace WinUtil
 {
@@ -15,6 +17,9 @@ namespace WinUtil
         {
             InitializeComponent();
 
+            //check settings and update UI elements
+            CheckSettings();
+
             //setup the logger (send / display in the rich textbox)
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -23,7 +28,64 @@ namespace WinUtil
                     outputTemplate: "[{Timestamp:yyyy.MM.dd HH:mm:ss}] [{Level:u3}]:  {Message:lj}{NewLine}{Exception}")
                 .CreateLogger();
 
-            Log.Information("Application started.");
+            Log.Information("Application started.");            
+        }
+
+        /// <summary>
+        /// checks settings and updates the UI accordingly
+        /// </summary>
+        private void CheckSettings()
+        {
+            bool ffmpegFound = false;
+            string? ffmpegFilePath = Properties.Settings.Default.ffmpegFilePath;
+
+            if (ffmpegFilePath.IsValidString())
+                ffmpegFound = File.Exists(ffmpegFilePath);
+
+            if(!ffmpegFound)
+            {
+                mainTabControl.TabPages.Remove(tabPageVideoAudioConvert);
+                mainTabControl.TabPages.Remove(tabPageVideoEdit);
+            }
+        }
+
+        /// <summary>
+        /// closes the application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void QuitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// shows the about dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //create strings for message box
+            string dialogTitle = "WinUtil";
+            string dialogMessage = "Windows desktop application with various utility functions." + Environment.NewLine;
+
+            try
+            {
+                Version? appVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+                if (appVersion != null)
+                    dialogMessage += Environment.NewLine + "Version: " + appVersion.ToString();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Failed to get the version of the current application: " + ex.Message);
+            }
+
+            dialogMessage += Environment.NewLine + "https://github.com/nfbyfm/WinUtil";
+
+            //show messagebox
+            MessageBox.Show(dialogMessage, dialogTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

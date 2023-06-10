@@ -99,6 +99,7 @@
             tV_DirectoryStrucutre.Name = "tV_DirectoryStrucutre";
             tV_DirectoryStrucutre.Size = new Size(207, 503);
             tV_DirectoryStrucutre.TabIndex = 0;
+            tV_DirectoryStrucutre.AfterSelect += tV_DirectoryStrucutre_AfterSelect;
             // 
             // groupBox2
             // 
@@ -126,7 +127,7 @@
             chartView.Series.Add(series1);
             chartView.Size = new Size(591, 503);
             chartView.TabIndex = 0;
-            chartView.Text = "chart1";
+            chartView.Text = "...";
             // 
             // tableLayoutPanel1
             // 
