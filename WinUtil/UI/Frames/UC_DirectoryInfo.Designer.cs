@@ -56,7 +56,7 @@
             label1.Dock = DockStyle.Fill;
             label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(94, 30);
+            label1.Size = new Size(50, 30);
             label1.TabIndex = 0;
             label1.Text = "Directory:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -64,9 +64,9 @@
             // tB_Directory
             // 
             tB_Directory.Dock = DockStyle.Fill;
-            tB_Directory.Location = new Point(103, 3);
+            tB_Directory.Location = new Point(59, 3);
             tB_Directory.Name = "tB_Directory";
-            tB_Directory.Size = new Size(614, 21);
+            tB_Directory.Size = new Size(658, 21);
             tB_Directory.TabIndex = 1;
             tB_Directory.TextChanged += Directory_TextChanged;
             // 
@@ -132,7 +132,7 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 56F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
             tableLayoutPanel1.Controls.Add(label1, 0, 0);

@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using System.Windows.Forms.DataVisualization.Charting;
 using WinUtil.Model;
 using YACUF.Utilities;
 
@@ -23,10 +24,7 @@ namespace WinUtil.UI.Frames
         /// <param name="e"></param>
         private void SelectDirectory_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fDi = new()
-            {
-                ShowNewFolderButton = false
-            };
+            FolderBrowserDialog fDi = new();
 
             if (fDi.ShowDialog() == DialogResult.OK)
                 tB_Directory.Text = fDi.SelectedPath;
@@ -112,27 +110,64 @@ namespace WinUtil.UI.Frames
         /// <param name="directoryPath"></param>
         private void UpdateChartView(string directoryPath)
         {
-            //todo: implement display of information via chart view
-
             //reset data
             chartView.Series.Clear();
             chartView.Legends.Clear();
             chartView.Annotations.Clear();
             chartView.Titles.Clear();
 
+            //calculate files / directroy sizes and show as doughnut chart
             if (directoryPath.IsValidString() && Directory.Exists(directoryPath))
             {
-                string directoryString = new DirectoryInfo(directoryPath).Name;
-                chartView.Titles.Add(directoryString);
+                string chartTitle = GetShortDirectoryName(directoryPath);
+                GetDirectorySize(directoryPath, out long dirSize, out long fileSize);
+                chartTitle += " " + GetSizeString(dirSize, fileSize);
+                chartView.Titles.Add(chartTitle);
 
-                //chartView.Series["Test"].ChartType = SeriesChartType.Pie;  
+                Series fileSeries = chartView.Series.Add("Files");
+                fileSeries.ChartType = SeriesChartType.Doughnut;
+                fileSeries.CustomProperties = "PieLabelStyle=Outside";
+
+                chartView.ChartAreas[0].Area3DStyle.Enable3D = true;
+                chartView.ChartAreas[0].Area3DStyle.IsClustered = true;
+                //chartView.ChartAreas[0].Area3DStyle.Inclination = 50;
+
+                string[] subDirectories = Directory.GetDirectories(directoryPath);
+
+                // point for each subdirectroy
+                for (int i = 0; i < subDirectories.Length; i++)
+                {
+                    string directoryString = GetShortDirectoryName(subDirectories[i]);
+                    long size = GetDirectorySize(subDirectories[i], out _, out _);
+
+
+                    // Add point
+                    fileSeries.Points.AddXY(directoryString, size);
+                    fileSeries.Points[fileSeries.Points.Count - 1].LegendText = directoryString + " [" + GetFileSizeAsString(size) + "]";
+                }
+
+
+                string[] files = Directory.GetFiles(directoryPath);
+
+                // point for each file
+                for (int i = 0; i < files.Length; i++)
+                {
+                    string fileName = Path.GetFileName(files[i]);
+                    long size = GetFileSize(files[i]);
+
+                    // Add point
+                    fileSeries.Points.AddXY(fileName, size);
+                    fileSeries.Points[fileSeries.Points.Count - 1].LegendText = fileName + " [" + GetFileSizeAsString(size) + "]";
+                }
+
+                // Create a new legend called "SizeLegend".
+                chartView.Legends.Add(new Legend("SizeLegend"));
+
+                // Assign the legend to fileSeries.
+                fileSeries.Legend = "SizeLegend";
+                fileSeries.IsVisibleInLegend = true;
             }
         }
-
-
-        #endregion
-
-        #region logic
 
         /// <summary>
         /// creates treenode of the given directory
@@ -140,7 +175,7 @@ namespace WinUtil.UI.Frames
         /// <param name="directoryPath"></param>
         /// <param name="node"></param>
         /// <param name="totalSize"></param>
-        /// <returns></returns>
+        /// <returns>true if node could be generated successfully</returns>
         private bool GetDirectoryTreeNode(string directoryPath, out TreeNode node, out long totalSize)
         {
             bool nodeCreated = false;
@@ -151,7 +186,7 @@ namespace WinUtil.UI.Frames
             {
                 try
                 {
-                    string directoryString = new DirectoryInfo(directoryPath).Name;
+                    string directoryString = GetShortDirectoryName(directoryPath);
 
                     List<string> filePaths = Directory.GetFiles(directoryPath, "*.*", SearchOption.TopDirectoryOnly).ToList();
                     List<string> subDirectories = Directory.GetDirectories(directoryPath).ToList();
@@ -159,7 +194,7 @@ namespace WinUtil.UI.Frames
                     long directorySize = 0;
                     long fileSize = 0;
 
-                    //calcualte totalsize of sub directories (and create their treenodes)
+                    //calcualte total size of sub directories (and create their treenodes)
                     if (subDirectories.HasElements(out int dirCount))
                     {
                         for (int i = 0; i < dirCount; i++)
@@ -200,12 +235,26 @@ namespace WinUtil.UI.Frames
             return nodeCreated;
         }
 
+        #endregion
+
+        #region logic
+
+        /// <summary>
+        /// gets the 'simple' name of the given directory path
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        /// <returns></returns>
+        private static string GetShortDirectoryName(string directoryPath)
+        {
+            return new DirectoryInfo(directoryPath).Name;
+        }
+
         /// <summary>
         /// tries to get the file size in bytes
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        private long GetFileSize(string filePath)
+        private static long GetFileSize(string filePath)
         {
             long size = 0;
 
@@ -213,6 +262,46 @@ namespace WinUtil.UI.Frames
                 size = new FileInfo(filePath).Length;
 
             return size;
+        }
+
+        /// <summary>
+        /// tries to get the size of the given directory in bytes
+        /// </summary>
+        /// <param name="directroyPath"></param>
+        /// <returns></returns>
+        private long GetDirectorySize(string directroyPath, out long directorySize, out long fileSize)
+        {
+            long totalSize = 0;
+            directorySize = 0;
+            fileSize = 0;
+
+            if (directroyPath.IsValidString() && Directory.Exists(directroyPath))
+            {
+                try
+                {
+                    string[] subDirectories = Directory.GetDirectories(directroyPath);
+
+                    for (int i = 0; i < subDirectories.Length; i++)
+                    {
+                        directorySize += GetDirectorySize(subDirectories[i], out _, out _);
+                    }
+
+                    string[] files = Directory.GetFiles(directroyPath);
+
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        fileSize += GetFileSize(files[i]);
+                    }
+
+                    totalSize = directorySize + fileSize;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("Failed to calculate total size of directory '" + directroyPath + "': " + ex.Message);
+                }
+            }
+
+            return totalSize;
         }
 
         /// <summary>
@@ -226,10 +315,20 @@ namespace WinUtil.UI.Frames
             string result = "[" + GetFileSizeAsString(directorySize + fileSize);
 
             if (directorySize > 0)
-                result += "; Dir: " + GetFileSizeAsString(directorySize);
+            {
+                if (fileSize <= 0)
+                    result += "; dirs only";
+                else
+                    result += "; dir: " + GetFileSizeAsString(directorySize);
+            }
 
             if (fileSize > 0)
-                result += "; Files: " + GetFileSizeAsString(fileSize);
+            {
+                if (directorySize <= 0)
+                    result += "; files only";
+                else
+                    result += "; files: " + GetFileSizeAsString(fileSize);
+            }
 
             result += "]";
 
@@ -331,8 +430,5 @@ namespace WinUtil.UI.Frames
             return result;
         }
         #endregion
-
-
-
     }
 }
