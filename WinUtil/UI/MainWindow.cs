@@ -1,6 +1,7 @@
 using Serilog;
 using Serilog.Sinks.RichTextBoxForms.Themes;
 using System.Reflection;
+using WinUtil.UI.Dialogs;
 using YACUF.Utilities;
 
 namespace WinUtil
@@ -28,27 +29,11 @@ namespace WinUtil
                     outputTemplate: "[{Timestamp:yyyy.MM.dd HH:mm:ss}] [{Level:u3}]:  {Message:lj}{NewLine}{Exception}")
                 .CreateLogger();
 
-            Log.Information("Application started.");            
+            Log.Information("Application started.");
         }
 
-        /// <summary>
-        /// checks settings and updates the UI accordingly
-        /// </summary>
-        private void CheckSettings()
-        {
-            bool ffmpegFound = false;
-            string? ffmpegFilePath = Properties.Settings.Default.ffmpegFilePath;
 
-            if (ffmpegFilePath.IsValidString())
-                ffmpegFound = File.Exists(ffmpegFilePath);
-
-            if(!ffmpegFound)
-            {
-                mainTabControl.TabPages.Remove(tabPageVideoAudioConvert);
-                mainTabControl.TabPages.Remove(tabPageVideoEdit);
-            }
-        }
-
+        #region UI input event listeners
         /// <summary>
         /// closes the application
         /// </summary>
@@ -87,5 +72,49 @@ namespace WinUtil
             //show messagebox
             MessageBox.Show(dialogMessage, dialogTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        /// <summary>
+        /// shows the settings dialog to the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsDialog setDi = new();
+
+            if (setDi.ShowDialog() == DialogResult.OK)
+                CheckSettings();
+        }
+
+        #endregion
+
+        #region UI logic functions
+
+        /// <summary>
+        /// checks settings and updates the UI accordingly
+        /// </summary>
+        private void CheckSettings()
+        {
+            bool ffmpegFound = false;
+            string? ffmpegFilePath = Properties.Settings.Default.ffmpegFilePath;
+
+            if (ffmpegFilePath.IsValidString())
+                ffmpegFound = File.Exists(ffmpegFilePath);
+
+            if (!ffmpegFound)
+            {
+                mainTabControl.TabPages.Remove(tabPageVideoAudioConvert);
+                mainTabControl.TabPages.Remove(tabPageVideoEdit);
+            }
+            else
+            {
+                if (!mainTabControl.TabPages.Contains(tabPageVideoAudioConvert))
+                    mainTabControl.TabPages.Add(tabPageVideoAudioConvert);
+
+                if (!mainTabControl.TabPages.Contains(tabPageVideoEdit))
+                    mainTabControl.TabPages.Add(tabPageVideoEdit);
+            }
+        }
+        #endregion
     }
 }

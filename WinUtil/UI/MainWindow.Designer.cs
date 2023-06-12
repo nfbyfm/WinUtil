@@ -34,23 +34,26 @@
             quitToolStripMenuItem = new ToolStripMenuItem();
             extrasToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            settingsToolStripMenuItem = new ToolStripMenuItem();
             statusStrip1 = new StatusStrip();
             splitContainer1 = new SplitContainer();
             mainTabControl = new TabControl();
             tabPageBatchDownload = new TabPage();
-            uC_Batchdownload1 = new UI.Frames.UC_Batchdownload();
+            uC_Batchdownload = new UI.Frames.UC_Batchdownload();
             tabPageRename = new TabPage();
-            uC_Rename1 = new UI.Frames.UC_Rename();
+            uC_RenameFiles = new UI.Frames.UC_Rename();
             tabPageMove = new TabPage();
-            uC_Move1 = new UI.Frames.UC_Move();
+            uC_MoveFiles = new UI.Frames.UC_Move();
             tabPageMP3Tag = new TabPage();
-            uC_mP3TagEditor1 = new UI.Frames.UC_MP3TagEditor();
+            uC_mP3TagEditor = new UI.Frames.UC_MP3TagEditor();
             tabPageDirectoryInfo = new TabPage();
-            uC_DirectoryInfo1 = new UI.Frames.UC_DirectoryInfo();
+            uC_DirectoryInfo = new UI.Frames.UC_DirectoryInfo();
             tabPageVideoAudioConvert = new TabPage();
             tabPageVideoEdit = new TabPage();
             groupBox1 = new GroupBox();
             outputRichTextBox = new RichTextBox();
+            uC_VideoToAudio = new UI.Frames.UC_VideoToAudio();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -62,6 +65,7 @@
             tabPageMove.SuspendLayout();
             tabPageMP3Tag.SuspendLayout();
             tabPageDirectoryInfo.SuspendLayout();
+            tabPageVideoAudioConvert.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -91,7 +95,7 @@
             // 
             // extrasToolStripMenuItem
             // 
-            extrasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
+            extrasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, toolStripSeparator1, settingsToolStripMenuItem });
             extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
             extrasToolStripMenuItem.Size = new Size(42, 20);
             extrasToolStripMenuItem.Text = "&Extras";
@@ -100,9 +104,21 @@
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             aboutToolStripMenuItem.ShortcutKeys = Keys.F1;
-            aboutToolStripMenuItem.Size = new Size(112, 22);
+            aboutToolStripMenuItem.Size = new Size(180, 22);
             aboutToolStripMenuItem.Text = "&About";
             aboutToolStripMenuItem.Click += AboutToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(177, 6);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            settingsToolStripMenuItem.Size = new Size(180, 22);
+            settingsToolStripMenuItem.Text = "&Settings";
+            settingsToolStripMenuItem.Click += SettingsToolStripMenuItem_Click;
             // 
             // statusStrip1
             // 
@@ -149,7 +165,7 @@
             // 
             // tabPageBatchDownload
             // 
-            tabPageBatchDownload.Controls.Add(uC_Batchdownload1);
+            tabPageBatchDownload.Controls.Add(uC_Batchdownload);
             tabPageBatchDownload.Location = new Point(4, 21);
             tabPageBatchDownload.Name = "tabPageBatchDownload";
             tabPageBatchDownload.Padding = new Padding(3);
@@ -158,17 +174,17 @@
             tabPageBatchDownload.Text = "batch download files";
             tabPageBatchDownload.UseVisualStyleBackColor = true;
             // 
-            // uC_Batchdownload1
+            // uC_Batchdownload
             // 
-            uC_Batchdownload1.Dock = DockStyle.Fill;
-            uC_Batchdownload1.Location = new Point(3, 3);
-            uC_Batchdownload1.Name = "uC_Batchdownload1";
-            uC_Batchdownload1.Size = new Size(542, 389);
-            uC_Batchdownload1.TabIndex = 0;
+            uC_Batchdownload.Dock = DockStyle.Fill;
+            uC_Batchdownload.Location = new Point(3, 3);
+            uC_Batchdownload.Name = "uC_Batchdownload";
+            uC_Batchdownload.Size = new Size(542, 389);
+            uC_Batchdownload.TabIndex = 0;
             // 
             // tabPageRename
             // 
-            tabPageRename.Controls.Add(uC_Rename1);
+            tabPageRename.Controls.Add(uC_RenameFiles);
             tabPageRename.Location = new Point(4, 21);
             tabPageRename.Name = "tabPageRename";
             tabPageRename.Padding = new Padding(3);
@@ -177,17 +193,17 @@
             tabPageRename.Text = "rename files";
             tabPageRename.UseVisualStyleBackColor = true;
             // 
-            // uC_Rename1
+            // uC_RenameFiles
             // 
-            uC_Rename1.Dock = DockStyle.Fill;
-            uC_Rename1.Location = new Point(3, 3);
-            uC_Rename1.Name = "uC_Rename1";
-            uC_Rename1.Size = new Size(542, 389);
-            uC_Rename1.TabIndex = 0;
+            uC_RenameFiles.Dock = DockStyle.Fill;
+            uC_RenameFiles.Location = new Point(3, 3);
+            uC_RenameFiles.Name = "uC_RenameFiles";
+            uC_RenameFiles.Size = new Size(542, 389);
+            uC_RenameFiles.TabIndex = 0;
             // 
             // tabPageMove
             // 
-            tabPageMove.Controls.Add(uC_Move1);
+            tabPageMove.Controls.Add(uC_MoveFiles);
             tabPageMove.Location = new Point(4, 21);
             tabPageMove.Name = "tabPageMove";
             tabPageMove.Padding = new Padding(3);
@@ -196,17 +212,17 @@
             tabPageMove.Text = "move files";
             tabPageMove.UseVisualStyleBackColor = true;
             // 
-            // uC_Move1
+            // uC_MoveFiles
             // 
-            uC_Move1.Dock = DockStyle.Fill;
-            uC_Move1.Location = new Point(3, 3);
-            uC_Move1.Name = "uC_Move1";
-            uC_Move1.Size = new Size(542, 389);
-            uC_Move1.TabIndex = 0;
+            uC_MoveFiles.Dock = DockStyle.Fill;
+            uC_MoveFiles.Location = new Point(3, 3);
+            uC_MoveFiles.Name = "uC_MoveFiles";
+            uC_MoveFiles.Size = new Size(542, 389);
+            uC_MoveFiles.TabIndex = 0;
             // 
             // tabPageMP3Tag
             // 
-            tabPageMP3Tag.Controls.Add(uC_mP3TagEditor1);
+            tabPageMP3Tag.Controls.Add(uC_mP3TagEditor);
             tabPageMP3Tag.Location = new Point(4, 21);
             tabPageMP3Tag.Name = "tabPageMP3Tag";
             tabPageMP3Tag.Padding = new Padding(3);
@@ -215,17 +231,17 @@
             tabPageMP3Tag.Text = "edit mp3 tags";
             tabPageMP3Tag.UseVisualStyleBackColor = true;
             // 
-            // uC_mP3TagEditor1
+            // uC_mP3TagEditor
             // 
-            uC_mP3TagEditor1.Dock = DockStyle.Fill;
-            uC_mP3TagEditor1.Location = new Point(3, 3);
-            uC_mP3TagEditor1.Name = "uC_mP3TagEditor1";
-            uC_mP3TagEditor1.Size = new Size(542, 389);
-            uC_mP3TagEditor1.TabIndex = 0;
+            uC_mP3TagEditor.Dock = DockStyle.Fill;
+            uC_mP3TagEditor.Location = new Point(3, 3);
+            uC_mP3TagEditor.Name = "uC_mP3TagEditor";
+            uC_mP3TagEditor.Size = new Size(542, 389);
+            uC_mP3TagEditor.TabIndex = 0;
             // 
             // tabPageDirectoryInfo
             // 
-            tabPageDirectoryInfo.Controls.Add(uC_DirectoryInfo1);
+            tabPageDirectoryInfo.Controls.Add(uC_DirectoryInfo);
             tabPageDirectoryInfo.Location = new Point(4, 21);
             tabPageDirectoryInfo.Name = "tabPageDirectoryInfo";
             tabPageDirectoryInfo.Padding = new Padding(3);
@@ -234,16 +250,17 @@
             tabPageDirectoryInfo.Text = "directory info";
             tabPageDirectoryInfo.UseVisualStyleBackColor = true;
             // 
-            // uC_DirectoryInfo1
+            // uC_DirectoryInfo
             // 
-            uC_DirectoryInfo1.Dock = DockStyle.Fill;
-            uC_DirectoryInfo1.Location = new Point(3, 3);
-            uC_DirectoryInfo1.Name = "uC_DirectoryInfo1";
-            uC_DirectoryInfo1.Size = new Size(542, 389);
-            uC_DirectoryInfo1.TabIndex = 0;
+            uC_DirectoryInfo.Dock = DockStyle.Fill;
+            uC_DirectoryInfo.Location = new Point(3, 3);
+            uC_DirectoryInfo.Name = "uC_DirectoryInfo";
+            uC_DirectoryInfo.Size = new Size(542, 389);
+            uC_DirectoryInfo.TabIndex = 0;
             // 
             // tabPageVideoAudioConvert
             // 
+            tabPageVideoAudioConvert.Controls.Add(uC_VideoToAudio);
             tabPageVideoAudioConvert.Location = new Point(4, 21);
             tabPageVideoAudioConvert.Name = "tabPageVideoAudioConvert";
             tabPageVideoAudioConvert.Padding = new Padding(3);
@@ -282,6 +299,14 @@
             outputRichTextBox.TabIndex = 0;
             outputRichTextBox.Text = "";
             // 
+            // uC_VideoToAudio
+            // 
+            uC_VideoToAudio.Dock = DockStyle.Fill;
+            uC_VideoToAudio.Location = new Point(3, 3);
+            uC_VideoToAudio.Name = "uC_VideoToAudio";
+            uC_VideoToAudio.Size = new Size(542, 389);
+            uC_VideoToAudio.TabIndex = 0;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(6F, 12F);
@@ -306,6 +331,7 @@
             tabPageMove.ResumeLayout(false);
             tabPageMP3Tag.ResumeLayout(false);
             tabPageDirectoryInfo.ResumeLayout(false);
+            tabPageVideoAudioConvert.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -325,15 +351,18 @@
         private TabPage tabPageMP3Tag;
         private TabPage tabPageVideoAudioConvert;
         private TabPage tabPageVideoEdit;
-        private UI.Frames.UC_Batchdownload uC_Batchdownload1;
-        private UI.Frames.UC_Rename uC_Rename1;
+        private UI.Frames.UC_Batchdownload uC_Batchdownload;
+        private UI.Frames.UC_Rename uC_RenameFiles;
         private TabPage tabPageDirectoryInfo;
-        private UI.Frames.UC_Move uC_Move1;
-        private UI.Frames.UC_MP3TagEditor uC_mP3TagEditor1;
-        private UI.Frames.UC_DirectoryInfo uC_DirectoryInfo1;
+        private UI.Frames.UC_Move uC_MoveFiles;
+        private UI.Frames.UC_MP3TagEditor uC_mP3TagEditor;
+        private UI.Frames.UC_DirectoryInfo uC_DirectoryInfo;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem quitToolStripMenuItem;
         private ToolStripMenuItem extrasToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem settingsToolStripMenuItem;
+        private UI.Frames.UC_VideoToAudio uC_VideoToAudio;
     }
 }
