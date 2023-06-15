@@ -32,9 +32,9 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             rTB_Urls = new RichTextBox();
             label3 = new Label();
-            b_GenerateURLs = new Button();
             b_FromFile = new Button();
             b_FromClipboard = new Button();
+            b_GenerateURLs = new Button();
             label1 = new Label();
             tB_DownloadDirectory = new TextBox();
             b_Select = new Button();
@@ -111,17 +111,6 @@
             label3.Text = "add URLs:";
             label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // b_GenerateURLs
-            // 
-            b_GenerateURLs.Dock = DockStyle.Fill;
-            b_GenerateURLs.Location = new Point(419, 84);
-            b_GenerateURLs.Name = "b_GenerateURLs";
-            b_GenerateURLs.Size = new Size(89, 21);
-            b_GenerateURLs.TabIndex = 15;
-            b_GenerateURLs.Text = "generate";
-            b_GenerateURLs.UseVisualStyleBackColor = true;
-            b_GenerateURLs.Click += GenerateURLs_Click;
-            // 
             // b_FromFile
             // 
             b_FromFile.Dock = DockStyle.Fill;
@@ -144,6 +133,17 @@
             b_FromClipboard.UseVisualStyleBackColor = true;
             b_FromClipboard.Click += FromClipboard_Click;
             // 
+            // b_GenerateURLs
+            // 
+            b_GenerateURLs.Dock = DockStyle.Fill;
+            b_GenerateURLs.Location = new Point(419, 84);
+            b_GenerateURLs.Name = "b_GenerateURLs";
+            b_GenerateURLs.Size = new Size(89, 21);
+            b_GenerateURLs.TabIndex = 15;
+            b_GenerateURLs.Text = "generate";
+            b_GenerateURLs.UseVisualStyleBackColor = true;
+            b_GenerateURLs.Click += GenerateURLs_Click;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -153,7 +153,7 @@
             label1.Name = "label1";
             label1.Size = new Size(96, 27);
             label1.TabIndex = 1;
-            label1.Text = "Download directory:";
+            label1.Text = "download directory:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tB_DownloadDirectory
@@ -170,18 +170,17 @@
             b_Select.Name = "b_Select";
             b_Select.Size = new Size(74, 21);
             b_Select.TabIndex = 3;
-            b_Select.Text = "Select";
+            b_Select.Text = "select";
             b_Select.UseVisualStyleBackColor = true;
             b_Select.Click += SelectDownloadDirectory_Click;
             // 
             // b_Start
             // 
-            tableLayoutPanel2.SetColumnSpan(b_Start, 2);
-            b_Start.Location = new Point(3, 660);
+            b_Start.Location = new Point(446, 660);
             b_Start.Name = "b_Start";
-            b_Start.Size = new Size(75, 21);
+            b_Start.Size = new Size(74, 21);
             b_Start.TabIndex = 4;
-            b_Start.Text = "Start";
+            b_Start.Text = "start";
             b_Start.UseVisualStyleBackColor = true;
             b_Start.Click += Start_Click;
             // 
@@ -221,7 +220,7 @@
             l_Prefix.Name = "l_Prefix";
             l_Prefix.Size = new Size(76, 27);
             l_Prefix.TabIndex = 7;
-            l_Prefix.Text = "Prefix:";
+            l_Prefix.Text = "prefix:";
             l_Prefix.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // l_Suffix
@@ -232,7 +231,7 @@
             l_Suffix.Name = "l_Suffix";
             l_Suffix.Size = new Size(76, 27);
             l_Suffix.TabIndex = 9;
-            l_Suffix.Text = "Suffix:";
+            l_Suffix.Text = "suffix:";
             l_Suffix.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tB_Prefix
@@ -261,7 +260,6 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
             tableLayoutPanel2.Controls.Add(rB_SameFileNames, 0, 2);
             tableLayoutPanel2.Controls.Add(groupBox1, 0, 0);
-            tableLayoutPanel2.Controls.Add(b_Start, 0, 10);
             tableLayoutPanel2.Controls.Add(rB_CreateNewFileNames, 0, 3);
             tableLayoutPanel2.Controls.Add(l_Suffix, 1, 5);
             tableLayoutPanel2.Controls.Add(l_Prefix, 1, 4);
@@ -273,6 +271,7 @@
             tableLayoutPanel2.Controls.Add(tB_Prefix, 2, 4);
             tableLayoutPanel2.Controls.Add(tB_Suffix, 2, 5);
             tableLayoutPanel2.Controls.Add(nUD_ParallelDownloads, 3, 8);
+            tableLayoutPanel2.Controls.Add(b_Start, 4, 10);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(0, 0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -312,7 +311,7 @@
             label2.Name = "label2";
             label2.Size = new Size(141, 27);
             label2.TabIndex = 13;
-            label2.Text = "Number of parallel downloads:";
+            label2.Text = "number of parallel downloads:";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // nUD_ParallelDownloads

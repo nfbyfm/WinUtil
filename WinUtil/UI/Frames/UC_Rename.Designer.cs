@@ -61,7 +61,7 @@
             label1.Name = "label1";
             label1.Size = new Size(58, 26);
             label1.TabIndex = 0;
-            label1.Text = "Directory:";
+            label1.Text = "directory:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tB_TragetDirectory
@@ -93,7 +93,7 @@
             groupBox1.Size = new Size(1008, 260);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
-            groupBox1.Text = "List of files";
+            groupBox1.Text = "list of files";
             // 
             // lV_Files
             // 
@@ -138,7 +138,7 @@
             l_ReplaceSearchText.Name = "l_ReplaceSearchText";
             l_ReplaceSearchText.Size = new Size(94, 27);
             l_ReplaceSearchText.TabIndex = 8;
-            l_ReplaceSearchText.Text = "Search text:";
+            l_ReplaceSearchText.Text = "search text:";
             l_ReplaceSearchText.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // l_ReplaceReplacement
@@ -150,7 +150,7 @@
             l_ReplaceReplacement.Name = "l_ReplaceReplacement";
             l_ReplaceReplacement.Size = new Size(94, 27);
             l_ReplaceReplacement.TabIndex = 9;
-            l_ReplaceReplacement.Text = "Replacement:";
+            l_ReplaceReplacement.Text = "replacement:";
             l_ReplaceReplacement.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // cB_RemoveText
@@ -175,7 +175,7 @@
             l_RemoveText.Name = "l_RemoveText";
             l_RemoveText.Size = new Size(94, 27);
             l_RemoveText.TabIndex = 11;
-            l_RemoveText.Text = "Text to remove:";
+            l_RemoveText.Text = "text to remove:";
             l_RemoveText.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tB_ReplaceSearchText
@@ -207,12 +207,12 @@
             // 
             // b_Start
             // 
-            tableLayoutPanel1.SetColumnSpan(b_Start, 2);
-            b_Start.Location = new Point(3, 537);
+            b_Start.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            b_Start.Location = new Point(936, 537);
             b_Start.Name = "b_Start";
             b_Start.Size = new Size(75, 21);
             b_Start.TabIndex = 15;
-            b_Start.Text = "Start";
+            b_Start.Text = "start";
             b_Start.UseVisualStyleBackColor = true;
             b_Start.Click += Start_Click;
             // 
@@ -279,7 +279,7 @@
             tableLayoutPanel1.Controls.Add(tB_ExtensionFilter, 2, 4);
             tableLayoutPanel1.Controls.Add(cB_ReplaceText, 0, 6);
             tableLayoutPanel1.Controls.Add(l_ReplaceSearchText, 1, 7);
-            tableLayoutPanel1.Controls.Add(b_Start, 0, 13);
+            tableLayoutPanel1.Controls.Add(b_Start, 3, 13);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";

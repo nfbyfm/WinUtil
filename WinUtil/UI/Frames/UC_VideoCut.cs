@@ -6,32 +6,35 @@ using YACUF.Utilities;
 namespace WinUtil.UI.Frames
 {
     /// <summary>
-    /// usercontrol for converting a video file into an audio file
+    /// user control for cutting specific segments out of a given video file
     /// </summary>
-    public partial class UC_VideoToAudio : UserControl
+    public partial class UC_VideoCut : UserControl
     {
-        public UC_VideoToAudio()
+        private static string _videoExtensions = "mp4|*.mp4|webm|*.webm|avi|*.avi|mpeg|*.mpeg|mkv|*.mkv";
+
+        public UC_VideoCut()
         {
             InitializeComponent();
 
-            //update the checked states of the radio buttons
-            ConvertOptionsChanged(this, EventArgs.Empty);
+            cB_RotationAngle.SelectedIndex = 0;
+            EditOptions_CheckedChanged(this, EventArgs.Empty);
         }
 
         /// <summary>
-        /// executes the actual conversion of the file
+        /// lets the user convert the given input file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ConvertFile_Click(object sender, EventArgs e)
+        private void Convert_Click(object sender, EventArgs e)
         {
             string ffmpegFilePath = Properties.Settings.Default.ffmpegFilePath;
             string sourceFilePath = tB_SourceFilePath.Text;
 
             bool ffmpegOK = ffmpegFilePath.IsValidString() && File.Exists(ffmpegFilePath);
             bool filePathOk = sourceFilePath.IsValidString() && File.Exists(sourceFilePath);
+            bool optionSelected = cB_RotateVideo.Checked || cB_CutVideo.Checked;
 
-            if (ffmpegOK && filePathOk)
+            if (ffmpegOK && filePathOk && optionSelected)
             {
                 //check if output file path is set
                 string outputFilePath = tB_OutputFilePath.Text;
@@ -65,10 +68,8 @@ namespace WinUtil.UI.Frames
                     }
                 }
 
-                //get arguments based on user input values
-                string arguments = " -i \"" + sourceFilePath + "\" -vn -ar 44100 -ac 2 -b:a 192k \"" + outputFilePath + "\"";
-
-                if (rB_ConvertSection.Checked)
+                string cutOption = "";
+                if (cB_CutVideo.Checked)
                 {
                     //calculate the duration
                     TimeSpan duration;
@@ -85,10 +86,32 @@ namespace WinUtil.UI.Frames
                     string startTimeString = string.Format("{0}:{1:00}:{2:00}.{3:000}", (int)start.TotalHours, start.Minutes, start.Seconds, start.Milliseconds);
 
                     Log.Debug($"Start time: {startTimeString}; calculated duration: {durationString}");
-
-                    //create argument string for ffmpeg
-                    arguments = " -i \"" + sourceFilePath + "\" -ss " + startTimeString + " -t " + durationString + " -vn -ar 44100 -ac 2 -b:a 192k \"" + outputFilePath + "\"";
+                    cutOption = $"-ss {startTimeString} -t {durationString}";
                 }
+
+                string rotateOption = "";
+                if (cB_RotateVideo.Checked)
+                {
+                    switch (cB_RotationAngle.SelectedIndex)
+                    {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                            rotateOption = $"-vf \"transpose={cB_RotationAngle.SelectedIndex}\" ";
+                            break;
+                        case 4:
+                            rotateOption = $"-vf \"transpose=2,transpose=2\" ";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+
+                //create argument string for ffmpeg
+                //ffmpeg -i movie.mp4 -ss 00:00:03 -t 00:00:08 -async 1 cut.mp4
+                string arguments = $" -i \"{sourceFilePath}\" {cutOption} {rotateOption}-async 1 \"{outputFilePath}\"";
 
                 Log.Debug($"Arguments for ffmpeg: '{arguments}'");
 
@@ -144,11 +167,51 @@ namespace WinUtil.UI.Frames
 
                 if (!filePathOk)
                     Log.Error("The path of the source file is either not set or wrong.");
+
+                if (!optionSelected)
+                    Log.Error("Neither rotation or cut option is selected.");
             }
         }
 
         /// <summary>
-        /// sets the default output file path
+        /// lets the user select the input file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SelectSourceFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog oDi = new()
+            {
+                Title = "Select video file",
+                RestoreDirectory = true,
+                Multiselect = false,
+                Filter = _videoExtensions
+            };
+
+            if (oDi.ShowDialog() == DialogResult.OK)
+                tB_SourceFilePath.Text = oDi.FileName;
+        }
+
+        /// <summary>
+        /// lets the user set the path of the output file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SelectOutputFilePath_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saDi = new()
+            {
+                Title = "Set path of output file",
+                RestoreDirectory = true,
+                Filter = _videoExtensions
+            };
+
+            if (saDi.ShowDialog() == DialogResult.OK)
+                tB_OutputFilePath.Text = saDi.FileName;
+        }
+
+        /// <summary>
+        /// sets the default output file path and maximum duration based on the current input file (path)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -158,78 +221,38 @@ namespace WinUtil.UI.Frames
 
             if (inputFilePath.IsValidString() && File.Exists(inputFilePath))
             {
-                //if the output file path hasn't been set: put together a possible new path based on the input file path
+                //create output file path based on input file path and set it if there isn't a path set already
                 if (!tB_OutputFilePath.Text.IsValidString())
                 {
-                    string outputFilePath = inputFilePath.Remove(inputFilePath.LastIndexOf(".")) + ".mp3";
-                    tB_OutputFilePath.Text = outputFilePath;
+                    string extension = Path.GetExtension(inputFilePath);
+                    string outPutFilePath = inputFilePath.Remove(inputFilePath.LastIndexOf(".")) + "_edited" + extension;
+                    tB_OutputFilePath.Text = outPutFilePath;
                 }
 
                 //set the end time based on the duration of the input file
                 if (FileHandlingUtil.GetVideoFileDuration(inputFilePath, out TimeSpan duration))
                     tP_EndTime.Value = duration;
             }
-       }
-
-        /// <summary>
-        /// lets the user set the output file path
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SetOutputFilePath_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saDi = new()
-            {
-                Filter = "mp3|*.mp3|wav|*.wav|flac|*.flac",
-                RestoreDirectory = true,
-                Title = "Set output file path"
-            };
-
-            if (saDi.ShowDialog() == DialogResult.OK)
-                tB_OutputFilePath.Text = saDi.FileName;
         }
 
         /// <summary>
-        /// lets the user select the source file path via dialog
+        /// reacts to changed in the edit options
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SelectSourceFile_Click(object sender, EventArgs e)
+        private void EditOptions_CheckedChanged(object sender, EventArgs e)
         {
-            OpenFileDialog oDi = new()
-            {
-                Filter = "video file|*.mp4;*.mpeg;*.mpg;*.webm;*.avi",
-                Multiselect = false,
-                RestoreDirectory = true,
-                Title = "Select video file for conversion"
-            };
+            bool rotateActive = cB_RotateVideo.Checked;
+            bool cutActive = cB_CutVideo.Checked;
 
-            if (oDi.ShowDialog() == DialogResult.OK)
-                tB_SourceFilePath.Text = oDi.FileName;
-        }
+            l_EndTime.Enabled = cutActive;
+            l_StartTime.Enabled = cutActive;
+            tP_StartTime.Enabled = cutActive;
+            tP_EndTime.Enabled = cutActive;
 
-        /// <summary>
-        /// reacts to changes in the conversion options
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ConvertOptionsChanged(object sender, EventArgs e)
-        {
-            if (rB_ConvertSection.Checked)
-                if (rB_ConvertWholeFile.Checked)
-                    rB_ConvertWholeFile.Checked = false;
+            l_Rotate.Enabled = rotateActive;
+            cB_RotationAngle.Enabled = rotateActive;
 
-            if (rB_ConvertWholeFile.Checked)
-                if (rB_ConvertSection.Checked)
-                    rB_ConvertSection.Checked = false;
-
-
-            bool useStartEndTime = rB_ConvertSection.Checked;
-
-            l_StartTime.Enabled = useStartEndTime;
-            l_EndTime.Enabled = useStartEndTime;
-            tP_StartTime.Enabled = useStartEndTime;
-            tP_EndTime.Enabled = useStartEndTime;
         }
     }
 }

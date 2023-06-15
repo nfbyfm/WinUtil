@@ -56,7 +56,7 @@
             label2.Name = "label2";
             label2.Size = new Size(89, 30);
             label2.TabIndex = 1;
-            label2.Text = "Target directory:";
+            label2.Text = "target directory:";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // cB_DeleteEmptyDirecories
@@ -185,12 +185,11 @@
             // 
             // b_Start
             // 
-            tableLayoutPanel2.SetColumnSpan(b_Start, 2);
-            b_Start.Location = new Point(3, 524);
+            b_Start.Location = new Point(474, 524);
             b_Start.Name = "b_Start";
-            b_Start.Size = new Size(75, 23);
+            b_Start.Size = new Size(109, 23);
             b_Start.TabIndex = 8;
-            b_Start.Text = "Start";
+            b_Start.Text = "start";
             b_Start.UseVisualStyleBackColor = true;
             b_Start.Click += Start_Click;
             // 
@@ -213,8 +212,8 @@
             tableLayoutPanel2.Controls.Add(groupBox1, 0, 0);
             tableLayoutPanel2.Controls.Add(tB_TargetDirectory, 2, 1);
             tableLayoutPanel2.Controls.Add(label2, 0, 1);
-            tableLayoutPanel2.Controls.Add(b_Start, 0, 3);
             tableLayoutPanel2.Controls.Add(b_SelectTarget, 3, 1);
+            tableLayoutPanel2.Controls.Add(b_Start, 3, 3);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(0, 0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -223,6 +222,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel2.Size = new Size(586, 551);
             tableLayoutPanel2.TabIndex = 12;
             // 

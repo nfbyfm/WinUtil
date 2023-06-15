@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using System.Diagnostics;
 using YACUF.Utilities;
 
 namespace WinUtil.Util
@@ -43,5 +44,51 @@ namespace WinUtil.Util
 
         }
 
+
+        /// <summary>
+        /// tries to get the duration of a video file using ffmpeg
+        /// </summary>
+        /// <param name="filePath">the absolute path of the video file</param>
+        /// <param name="result">the duration of the video file</param>
+        /// <param name="ffmpegExecutableFilePath">(optional) the path of the ffmpeg executable (if left empty, the path from the application settings gets used)</param>
+        /// <returns>true if duration could be found out, false otherwise</returns>
+        public static bool GetVideoFileDuration(string filePath, out TimeSpan result, string ffmpegExecutableFilePath = "")
+        {
+            if (!File.Exists(ffmpegExecutableFilePath))
+                ffmpegExecutableFilePath = Properties.Settings.Default.ffmpegFilePath;
+
+            if (File.Exists(ffmpegExecutableFilePath))
+            {
+                StreamReader errorreader;
+
+                Process ffmpeg = new Process();
+
+                ffmpeg.StartInfo.UseShellExecute = false;
+                ffmpeg.StartInfo.ErrorDialog = false;
+                ffmpeg.StartInfo.RedirectStandardError = true;
+
+
+
+                ffmpeg.StartInfo.FileName = ffmpegExecutableFilePath;
+                ffmpeg.StartInfo.Arguments = "-i \"" + filePath + "\"";
+
+                ffmpeg.Start();
+
+                errorreader = ffmpeg.StandardError;
+
+                ffmpeg.WaitForExit();
+
+                string res = errorreader.ReadToEnd();
+
+                string duration = res.Substring(res.IndexOf("Duration: ") + ("Duration: ").Length, ("00:00:00.00").Length);
+
+                return TimeSpan.TryParse(duration, out result);
+            }
+            else
+            {
+                result = new();
+                return false;
+            }
+        }
     }
 }

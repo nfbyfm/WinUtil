@@ -58,7 +58,7 @@
             label1.Name = "label1";
             label1.Size = new Size(50, 30);
             label1.TabIndex = 0;
-            label1.Text = "Directory:";
+            label1.Text = "directory:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tB_Directory
@@ -90,7 +90,7 @@
             groupBox1.Size = new Size(213, 523);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Directory structure";
+            groupBox1.Text = "directory structure";
             // 
             // tV_DirectoryStrucutre
             // 
@@ -110,7 +110,7 @@
             groupBox2.Size = new Size(597, 523);
             groupBox2.TabIndex = 4;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Directory contents";
+            groupBox2.Text = "directory content";
             // 
             // chartView
             // 

@@ -50,10 +50,11 @@
             tabPageDirectoryInfo = new TabPage();
             uC_DirectoryInfo = new UI.Frames.UC_DirectoryInfo();
             tabPageVideoAudioConvert = new TabPage();
+            uC_VideoToAudio = new UI.Frames.UC_VideoToAudio();
             tabPageVideoEdit = new TabPage();
             groupBox1 = new GroupBox();
             outputRichTextBox = new RichTextBox();
-            uC_VideoToAudio = new UI.Frames.UC_VideoToAudio();
+            uC_VideoCut = new UI.Frames.UC_VideoCut();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -66,6 +67,7 @@
             tabPageMP3Tag.SuspendLayout();
             tabPageDirectoryInfo.SuspendLayout();
             tabPageVideoAudioConvert.SuspendLayout();
+            tabPageVideoEdit.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -104,19 +106,19 @@
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             aboutToolStripMenuItem.ShortcutKeys = Keys.F1;
-            aboutToolStripMenuItem.Size = new Size(180, 22);
+            aboutToolStripMenuItem.Size = new Size(112, 22);
             aboutToolStripMenuItem.Text = "&About";
             aboutToolStripMenuItem.Click += AboutToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(109, 6);
             // 
             // settingsToolStripMenuItem
             // 
             settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(180, 22);
+            settingsToolStripMenuItem.Size = new Size(112, 22);
             settingsToolStripMenuItem.Text = "&Settings";
             settingsToolStripMenuItem.Click += SettingsToolStripMenuItem_Click;
             // 
@@ -269,8 +271,17 @@
             tabPageVideoAudioConvert.Text = "video to audio convert";
             tabPageVideoAudioConvert.UseVisualStyleBackColor = true;
             // 
+            // uC_VideoToAudio
+            // 
+            uC_VideoToAudio.Dock = DockStyle.Fill;
+            uC_VideoToAudio.Location = new Point(3, 3);
+            uC_VideoToAudio.Name = "uC_VideoToAudio";
+            uC_VideoToAudio.Size = new Size(542, 389);
+            uC_VideoToAudio.TabIndex = 0;
+            // 
             // tabPageVideoEdit
             // 
+            tabPageVideoEdit.Controls.Add(uC_VideoCut);
             tabPageVideoEdit.Location = new Point(4, 21);
             tabPageVideoEdit.Name = "tabPageVideoEdit";
             tabPageVideoEdit.Padding = new Padding(3);
@@ -299,13 +310,13 @@
             outputRichTextBox.TabIndex = 0;
             outputRichTextBox.Text = "";
             // 
-            // uC_VideoToAudio
+            // uC_VideoCut
             // 
-            uC_VideoToAudio.Dock = DockStyle.Fill;
-            uC_VideoToAudio.Location = new Point(3, 3);
-            uC_VideoToAudio.Name = "uC_VideoToAudio";
-            uC_VideoToAudio.Size = new Size(542, 389);
-            uC_VideoToAudio.TabIndex = 0;
+            uC_VideoCut.Dock = DockStyle.Fill;
+            uC_VideoCut.Location = new Point(3, 3);
+            uC_VideoCut.Name = "uC_VideoCut";
+            uC_VideoCut.Size = new Size(542, 389);
+            uC_VideoCut.TabIndex = 0;
             // 
             // MainWindow
             // 
@@ -332,6 +343,7 @@
             tabPageMP3Tag.ResumeLayout(false);
             tabPageDirectoryInfo.ResumeLayout(false);
             tabPageVideoAudioConvert.ResumeLayout(false);
+            tabPageVideoEdit.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -364,5 +376,6 @@
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem settingsToolStripMenuItem;
         private UI.Frames.UC_VideoToAudio uC_VideoToAudio;
+        private UI.Frames.UC_VideoCut uC_VideoCut;
     }
 }

@@ -70,7 +70,7 @@
             groupBox1.Size = new Size(633, 458);
             groupBox1.TabIndex = 12;
             groupBox1.TabStop = false;
-            groupBox1.Text = "List of files to edit";
+            groupBox1.Text = "list of files to edit";
             // 
             // tableLayoutPanel1
             // 
@@ -181,7 +181,7 @@
             label1.Name = "label1";
             label1.Size = new Size(78, 27);
             label1.TabIndex = 16;
-            label1.Text = "Artist:";
+            label1.Text = "artist:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label3
@@ -193,7 +193,7 @@
             label3.Name = "label3";
             label3.Size = new Size(78, 27);
             label3.TabIndex = 17;
-            label3.Text = "Album:";
+            label3.Text = "album title:";
             label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label4
@@ -205,7 +205,7 @@
             label4.Name = "label4";
             label4.Size = new Size(78, 27);
             label4.TabIndex = 18;
-            label4.Text = "Release year:";
+            label4.Text = "release year:";
             label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label5
@@ -217,7 +217,7 @@
             label5.Name = "label5";
             label5.Size = new Size(78, 27);
             label5.TabIndex = 19;
-            label5.Text = "Cover image:";
+            label5.Text = "cover image:";
             label5.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // cB_SetTrackNumber
@@ -273,7 +273,7 @@
             groupBox2.Size = new Size(633, 214);
             groupBox2.TabIndex = 16;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Tag values";
+            groupBox2.Text = "tag values";
             // 
             // tableLayoutPanel3
             // 

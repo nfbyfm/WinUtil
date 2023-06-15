@@ -15,7 +15,7 @@ namespace WinUtil.UI.Dialogs
 
         #endregion
 
-        public FilesFromDirectoryDialog(bool lockFileFilter, string fileFilter="*.*")
+        public FilesFromDirectoryDialog(bool lockFileFilter, string fileFilter = "*.*")
         {
             InitializeComponent();
 

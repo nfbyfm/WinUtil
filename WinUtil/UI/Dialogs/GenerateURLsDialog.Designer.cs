@@ -104,7 +104,7 @@
             label2.Name = "label2";
             label2.Size = new Size(104, 27);
             label2.TabIndex = 1;
-            label2.Text = "Start number:";
+            label2.Text = "start number:";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // nUD_StartNumber
@@ -131,7 +131,7 @@
             label3.Name = "label3";
             label3.Size = new Size(104, 27);
             label3.TabIndex = 2;
-            label3.Text = "End number:";
+            label3.Text = "end number:";
             label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // nUD_EndNumber

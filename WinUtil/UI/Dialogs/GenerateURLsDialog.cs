@@ -48,7 +48,7 @@ namespace WinUtil.UI.Dialogs
             uint tmpNumber1 = (uint)nUD_StartNumber.Value;
             uint tmpNumber2 = (uint)nUD_EndNumber.Value;
 
-            if(prefix.IsValidString() && suffix.IsValidString() && tmpNumber1 != tmpNumber2)
+            if (prefix.IsValidString() && suffix.IsValidString() && tmpNumber1 != tmpNumber2)
             {
                 uint startNumber = Math.Min(tmpNumber1, tmpNumber2);
                 uint endNumber = Math.Max(tmpNumber1, tmpNumber2);
@@ -60,7 +60,7 @@ namespace WinUtil.UI.Dialogs
                 }
             }
 
-            return urls.Count>0;
+            return urls.Count > 0;
         }
     }
 }

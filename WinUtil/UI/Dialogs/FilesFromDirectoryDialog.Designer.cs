@@ -107,7 +107,7 @@
             label1.Name = "label1";
             label1.Size = new Size(91, 30);
             label1.TabIndex = 17;
-            label1.Text = "Source directory:";
+            label1.Text = "source directory:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel1
