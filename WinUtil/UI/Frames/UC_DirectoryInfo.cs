@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using System.Windows.Forms.DataVisualization.Charting;
 using WinUtil.Model;
-using YACUF.Utilities;
+using YACUF.Extensions;
 
 namespace WinUtil.UI.Frames
 {

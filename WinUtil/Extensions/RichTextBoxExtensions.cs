@@ -1,6 +1,6 @@
 ﻿using Serilog;
 using WinUtil.UI.Dialogs;
-using YACUF.Utilities;
+using YACUF.Extensions;
 
 namespace WinUtil.Extensions
 {

@@ -1,6 +1,6 @@
 ﻿using Serilog;
 using System.Diagnostics;
-using YACUF.Utilities;
+using YACUF.Extensions;
 
 namespace WinUtil.Util
 {

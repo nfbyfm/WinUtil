@@ -1,4 +1,4 @@
-﻿using YACUF.Utilities;
+﻿using YACUF.Extensions;
 
 namespace WinUtil.UI.Dialogs
 {
@@ -10,8 +10,38 @@ namespace WinUtil.UI.Dialogs
         public GenerateURLsDialog()
         {
             InitializeComponent();
-        }
 
+            //check if there is text in the clipboard that might be used as prefix / suffix string
+            if (Clipboard.ContainsText())
+            {
+                string clipboardText = Clipboard.GetText();
+
+                if(clipboardText.IsValidString())
+                {
+                    string prefixString = clipboardText;
+                    string suffixString = "";
+
+                    if(clipboardText.Contains('.'))
+                    {
+                        int dotIndex = clipboardText.LastIndexOf('.');
+
+                        prefixString = clipboardText.Remove(dotIndex);
+                        suffixString = clipboardText.Remove(0, dotIndex);
+
+                        if(prefixString.GetTrailingNumber(out int number, out int lastDigitIndex))
+                        {
+                            prefixString = prefixString.Remove(lastDigitIndex);
+                            nUD_StartNumber.Value = number;
+                            nUD_EndNumber.Value = number + 1;
+                        }
+                    }
+
+                    tB_UrlPrefix.Text = prefixString;
+                    TB_UrlSuffix.Text = suffixString;
+                }
+            }                
+        }
+        
         /// <summary>
         /// handles user click onto OK button
         /// </summary>

@@ -1,5 +1,5 @@
 ﻿using WinUtil.Model;
-using YACUF.Utilities;
+using YACUF.Extensions;
 
 namespace WinUtil.Extensions
 {

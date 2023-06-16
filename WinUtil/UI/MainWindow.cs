@@ -2,7 +2,7 @@ using Serilog;
 using Serilog.Sinks.RichTextBoxForms.Themes;
 using System.Reflection;
 using WinUtil.UI.Dialogs;
-using YACUF.Utilities;
+using YACUF.Extensions;
 
 namespace WinUtil
 {

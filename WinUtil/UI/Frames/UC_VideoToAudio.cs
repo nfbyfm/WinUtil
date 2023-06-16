@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using System.Diagnostics;
 using WinUtil.Util;
-using YACUF.Utilities;
+using YACUF.Extensions;
 
 namespace WinUtil.UI.Frames
 {

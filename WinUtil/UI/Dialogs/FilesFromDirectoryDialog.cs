@@ -1,4 +1,4 @@
-﻿using YACUF.Utilities;
+﻿using YACUF.Extensions;
 
 namespace WinUtil.UI.Dialogs
 {
