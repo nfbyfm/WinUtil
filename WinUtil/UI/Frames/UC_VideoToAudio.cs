@@ -18,6 +18,18 @@ namespace WinUtil.UI.Frames
             ConvertOptionsChanged(this, EventArgs.Empty);
         }
 
+        #region internal setter functions
+        /// <summary>
+        /// sets the source file path
+        /// </summary>
+        /// <param name="filePath"></param>
+        internal void SetSourceFile(string filePath)
+        {
+            tB_SourceFilePath.Text = filePath;
+        }
+        #endregion
+
+        #region UI event listeners
         /// <summary>
         /// executes the actual conversion of the file
         /// </summary>
@@ -231,5 +243,7 @@ namespace WinUtil.UI.Frames
             tP_StartTime.Enabled = useStartEndTime;
             tP_EndTime.Enabled = useStartEndTime;
         }
+
+        #endregion
     }
 }

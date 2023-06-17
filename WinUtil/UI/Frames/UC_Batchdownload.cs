@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using System.Data.SqlTypes;
 using WinUtil.Extensions;
 using WinUtil.Model;
 using WinUtil.UI.Dialogs;
@@ -22,6 +23,55 @@ namespace WinUtil.UI.Frames
             NamingSettingsChanged(this, EventArgs.Empty);
         }
 
+        #region internal setter functions
+        /// <summary>
+        /// adds single url to the list
+        /// </summary>
+        /// <param name="urlString"></param>
+        internal void AddURL(string urlString)
+        {
+            if (rTB_Urls.Lines.Length > 0)
+                rTB_Urls.Text += Environment.NewLine;
+
+            rTB_Urls.Text += urlString + Environment.NewLine;
+        }
+
+        /// <summary>
+        /// adds a list of urls
+        /// </summary>
+        /// <param name="urls"></param>
+        internal void AddURLs(string[] urls)
+        {
+            if(urls.Length>0)
+            {
+                if (rTB_Urls.Lines.Length > 0)
+                    rTB_Urls.Text += Environment.NewLine;
+
+                foreach(string urlString in urls)
+                    rTB_Urls.Text += urlString + Environment.NewLine;
+            }            
+        }
+
+        /// <summary>
+        /// sets the list of files based on file contents
+        /// </summary>
+        /// <param name="filePath"></param>
+        internal void LoadFromFile(string filePath)
+        {
+            rTB_Urls.SetPathListFromTextFile(filePath);
+        }
+
+        /// <summary>
+        /// sets the download directory path
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        internal void SetTargetDirectory(string directoryPath)
+        {
+            tB_DownloadDirectory.Text = directoryPath;
+        }
+        #endregion
+
+        #region UI input event listeners
         /// <summary>
         /// reacts to drag and drop event of the rich textbox
         /// </summary>
@@ -110,28 +160,6 @@ namespace WinUtil.UI.Frames
         private void FromFile_Click(object sender, EventArgs e)
         {
             rTB_Urls.SetFileListFromTextFile();
-            /*
-            //create and show file select dialog
-            OpenFileDialog oDi = new()
-            {
-                RestoreDirectory = true,
-                Filter = "txt-file|*.txt",
-                Multiselect = false
-            };
-
-            if (oDi.ShowDialog() == DialogResult.OK)
-            {
-                //try to load text from file into rich tectbox control
-                try
-                {
-                    rTB_Urls.Text = File.ReadAllText(oDi.FileName);
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("Failed to load text from file '" + oDi.FileName + "': " + ex.Message);
-                }
-            }
-            */
         }
 
         /// <summary>
@@ -142,16 +170,6 @@ namespace WinUtil.UI.Frames
         private void FromClipboard_Click(object sender, EventArgs e)
         {
             rTB_Urls.SetFileListFromClipboard();
-            /*
-            if (Clipboard.ContainsText())
-            {
-                rTB_Urls.Text = Clipboard.GetText();
-            }
-            else
-            {
-                Log.Error("Clipboard doesn't contain any text.");
-            }
-            */
         }
 
         /// <summary>
@@ -269,5 +287,7 @@ namespace WinUtil.UI.Frames
                     Log.Error("Failed to generate list of URLs from dialog inputs.");
             }
         }
+
+        #endregion
     }
 }

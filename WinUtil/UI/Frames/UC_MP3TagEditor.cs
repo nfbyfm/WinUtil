@@ -19,6 +19,45 @@ namespace WinUtil.UI.Frames
             UpdateCheckBoxCheckedStates();
         }
 
+        #region internal setter functions
+        /// <summary>
+        /// loads file paths from text file
+        /// </summary>
+        /// <param name="filePath"></param>
+        internal void LoadFromFile(string filePath)
+        {
+            rTB_FileList.SetPathListFromTextFile(filePath);
+        }
+
+        /// <summary>
+        /// adds single file path to the list
+        /// </summary>
+        /// <param name="filePath"></param>
+        internal void AddFilePath(string filePath)
+        {
+            if (rTB_FileList.Lines.Length > 0)
+                rTB_FileList.Text += Environment.NewLine;
+
+            rTB_FileList.Text += filePath + Environment.NewLine;
+        }
+
+        /// <summary>
+        /// adds list of file paths to current list
+        /// </summary>
+        /// <param name="filePath"></param>
+        internal void AddFilePaths(string[] filePaths)
+        {
+            if (filePaths.Length > 0)
+            {
+                if (rTB_FileList.Lines.Length > 0)
+                    rTB_FileList.Text += Environment.NewLine;
+
+                foreach (string filePath in filePaths)
+                    rTB_FileList.Text += filePath + Environment.NewLine;
+            }
+        }
+        #endregion
+
         #region user input event listeners
         private void FileListFromFile_Click(object sender, EventArgs e)
         {

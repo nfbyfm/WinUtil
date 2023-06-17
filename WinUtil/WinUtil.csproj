@@ -7,7 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>Icons\WinUtil.ico</ApplicationIcon>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +19,7 @@
     <PackageReference Include="Serilog.Sinks.RichTextBox.WinForms.Colored" Version="1.1.2" />
     <PackageReference Include="TagLibSharp" Version="2.3.0" />
     <PackageReference Include="WinForms.DataVisualization" Version="1.8.0" />
-    <PackageReference Include="YACUF" Version="1.0.0.9" />
+    <PackageReference Include="YACUF" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>

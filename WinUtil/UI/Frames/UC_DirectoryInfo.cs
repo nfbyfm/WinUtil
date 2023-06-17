@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using System.Diagnostics;
 using System.Windows.Forms.DataVisualization.Charting;
 using WinUtil.Model;
 using YACUF.Extensions;
@@ -6,19 +7,34 @@ using YACUF.Extensions;
 namespace WinUtil.UI.Frames
 {
     /// <summary>
-    /// User control for showing status of a given directory
+    /// User control for showing structure / size of a given directory
     /// </summary>
     public partial class UC_DirectoryInfo : UserControl
     {
+        /// <summary>
+        /// constructor for user control ( for showing structure / size of a given directory)
+        /// </summary>
         public UC_DirectoryInfo()
         {
             InitializeComponent();
-            UpdateChartView("");
+            UpdateViews();
         }
+
+        #region internal setter functions
+        /// <summary>
+        /// sets the directory path
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        internal void SetDirectoryPath(string directoryPath)
+        {
+            tB_Directory.Text = directoryPath.Trim();
+        }
+
+        #endregion
 
         #region user input event listeners
         /// <summary>
-        /// öets the user select the directory path via dialog
+        /// lets the user select the directory path via dialog
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -30,7 +46,6 @@ namespace WinUtil.UI.Frames
                 tB_Directory.Text = fDi.SelectedPath;
         }
 
-
         /// <summary>
         /// reatcs to chenges in the directory path textbox
         /// </summary>
@@ -38,7 +53,28 @@ namespace WinUtil.UI.Frames
         /// <param name="e"></param>
         private void Directory_TextChanged(object sender, EventArgs e)
         {
-            UpdateViews();
+            string directoryPath = tB_Directory.Text;
+
+            if (directoryPath.IsValidString())
+            {
+                if (Directory.Exists(directoryPath))
+                {
+                    Task.Run(() =>
+                    {
+                        Log.Information($"Starting the building of informational data for directory '{directoryPath}'. Depending on the size this may take a while.");
+
+                        //create the mode (this maight take a while)
+                        SimpleDirectoryInfo newInfoData = new(directoryPath);
+
+                        //display the result
+                        UpdateViews(newInfoData);
+                    });
+                }
+                else
+                {
+                    Log.Warning($"The directory path '{directoryPath}' is invalid. The directory doesn't exist.");
+                }
+            }
         }
 
         /// <summary>
@@ -46,46 +82,80 @@ namespace WinUtil.UI.Frames
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tV_DirectoryStrucutre_AfterSelect(object sender, TreeViewEventArgs e)
+        private void DirectoryStrucutre_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            string selectedDirectory = "";
-
+            SimpleDirectoryInfo? infoData = null;
             TreeNode? selectedNode = tV_DirectoryStrucutre.SelectedNode;
+
             if (selectedNode != null)
             {
                 object? tagObject = selectedNode.Tag;
 
-                if (tagObject != null)
-                {
-                    selectedDirectory = (string)tagObject;
-                }
+                if (tagObject != null && tagObject.GetType() == typeof(SimpleDirectoryInfo))
+                    infoData = (SimpleDirectoryInfo)tagObject;
             }
 
-            UpdateChartView(selectedDirectory);
+            UpdateChartView(infoData);
+        }
+
+        /// <summary>
+        /// opens the currently selected directory in the file explorer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenInFileExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tV_DirectoryStrucutre.SelectedNode != null)
+            {
+                object? tagObject = tV_DirectoryStrucutre.SelectedNode.Tag;
+                if (tagObject != null && tagObject.GetType() == typeof(SimpleDirectoryInfo))
+                {
+                    SimpleDirectoryInfo dirInfo = (SimpleDirectoryInfo)tagObject;
+                    if (dirInfo.DirectoryPath.IsValidString())
+                    {
+                        Process process = new()
+                        {
+                            StartInfo = new ProcessStartInfo
+                            {
+                                FileName = "explorer.exe",
+                                Arguments = dirInfo.DirectoryPath,
+                                UseShellExecute = false,
+                                CreateNoWindow = true
+                            }
+                        };
+
+                        process.Start();
+                    }
+                    else
+                        Log.Error("Directory path of the selected node is invalid.");
+                }
+            }
+            else
+            {
+                Log.Information("Currently no directory is selected.");
+            }
         }
         #endregion
 
-        #region general UI functions
-
+        #region update functions for views
         /// <summary>
-        /// updates the views based on the currently selected direcory
+        /// updates the tree and chart view
         /// </summary>
-        private void UpdateViews()
+        /// <param name="infoData">(optional) directory model (if null, views get reset)</param>
+        private void UpdateViews(SimpleDirectoryInfo? infoData = null)
         {
-            string directoryPath = tB_Directory.Text;
-
-            //update chart view
-            UpdateChartView(directoryPath);
-
-            //update the tree view
-            tV_DirectoryStrucutre.Nodes.Clear();
-
-            if (directoryPath.IsValidString())
+            if (tV_DirectoryStrucutre.InvokeRequired || chartView.InvokeRequired)
             {
-                if (Directory.Exists(directoryPath))
+                tV_DirectoryStrucutre.Invoke(new MethodInvoker(() => { UpdateViews(infoData); }));
+            }
+            else
+            {
+                //update the tree view
+                tV_DirectoryStrucutre.Nodes.Clear();
+
+                if (infoData != null)
                 {
-                    //create main treeview node
-                    if (GetDirectoryTreeNode(directoryPath, out TreeNode node, out _))
+                    if (infoData.GetDirectoryTreeNode(out TreeNode? node))
                     {
                         tV_DirectoryStrucutre.Nodes.Add(node);
 
@@ -93,22 +163,17 @@ namespace WinUtil.UI.Frames
                             node.Expand();
                     }
                 }
-                else
-                {
-                    Log.Warning("The given directory path '" + directoryPath + "' doesn't exitst.");
-                }
-            }
-            else
-            {
-                Log.Warning("The current directory is not a valid path.");
+
+                //update the chart view
+                UpdateChartView(infoData);
             }
         }
 
         /// <summary>
         /// updates the chart view for a given directory
         /// </summary>
-        /// <param name="directoryPath"></param>
-        private void UpdateChartView(string directoryPath)
+        /// <param name="infoData">(optional) directory model </param>
+        private void UpdateChartView(SimpleDirectoryInfo? infoData = null)
         {
             //reset data
             chartView.Series.Clear();
@@ -117,12 +182,10 @@ namespace WinUtil.UI.Frames
             chartView.Titles.Clear();
 
             //calculate files / directroy sizes and show as doughnut chart
-            if (directoryPath.IsValidString() && Directory.Exists(directoryPath))
+            if (infoData != null)
             {
-                string chartTitle = GetShortDirectoryName(directoryPath);
-                GetDirectorySize(directoryPath, out long dirSize, out long fileSize);
-                chartTitle += " " + GetSizeString(dirSize, fileSize);
-                chartView.Titles.Add(chartTitle);
+                //set the chart title
+                chartView.Titles.Add(infoData.DirectoryInfoString);
 
                 Series fileSeries = chartView.Series.Add("Files");
                 fileSeries.ChartType = SeriesChartType.Doughnut;
@@ -132,32 +195,33 @@ namespace WinUtil.UI.Frames
                 chartView.ChartAreas[0].Area3DStyle.IsClustered = true;
                 //chartView.ChartAreas[0].Area3DStyle.Inclination = 50;
 
-                string[] subDirectories = Directory.GetDirectories(directoryPath);
-
-                // point for each subdirectroy
-                for (int i = 0; i < subDirectories.Length; i++)
+                if (infoData.SubDirectories != null && infoData.SubDirectories.HasElements(out int dirCount))
                 {
-                    string directoryString = GetShortDirectoryName(subDirectories[i]);
-                    long size = GetDirectorySize(subDirectories[i], out _, out _);
+                    // point for each subdirectroy
+                    for (int i = 0; i < dirCount; i++)
+                    {
+                        SimpleDirectoryInfo subDirectory = infoData.SubDirectories[i];
 
-
-                    // Add point
-                    fileSeries.Points.AddXY(directoryString, size);
-                    fileSeries.Points[fileSeries.Points.Count - 1].LegendText = directoryString + " [" + GetFileSizeAsString(size) + "]";
+                        // Add point
+                        fileSeries.Points.AddXY(subDirectory.DirectoryInfoString, subDirectory.TotalSizeInBytes);
+                        fileSeries.Points[fileSeries.Points.Count - 1].LegendText = subDirectory.DirectoryInfoLegendString;
+                    }
                 }
 
-
-                string[] files = Directory.GetFiles(directoryPath);
-
-                // point for each file
-                for (int i = 0; i < files.Length; i++)
+                if (infoData.Files != null && infoData.Files.HasElements(out int fileCount))
                 {
-                    string fileName = Path.GetFileName(files[i]);
-                    long size = GetFileSize(files[i]);
+                    // point for each file
+                    for (int i = 0; i < fileCount; i++)
+                    {
+                        SimpleFileInfo fileInfo = infoData.Files[i];
 
-                    // Add point
-                    fileSeries.Points.AddXY(fileName, size);
-                    fileSeries.Points[fileSeries.Points.Count - 1].LegendText = fileName + " [" + GetFileSizeAsString(size) + "]";
+                        string fileName = fileInfo.FileName;
+                        long size = fileInfo.SizeInBytes;// GetFileSize(files[i]);
+
+                        // Add point
+                        fileSeries.Points.AddXY(fileName, size);
+                        fileSeries.Points[fileSeries.Points.Count - 1].LegendText = fileInfo.FileInfoLegendString;
+                    }
                 }
 
                 // Create a new legend called "SizeLegend".
@@ -169,266 +233,6 @@ namespace WinUtil.UI.Frames
             }
         }
 
-        /// <summary>
-        /// creates treenode of the given directory
-        /// </summary>
-        /// <param name="directoryPath"></param>
-        /// <param name="node"></param>
-        /// <param name="totalSize"></param>
-        /// <returns>true if node could be generated successfully</returns>
-        private bool GetDirectoryTreeNode(string directoryPath, out TreeNode node, out long totalSize)
-        {
-            bool nodeCreated = false;
-            node = new("");
-            totalSize = 0;
-
-            if (directoryPath.IsValidString() && Directory.Exists(directoryPath))
-            {
-                try
-                {
-                    string directoryString = GetShortDirectoryName(directoryPath);
-
-                    List<string> filePaths = Directory.GetFiles(directoryPath, "*.*", SearchOption.TopDirectoryOnly).ToList();
-                    List<string> subDirectories = Directory.GetDirectories(directoryPath).ToList();
-
-                    long directorySize = 0;
-                    long fileSize = 0;
-
-                    //calcualte total size of sub directories (and create their treenodes)
-                    if (subDirectories.HasElements(out int dirCount))
-                    {
-                        for (int i = 0; i < dirCount; i++)
-                        {
-                            if (GetDirectoryTreeNode(subDirectories[i], out TreeNode subNode, out long tSize))
-                            {
-                                node.Nodes.Add(subNode);
-                                directorySize += tSize;
-                            }
-                        }
-                    }
-
-                    //calculate total size of files
-                    if (filePaths.HasElements(out int fileCount))
-                    {
-                        for (int i = 0; i < fileCount; i++)
-                        {
-                            fileSize += GetFileSize(filePaths[i]);
-                        }
-                    }
-
-                    //set node properties
-                    node.Text = directoryString + " " + GetSizeString(directorySize, fileSize);
-                    node.Tag = directoryPath;
-
-                    //calcualte total size
-                    totalSize = directorySize + fileSize;
-
-                    //set method return value
-                    nodeCreated = true;
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("Error creating treenode for directory '" + directoryPath + "': " + ex.Message);
-                }
-            }
-
-            return nodeCreated;
-        }
-
-        #endregion
-
-        #region logic
-
-        /// <summary>
-        /// gets the 'simple' name of the given directory path
-        /// </summary>
-        /// <param name="directoryPath"></param>
-        /// <returns></returns>
-        private static string GetShortDirectoryName(string directoryPath)
-        {
-            return new DirectoryInfo(directoryPath).Name;
-        }
-
-        /// <summary>
-        /// tries to get the file size in bytes
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
-        private static long GetFileSize(string filePath)
-        {
-            long size = 0;
-
-            if (File.Exists(filePath))
-                size = new FileInfo(filePath).Length;
-
-            return size;
-        }
-
-        /// <summary>
-        /// tries to get the size of the given directory in bytes
-        /// </summary>
-        /// <param name="directroyPath"></param>
-        /// <returns></returns>
-        private long GetDirectorySize(string directroyPath, out long directorySize, out long fileSize)
-        {
-            long totalSize = 0;
-            directorySize = 0;
-            fileSize = 0;
-
-            if (directroyPath.IsValidString() && Directory.Exists(directroyPath))
-            {
-                try
-                {
-                    string[] subDirectories = Directory.GetDirectories(directroyPath);
-
-                    for (int i = 0; i < subDirectories.Length; i++)
-                    {
-                        directorySize += GetDirectorySize(subDirectories[i], out _, out _);
-                    }
-
-                    string[] files = Directory.GetFiles(directroyPath);
-
-                    for (int i = 0; i < files.Length; i++)
-                    {
-                        fileSize += GetFileSize(files[i]);
-                    }
-
-                    totalSize = directorySize + fileSize;
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("Failed to calculate total size of directory '" + directroyPath + "': " + ex.Message);
-                }
-            }
-
-            return totalSize;
-        }
-
-        /// <summary>
-        /// creates the size info string for a treenode
-        /// </summary>
-        /// <param name="directorySize"></param>
-        /// <param name="fileSize"></param>
-        /// <returns></returns>
-        private string GetSizeString(long directorySize, long fileSize)
-        {
-            string result = "[" + GetFileSizeAsString(directorySize + fileSize);
-
-            if (directorySize > 0)
-            {
-                if (fileSize <= 0)
-                    result += "; dirs only";
-                else
-                    result += "; dir: " + GetFileSizeAsString(directorySize);
-            }
-
-            if (fileSize > 0)
-            {
-                if (directorySize <= 0)
-                    result += "; files only";
-                else
-                    result += "; files: " + GetFileSizeAsString(fileSize);
-            }
-
-            result += "]";
-
-            return result;
-        }
-
-        /// <summary>
-        /// creates string consisting of converted size and league of bytes
-        /// </summary>
-        /// <param name="sizeInBytes"></param>
-        /// <returns></returns>
-        private string GetFileSizeAsString(long sizeInBytes)
-        {
-            FileSize tSize = GetFileSize(sizeInBytes, out int totalSize);
-
-            string result = totalSize.ToString() + " ";
-
-            switch (tSize)
-            {
-                case FileSize.Bytes:
-                    result += "bytes";
-                    break;
-                case FileSize.KiloBytes:
-                    result += "KB";
-                    break;
-                case FileSize.MegaBytes:
-                    result += "MB";
-                    break;
-                case FileSize.GigaBytes:
-                    result += "GB";
-                    break;
-                case FileSize.PetaBytes:
-                    result += "PB";
-                    break;
-                default:
-                    result += "undef";
-                    break;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// converts size in bytes into human usable league
-        /// </summary>
-        /// <param name="sizeInBytes"></param>
-        /// <param name="convertedSize"></param>
-        /// <returns></returns>
-        private FileSize GetFileSize(long sizeInBytes, out int convertedSize)
-        {
-            FileSize result = FileSize.Bytes;
-            convertedSize = 0;
-
-            if (sizeInBytes > 0)
-            {
-                if (sizeInBytes > 1024)
-                {
-                    sizeInBytes /= 1024;
-
-                    if (sizeInBytes > 1024)
-                    {
-                        sizeInBytes /= 1024;
-
-                        if (sizeInBytes > 1024)
-                        {
-                            sizeInBytes /= 1024;
-
-                            if (sizeInBytes > 1024)
-                            {
-                                sizeInBytes /= 1024;
-                                result = FileSize.PetaBytes;
-                                convertedSize = (int)sizeInBytes;
-                            }
-                            else
-                            {
-                                result = FileSize.GigaBytes;
-                                convertedSize = (int)sizeInBytes;
-                            }
-                        }
-                        else
-                        {
-                            result = FileSize.MegaBytes;
-                            convertedSize = (int)sizeInBytes;
-                        }
-                    }
-                    else
-                    {
-                        result = FileSize.KiloBytes;
-                        convertedSize = (int)sizeInBytes;
-                    }
-                }
-                else
-                {
-                    convertedSize = (int)sizeInBytes;
-                }
-            }
-
-
-            return result;
-        }
         #endregion
     }
 }

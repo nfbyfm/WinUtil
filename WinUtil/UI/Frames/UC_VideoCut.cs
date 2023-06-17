@@ -20,6 +20,18 @@ namespace WinUtil.UI.Frames
             EditOptions_CheckedChanged(this, EventArgs.Empty);
         }
 
+        #region internal setter functions
+        /// <summary>
+        /// sets the source file path
+        /// </summary>
+        /// <param name="filePath"></param>
+        internal void SetSourceFile(string filePath)
+        {
+            tB_SourceFilePath.Text = filePath;
+        }
+        #endregion
+
+        #region UI event listeners
         /// <summary>
         /// lets the user convert the given input file
         /// </summary>
@@ -254,5 +266,7 @@ namespace WinUtil.UI.Frames
             cB_RotationAngle.Enabled = rotateActive;
 
         }
+
+        #endregion
     }
 }

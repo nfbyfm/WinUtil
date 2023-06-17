@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -40,6 +41,8 @@
             chartView = new System.Windows.Forms.DataVisualization.Charting.Chart();
             tableLayoutPanel1 = new TableLayoutPanel();
             splitContainer1 = new SplitContainer();
+            treeViewContextMenuStrip = new ContextMenuStrip(components);
+            openInFileExplorerToolStripMenuItem = new ToolStripMenuItem();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)chartView).BeginInit();
@@ -48,6 +51,7 @@
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            treeViewContextMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -94,12 +98,13 @@
             // 
             // tV_DirectoryStrucutre
             // 
+            tV_DirectoryStrucutre.ContextMenuStrip = treeViewContextMenuStrip;
             tV_DirectoryStrucutre.Dock = DockStyle.Fill;
             tV_DirectoryStrucutre.Location = new Point(3, 17);
             tV_DirectoryStrucutre.Name = "tV_DirectoryStrucutre";
             tV_DirectoryStrucutre.Size = new Size(207, 503);
             tV_DirectoryStrucutre.TabIndex = 0;
-            tV_DirectoryStrucutre.AfterSelect += tV_DirectoryStrucutre_AfterSelect;
+            tV_DirectoryStrucutre.AfterSelect += DirectoryStrucutre_AfterSelect;
             // 
             // groupBox2
             // 
@@ -166,6 +171,19 @@
             splitContainer1.SplitterDistance = 213;
             splitContainer1.TabIndex = 3;
             // 
+            // treeViewContextMenuStrip
+            // 
+            treeViewContextMenuStrip.Items.AddRange(new ToolStripItem[] { openInFileExplorerToolStripMenuItem });
+            treeViewContextMenuStrip.Name = "treeViewContextMenuStrip";
+            treeViewContextMenuStrip.Size = new Size(181, 48);
+            // 
+            // openInFileExplorerToolStripMenuItem
+            // 
+            openInFileExplorerToolStripMenuItem.Name = "openInFileExplorerToolStripMenuItem";
+            openInFileExplorerToolStripMenuItem.Size = new Size(180, 22);
+            openInFileExplorerToolStripMenuItem.Text = "open in file explorer";
+            openInFileExplorerToolStripMenuItem.Click += OpenInFileExplorerToolStripMenuItem_Click;
+            // 
             // UC_DirectoryInfo
             // 
             AutoScaleDimensions = new SizeF(6F, 12F);
@@ -182,6 +200,7 @@
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            treeViewContextMenuStrip.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -196,5 +215,7 @@
         private TableLayoutPanel tableLayoutPanel1;
         private SplitContainer splitContainer1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartView;
+        private ContextMenuStrip treeViewContextMenuStrip;
+        private ToolStripMenuItem openInFileExplorerToolStripMenuItem;
     }
 }

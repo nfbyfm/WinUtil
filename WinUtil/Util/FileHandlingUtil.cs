@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using System.Diagnostics;
+using WinUtil.Model;
 using YACUF.Extensions;
 
 namespace WinUtil.Util
@@ -43,7 +44,6 @@ namespace WinUtil.Util
             }
 
         }
-
 
         /// <summary>
         /// tries to get the duration of a video file using ffmpeg
@@ -90,5 +90,149 @@ namespace WinUtil.Util
                 return false;
             }
         }
+
+        #region file size functions
+        /// <summary>
+        /// tries to get the file size in bytes
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static long GetFileSize(string? filePath)
+        {
+            long size = 0;
+
+            if (filePath.IsValidString() && File.Exists(filePath))
+                size = new FileInfo(filePath).Length;
+
+            return size;
+        }
+
+        /// <summary>
+        /// creates the size info string for a treenode
+        /// </summary>
+        /// <param name="directorySize"></param>
+        /// <param name="fileSize"></param>
+        /// <returns></returns>
+        public static string GetSizeString(long directorySize, long fileSize)
+        {
+            string result = "[" + GetFileSizeAsString(directorySize + fileSize);
+
+            if (directorySize > 0)
+            {
+                if (fileSize <= 0)
+                    result += "; dirs only";
+                else
+                    result += "; dir: " + GetFileSizeAsString(directorySize);
+            }
+
+            if (fileSize > 0)
+            {
+                if (directorySize <= 0)
+                    result += "; files only";
+                else
+                    result += "; files: " + GetFileSizeAsString(fileSize);
+            }
+
+            result += "]";
+
+            return result;
+        }
+
+        /// <summary>
+        /// creates string consisting of converted size and league of bytes
+        /// </summary>
+        /// <param name="sizeInBytes"></param>
+        /// <returns></returns>
+        public static string GetFileSizeAsString(long sizeInBytes)
+        {
+            FileSize tSize = GetFileSize(sizeInBytes, out int totalSize);
+
+            string result = totalSize.ToString() + " ";
+
+            switch (tSize)
+            {
+                case FileSize.Bytes:
+                    result += "bytes";
+                    break;
+                case FileSize.KiloBytes:
+                    result += "KB";
+                    break;
+                case FileSize.MegaBytes:
+                    result += "MB";
+                    break;
+                case FileSize.GigaBytes:
+                    result += "GB";
+                    break;
+                case FileSize.PetaBytes:
+                    result += "PB";
+                    break;
+                default:
+                    result += "undef";
+                    break;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// converts size in bytes into human usable league
+        /// </summary>
+        /// <param name="sizeInBytes"></param>
+        /// <param name="convertedSize"></param>
+        /// <returns></returns>
+        public static FileSize GetFileSize(long sizeInBytes, out int convertedSize)
+        {
+            FileSize result = FileSize.Bytes;
+            convertedSize = 0;
+
+            if (sizeInBytes > 0)
+            {
+                if (sizeInBytes > 1024)
+                {
+                    sizeInBytes /= 1024;
+
+                    if (sizeInBytes > 1024)
+                    {
+                        sizeInBytes /= 1024;
+
+                        if (sizeInBytes > 1024)
+                        {
+                            sizeInBytes /= 1024;
+
+                            if (sizeInBytes > 1024)
+                            {
+                                sizeInBytes /= 1024;
+                                result = FileSize.PetaBytes;
+                                convertedSize = (int)sizeInBytes;
+                            }
+                            else
+                            {
+                                result = FileSize.GigaBytes;
+                                convertedSize = (int)sizeInBytes;
+                            }
+                        }
+                        else
+                        {
+                            result = FileSize.MegaBytes;
+                            convertedSize = (int)sizeInBytes;
+                        }
+                    }
+                    else
+                    {
+                        result = FileSize.KiloBytes;
+                        convertedSize = (int)sizeInBytes;
+                    }
+                }
+                else
+                {
+                    convertedSize = (int)sizeInBytes;
+                }
+            }
+
+
+            return result;
+        }
+
+        #endregion
     }
 }

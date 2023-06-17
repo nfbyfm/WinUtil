@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            tB_TragetDirectory = new TextBox();
+            tB_TargetDirectory = new TextBox();
             b_Select = new Button();
             groupBox1 = new GroupBox();
             lV_Files = new ListView();
@@ -64,14 +64,14 @@
             label1.Text = "directory:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // tB_TragetDirectory
+            // tB_TargetDirectory
             // 
-            tB_TragetDirectory.Dock = DockStyle.Fill;
-            tB_TragetDirectory.Location = new Point(67, 3);
-            tB_TragetDirectory.Name = "tB_TragetDirectory";
-            tB_TragetDirectory.Size = new Size(863, 21);
-            tB_TragetDirectory.TabIndex = 1;
-            tB_TragetDirectory.TextChanged += UpdateFileList;
+            tB_TargetDirectory.Dock = DockStyle.Fill;
+            tB_TargetDirectory.Location = new Point(67, 3);
+            tB_TargetDirectory.Name = "tB_TargetDirectory";
+            tB_TargetDirectory.Size = new Size(863, 21);
+            tB_TargetDirectory.TabIndex = 1;
+            tB_TargetDirectory.TextChanged += UpdateFileList;
             // 
             // b_Select
             // 
@@ -219,8 +219,6 @@
             // cB_DirectoryRecursive
             // 
             cB_DirectoryRecursive.AutoSize = true;
-            cB_DirectoryRecursive.Checked = true;
-            cB_DirectoryRecursive.CheckState = CheckState.Checked;
             tableLayoutPanel1.SetColumnSpan(cB_DirectoryRecursive, 2);
             cB_DirectoryRecursive.Dock = DockStyle.Fill;
             cB_DirectoryRecursive.Location = new Point(23, 35);
@@ -310,7 +308,7 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 75F));
             tableLayoutPanel2.Controls.Add(label1, 0, 0);
-            tableLayoutPanel2.Controls.Add(tB_TragetDirectory, 1, 0);
+            tableLayoutPanel2.Controls.Add(tB_TargetDirectory, 1, 0);
             tableLayoutPanel2.Controls.Add(b_Select, 2, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 3);
@@ -338,7 +336,7 @@
         #endregion
 
         private Label label1;
-        private TextBox tB_TragetDirectory;
+        private TextBox tB_TargetDirectory;
         private Button b_Select;
         private GroupBox groupBox1;
         private ListView lV_Files;

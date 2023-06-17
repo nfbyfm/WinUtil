@@ -170,5 +170,55 @@ namespace WinUtil.UI.Frames
         }
 
         #endregion
+
+        #region internal setter functions
+        /// <summary>
+        /// loads list of files from a text file
+        /// </summary>
+        /// <param name="filePath"></param>
+        internal void LoadFromFile(string filePath)
+        {
+            rTB_FileList.SetPathListFromTextFile(filePath);
+        }
+
+        /// <summary>
+        /// adds file path to current list
+        /// </summary>
+        /// <param name="filePath"></param>
+        internal void AddFilePath(string filePath)
+        {
+            if (rTB_FileList.Lines.Length > 0)
+                rTB_FileList.Text += Environment.NewLine;
+
+            rTB_FileList.Text += filePath + Environment.NewLine;
+        }
+
+        /// <summary>
+        /// adds list of file paths to current list
+        /// </summary>
+        /// <param name="filePath"></param>
+        internal void AddFilePaths(string[] filePaths)
+        {
+            if(filePaths.Length>0)
+            {
+                if (rTB_FileList.Lines.Length > 0)
+                    rTB_FileList.Text += Environment.NewLine;
+
+                foreach(string filePath in filePaths)
+                    rTB_FileList.Text += filePath + Environment.NewLine;
+            }            
+        }
+
+        /// <summary>
+        /// sets the download directory path
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        internal void SetTargetDirectory(string directoryPath)
+        {
+            tB_TargetDirectory.Text = directoryPath;
+        }
+        #endregion
+
+        
     }
 }

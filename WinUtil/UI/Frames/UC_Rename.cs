@@ -19,6 +19,18 @@ namespace WinUtil.UI.Frames
             OperationOptionsChanged(this, EventArgs.Empty);
         }
 
+        #region internal setter functions
+        /// <summary>
+        /// sets the (source) directory path
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        internal void SetDirectoryPath(string directoryPath)
+        {
+            tB_TargetDirectory.Text = directoryPath;
+        }
+        #endregion
+
+        #region UI event listeners
         /// <summary>
         /// lets the user change the target direcory via folder bvrowser dialog
         /// </summary>
@@ -34,7 +46,7 @@ namespace WinUtil.UI.Frames
 
             if (fDi.ShowDialog() == DialogResult.OK)
             {
-                tB_TragetDirectory.Text = fDi.SelectedPath;
+                tB_TargetDirectory.Text = fDi.SelectedPath;
                 UpdateFileList(this, EventArgs.Empty);
             }
         }
@@ -147,6 +159,8 @@ namespace WinUtil.UI.Frames
             }
         }
 
+        #endregion
+
         /// <summary>
         /// tries to get the list of files based on the current user inputs
         /// </summary>
@@ -156,7 +170,7 @@ namespace WinUtil.UI.Frames
         {
             fileList = new();
 
-            string targetDirectory = tB_TragetDirectory.Text;
+            string targetDirectory = tB_TargetDirectory.Text;
 
             if (Directory.Exists(targetDirectory))
             {

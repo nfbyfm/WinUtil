@@ -95,6 +95,33 @@ namespace WinUtil.Extensions
         }
 
         /// <summary>
+        /// sets/appends the current list of files based on contents of given file
+        /// </summary>
+        /// <param name="rTB_FileList">     The rich textbox to act upon.</param>
+        /// <param name="filePath">         the file path which to read from</param>
+        public static void SetPathListFromTextFile(this RichTextBox rTB_FileList, string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                List<string> filePaths = File.ReadAllLines(filePath).ToList();
+
+                if (filePaths.HasElements(out int pathCount))
+                {
+                    rTB_FileList.SetFilePathList(filePaths, true);
+                    Log.Information("Added " + pathCount + " file paths from '" + Path.GetFileName(filePath) + "'.");
+                }
+                else
+                {
+                    Log.Warning("File '" + filePath + "' contains no lines / file paths.");
+                }
+            }
+            else
+            {
+                Log.Error("File '" + filePath + "' for import doesn't exist.");
+            }
+        }
+
+        /// <summary>
         /// sets/appends the current list of files based lines in text file(-s)
         /// </summary>
         /// <param name="rTB_FileList">     The rich textbox to act upon.</param>
@@ -127,7 +154,7 @@ namespace WinUtil.Extensions
                         }
                         else
                         {
-                            Log.Warning("File '" + filePath + "' contains no lines / mp3 file paths.");
+                            Log.Warning("File '" + filePath + "' contains no lines / file paths.");
                         }
                     }
                     else
