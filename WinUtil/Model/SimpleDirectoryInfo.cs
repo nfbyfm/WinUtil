@@ -133,13 +133,28 @@ namespace WinUtil.Model
                     }
                     */
 
+                    /*
                     string[] files = Directory.GetFiles(DirectoryPath);
 
                     for (int i = 0; i < files.Length; i++)
                     {
                         SimpleFileInfo newFile = new(files[i]);
-                        FilesSizeInBytes += newFile.SizeInBytes;
+                        Files.Add(newFile);
+                        FilesSizeInBytes += newFile.SizeInBytes;                        
                     }
+                    */
+
+                    string[] files = Directory.GetFiles(DirectoryPath);
+                    ConcurrentBag<SimpleFileInfo> fileBag = new();
+                    Parallel.ForEach(files, filePath =>
+                    {
+                        SimpleFileInfo newFile = new(filePath);
+                        fileBag.Add(newFile);
+                    });
+
+                    Files = fileBag.OrderBy(x => x.FileName).ToList();
+                    FilesSizeInBytes = Files.Sum(x => x.SizeInBytes);
+                    fileBag.Clear();
                 }
                 catch (Exception ex)
                 {
@@ -148,12 +163,12 @@ namespace WinUtil.Model
                 }
             }
 
+            //update the total size
+            TotalSizeInBytes = FilesSizeInBytes + SubDirectorySizeInBytes;
+
             //update the info strings
             DirectoryInfoString = DirectoryName + " " + FileHandlingUtil.GetSizeString(SubDirectorySizeInBytes, FilesSizeInBytes);
             DirectoryInfoLegendString = DirectoryName + " [" + FileHandlingUtil.GetFileSizeAsString(TotalSizeInBytes) + "]";
-
-            //update the total size
-            TotalSizeInBytes = FilesSizeInBytes + SubDirectorySizeInBytes;
 
             if (!DirectoryInfoString.IsValidString())
                 Log.Error($"Failed to create the directory info string for {DirectoryPath}");
@@ -186,6 +201,18 @@ namespace WinUtil.Model
                     {
                         if (SubDirectories[i].GetDirectoryTreeNode(out TreeNode? subNode))
                             node.Nodes.Add(subNode);
+                    }
+                }
+
+                if(Files !=null && Files.HasElements(out int fileCount))
+                {
+                    for(int i=0;i<fileCount;i++)
+                    {
+                        TreeNode fileNode = new(Files[i].FileInfoLegendString)
+                        {
+                            Tag = Files[i]
+                        };
+                        node.Nodes.Add(fileNode);
                     }
                 }
             }

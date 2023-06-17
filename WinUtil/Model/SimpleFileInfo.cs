@@ -25,6 +25,11 @@ namespace WinUtil.Model
         public string FileName { get; private set; }
 
         /// <summary>
+        /// the string used in the tree view
+        /// </summary>
+        public string FileInfoString { get; private set; }
+
+        /// <summary>
         /// the string used in a chart legend
         /// </summary>
         public string FileInfoLegendString { get; private set; }
@@ -47,6 +52,7 @@ namespace WinUtil.Model
             else
                 FileName = "";
 
+            FileInfoString = FileName + " " + FileHandlingUtil.GetFileSizeAsString(SizeInBytes);
             FileInfoLegendString = FileName + " [" + FileHandlingUtil.GetFileSizeAsString(SizeInBytes) + "]";
         }
 

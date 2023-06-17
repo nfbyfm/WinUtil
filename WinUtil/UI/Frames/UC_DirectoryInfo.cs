@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using System.Diagnostics;
+using System.Runtime;
 using System.Windows.Forms.DataVisualization.Charting;
 using WinUtil.Model;
 using YACUF.Extensions;
@@ -108,26 +109,42 @@ namespace WinUtil.UI.Frames
             if (tV_DirectoryStrucutre.SelectedNode != null)
             {
                 object? tagObject = tV_DirectoryStrucutre.SelectedNode.Tag;
-                if (tagObject != null && tagObject.GetType() == typeof(SimpleDirectoryInfo))
+                if (tagObject != null)
                 {
-                    SimpleDirectoryInfo dirInfo = (SimpleDirectoryInfo)tagObject;
-                    if (dirInfo.DirectoryPath.IsValidString())
+                    string argument = "";
+
+                    if (tagObject.GetType() == typeof(SimpleDirectoryInfo))
+                    {
+                        SimpleDirectoryInfo dirInfo = (SimpleDirectoryInfo)tagObject;
+                        if (dirInfo.DirectoryPath.IsValidString())
+                            argument = dirInfo.DirectoryPath;
+                        else
+                            Log.Error("Directory path of the selected node is invalid.");
+                    }
+                    else if(tagObject.GetType() == typeof(SimpleFileInfo))
+                    {
+                        SimpleFileInfo fileInfo = (SimpleFileInfo)tagObject;
+                        if (fileInfo.FilePath.IsValidString())
+                            argument = fileInfo.FilePath;
+                        else
+                            Log.Error("File path of the selected node is invalid.");
+                    }
+
+                    if(argument.IsValidString())
                     {
                         Process process = new()
                         {
                             StartInfo = new ProcessStartInfo
                             {
                                 FileName = "explorer.exe",
-                                Arguments = dirInfo.DirectoryPath,
+                                Arguments = argument,
                                 UseShellExecute = false,
                                 CreateNoWindow = true
                             }
                         };
 
                         process.Start();
-                    }
-                    else
-                        Log.Error("Directory path of the selected node is invalid.");
+                    }                    
                 }
             }
             else
@@ -180,7 +197,7 @@ namespace WinUtil.UI.Frames
             chartView.Legends.Clear();
             chartView.Annotations.Clear();
             chartView.Titles.Clear();
-
+            
             //calculate files / directroy sizes and show as doughnut chart
             if (infoData != null)
             {
