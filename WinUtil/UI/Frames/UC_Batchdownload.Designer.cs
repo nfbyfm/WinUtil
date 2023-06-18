@@ -35,6 +35,7 @@
             b_FromFile = new Button();
             b_FromClipboard = new Button();
             b_GenerateURLs = new Button();
+            b_CheckClipboard = new Button();
             label1 = new Label();
             tB_DownloadDirectory = new TextBox();
             b_Select = new Button();
@@ -71,17 +72,18 @@
             // 
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 95F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 112F));
             tableLayoutPanel1.Controls.Add(rTB_Urls, 0, 0);
             tableLayoutPanel1.Controls.Add(label3, 1, 0);
             tableLayoutPanel1.Controls.Add(b_FromFile, 1, 1);
             tableLayoutPanel1.Controls.Add(b_FromClipboard, 1, 2);
             tableLayoutPanel1.Controls.Add(b_GenerateURLs, 1, 3);
+            tableLayoutPanel1.Controls.Add(b_CheckClipboard, 1, 4);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(3, 17);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 5;
+            tableLayoutPanel1.RowCount = 6;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 27F));
@@ -95,8 +97,8 @@
             rTB_Urls.Dock = DockStyle.Fill;
             rTB_Urls.Location = new Point(3, 3);
             rTB_Urls.Name = "rTB_Urls";
-            tableLayoutPanel1.SetRowSpan(rTB_Urls, 5);
-            rTB_Urls.Size = new Size(410, 426);
+            tableLayoutPanel1.SetRowSpan(rTB_Urls, 6);
+            rTB_Urls.Size = new Size(393, 426);
             rTB_Urls.TabIndex = 0;
             rTB_Urls.Text = "";
             // 
@@ -104,9 +106,9 @@
             // 
             label3.AutoSize = true;
             label3.Dock = DockStyle.Fill;
-            label3.Location = new Point(419, 0);
+            label3.Location = new Point(402, 0);
             label3.Name = "label3";
-            label3.Size = new Size(89, 27);
+            label3.Size = new Size(106, 27);
             label3.TabIndex = 14;
             label3.Text = "add URLs:";
             label3.TextAlign = ContentAlignment.MiddleLeft;
@@ -114,9 +116,9 @@
             // b_FromFile
             // 
             b_FromFile.Dock = DockStyle.Fill;
-            b_FromFile.Location = new Point(419, 30);
+            b_FromFile.Location = new Point(402, 30);
             b_FromFile.Name = "b_FromFile";
-            b_FromFile.Size = new Size(89, 21);
+            b_FromFile.Size = new Size(106, 21);
             b_FromFile.TabIndex = 13;
             b_FromFile.Text = "from text file";
             b_FromFile.UseVisualStyleBackColor = true;
@@ -125,9 +127,9 @@
             // b_FromClipboard
             // 
             b_FromClipboard.Dock = DockStyle.Fill;
-            b_FromClipboard.Location = new Point(419, 57);
+            b_FromClipboard.Location = new Point(402, 57);
             b_FromClipboard.Name = "b_FromClipboard";
-            b_FromClipboard.Size = new Size(89, 21);
+            b_FromClipboard.Size = new Size(106, 21);
             b_FromClipboard.TabIndex = 12;
             b_FromClipboard.Text = "from clipboard";
             b_FromClipboard.UseVisualStyleBackColor = true;
@@ -136,13 +138,24 @@
             // b_GenerateURLs
             // 
             b_GenerateURLs.Dock = DockStyle.Fill;
-            b_GenerateURLs.Location = new Point(419, 84);
+            b_GenerateURLs.Location = new Point(402, 84);
             b_GenerateURLs.Name = "b_GenerateURLs";
-            b_GenerateURLs.Size = new Size(89, 21);
+            b_GenerateURLs.Size = new Size(106, 21);
             b_GenerateURLs.TabIndex = 15;
             b_GenerateURLs.Text = "generate";
             b_GenerateURLs.UseVisualStyleBackColor = true;
             b_GenerateURLs.Click += GenerateURLs_Click;
+            // 
+            // b_CheckClipboard
+            // 
+            b_CheckClipboard.Dock = DockStyle.Fill;
+            b_CheckClipboard.Location = new Point(402, 111);
+            b_CheckClipboard.Name = "b_CheckClipboard";
+            b_CheckClipboard.Size = new Size(106, 21);
+            b_CheckClipboard.TabIndex = 16;
+            b_CheckClipboard.Text = "monitor clipboard";
+            b_CheckClipboard.UseVisualStyleBackColor = true;
+            b_CheckClipboard.Click += MonitorClipboard_Click;
             // 
             // label1
             // 
@@ -363,5 +376,6 @@
         private NumericUpDown nUD_ParallelDownloads;
         private Label label3;
         private Button b_GenerateURLs;
+        private Button b_CheckClipboard;
     }
 }

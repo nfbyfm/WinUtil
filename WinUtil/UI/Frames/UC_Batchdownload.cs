@@ -1,5 +1,7 @@
 ﻿using Serilog;
+using System.ComponentModel;
 using System.Data.SqlTypes;
+using System.Runtime.InteropServices;
 using WinUtil.Extensions;
 using WinUtil.Model;
 using WinUtil.UI.Dialogs;
@@ -13,6 +15,14 @@ namespace WinUtil.UI.Frames
     /// </summary>
     public partial class UC_Batchdownload : UserControl
     {
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool AddClipboardFormatListener(IntPtr hwnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool RemoveClipboardFormatListener(IntPtr hwnd);
+
         public UC_Batchdownload()
         {
             InitializeComponent();
@@ -42,14 +52,14 @@ namespace WinUtil.UI.Frames
         /// <param name="urls"></param>
         internal void AddURLs(string[] urls)
         {
-            if(urls.Length>0)
+            if (urls.Length > 0)
             {
                 if (rTB_Urls.Lines.Length > 0)
                     rTB_Urls.Text += Environment.NewLine;
 
-                foreach(string urlString in urls)
+                foreach (string urlString in urls)
                     rTB_Urls.Text += urlString + Environment.NewLine;
-            }            
+            }
         }
 
         /// <summary>
@@ -217,7 +227,6 @@ namespace WinUtil.UI.Frames
 
                     for (int i = 0; i < elemCount; i++)
                     {
-
                         string filePath = urls[i].Remove(0, urls[i].LastIndexOf(@"/") + 1);
 
                         if (createNewFileName)
@@ -285,6 +294,78 @@ namespace WinUtil.UI.Frames
                     rTB_Urls.SetFilePathList(urls);
                 else
                     Log.Error("Failed to generate list of URLs from dialog inputs.");
+            }
+        }
+
+        /// <summary>
+        /// allows the monitoring of the clipboard data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MonitorClipboard_Click(object sender, EventArgs e)
+        {
+            _clipboardSurveillanceActive = !_clipboardSurveillanceActive;
+
+            if (_clipboardSurveillanceActive)
+                b_CheckClipboard.BackColor = Color.LightGreen;
+            else
+                b_CheckClipboard.BackColor = SystemColors.Control;
+
+            if (_clipboardSurveillanceActive)
+            {
+                Log.Debug("Starting monitoring of clipboard.");
+                AddClipboardFormatListener(this.Handle);
+            }
+            else
+            {
+                RemoveClipboardFormatListener(this.Handle);
+                Log.Debug("Monitoring of clipboard stopped.");
+            }
+        }
+
+        #endregion
+
+        #region clipboard monitoring functions
+        private bool _clipboardSurveillanceActive = false;
+        private string prevClipboardString = "";
+        private const int WM_CLIPBOARDUPDATE = 0x031D;
+
+        private void AppendURLList(string newURL)
+        {
+            if (rTB_Urls.InvokeRequired)
+            {
+                rTB_Urls.Invoke(new MethodInvoker(() => { AppendURLList(newURL); }));
+            }
+            else
+            {
+                if (rTB_Urls.Lines.Length > 0)
+                    rTB_Urls.Text += Environment.NewLine;
+
+                rTB_Urls.Text += newURL;
+            }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_CLIPBOARDUPDATE:
+                    IDataObject iData = Clipboard.GetDataObject();
+                    if (iData.GetDataPresent(DataFormats.Text))
+                    {
+                        string data = (string)iData.GetData(DataFormats.Text);
+
+                        if (data.IsURL() && prevClipboardString != data)
+                        {
+                            AppendURLList(data);
+                            prevClipboardString = data;
+                        }
+                    }
+                    break;
+
+                default:
+                    base.WndProc(ref m);
+                    break;
             }
         }
 
