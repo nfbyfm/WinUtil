@@ -231,7 +231,31 @@ namespace WinUtil.UI.Frames
 
                         if (createNewFileName)
                         {
-                            string fileExtension = filePath.Remove(0, filePath.LastIndexOf("."));
+                            string fileExtension = ".jpg";
+
+                            if (filePath.Contains('.'))
+                                fileExtension = filePath.Remove(0, filePath.LastIndexOf("."));
+                            else
+                            {
+                                string[] extensionList = {"jpg", "jpeg", "bmp", "png", "gif", "ico", "svg",
+                                    "mp4", "webm", "avi", "mpg", "mpeg", "wmv", "mkv", "flv",
+                                    "mp3", "flac", "wav", "mv4",
+                                    "txt","xml", "bin", "dat", "csv", "mdb", "log",
+                                    "doc", "xls", "ppt", "odp", "ods", "odt",
+                                    "zip","7z", "rar", "tar",
+                                    "msi", "exe",
+                                    "pdf",
+                                    "html", "htm", "php"};
+
+                                foreach(string ext in extensionList)
+                                {
+                                    if(filePath.Contains(ext))
+                                    {
+                                        fileExtension = "." + ext;
+                                        break;
+                                    }
+                                }
+                            }
 
                             filePath = prefix + i.ToString("D" + maxDigits.ToString()) + suffix + fileExtension;
                         }
