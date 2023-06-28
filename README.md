@@ -16,7 +16,7 @@ A short overview of the functions:
 
 | function    | description |
 | -------- | ------- |
-| [auto download] | monitors the clipboard and downloads files automatically |
+| [auto download](#auto-download) | monitors the clipboard and downloads files automatically |
 | [batch download files](#batch-download)  | downloads a list of files from the internet  |
 | [rename files](#rename-files) | renmames a list of files at once     |
 | [move files](#move-files)    | moves a list of files into a single directory |
