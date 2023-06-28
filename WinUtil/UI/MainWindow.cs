@@ -32,8 +32,11 @@ namespace WinUtil
 
             Log.Information("Application started.");
 
+
             //parse the optional arguments
             ParseStartupArguments(args);
+
+
         }
 
         #region startup parameter functions
@@ -62,9 +65,9 @@ namespace WinUtil
                         HandleSingleStartupArgument(clipboardText);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Log.Error("Failed to process startup parameters: " + ex.Message);
+                Log.Error($"Failed to process startup parameters: {ex.Message}");
             }
         }
 
@@ -85,7 +88,7 @@ namespace WinUtil
                 uC_RenameFiles.SetDirectoryPath(argument);
                 uC_Batchdownload.SetTargetDirectory(argument);
                 uC_MoveFiles.SetTargetDirectory(argument);
-                
+
                 mainTabControl.SelectedIndex = 4;
             }
             else if (File.Exists(argument))
@@ -101,13 +104,13 @@ namespace WinUtil
                             firstLine = reader.ReadLine() ?? "";
                         }
 
-                        if(firstLine.IsValidString())
+                        if (firstLine.IsValidString())
                         {
-                            if(firstLine.IsURL())
+                            if (firstLine.IsURL())
                             {
                                 uC_Batchdownload.LoadFromFile(argument);
                             }
-                            else if(firstLine.EndsWith(".mp3"))
+                            else if (firstLine.EndsWith(".mp3"))
                             {
                                 uC_mP3TagEditor.LoadFromFile(argument);
                                 mainTabControl.SelectedIndex = 3;
@@ -169,17 +172,17 @@ namespace WinUtil
         {
             //take a look at first element -> handle similar to single argument method
 
-            if(arguments.Length>0)
+            if (arguments.Length > 0)
             {
                 //search through list of arguments for one that is valid / can be used in any of the user controls
-                for(int i=0;i<arguments.Length;i++)
+                for (int i = 0; i < arguments.Length; i++)
                 {
                     string arg = arguments[i];
 
                     if (arg.IsValidString())
                     {
                         Log.Debug($"Startup parameter at index {i} is a valid string ({arg}).");
-                        if(arg.IsURL())
+                        if (arg.IsURL())
                         {
                             uC_Batchdownload.AddURLs(arguments);
                             mainTabControl.SelectedIndex = 0;
@@ -218,8 +221,8 @@ namespace WinUtil
                             Log.Debug($"Got {arguments.Length} startup arguments. Argument at index {i} couldn't be categorized ({arg}). Searching for next usable one.");
                         }
                     }
-                }                
-            }            
+                }
+            }
         }
 
         #endregion

@@ -86,7 +86,7 @@ namespace WinUtil.Extensions
                 if(rTB_FileList.AppendFilePathList())
                     rTB_FileList.Text += Clipboard.GetText();
                 else
-                    rTB_FileList.Text += Clipboard.GetText();
+                    rTB_FileList.Text = Clipboard.GetText();
             }
             else
             {

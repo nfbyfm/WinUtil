@@ -8,6 +8,16 @@ namespace WinUtil.Util
     /// </summary>
     public static class DownloadUtil
     {
+        public static string[] FileExtensionList = {"jpg", "jpeg", "bmp", "png", "gif", "ico", "svg",
+                                    "mp4", "webm", "avi", "mpg", "mpeg", "wmv", "mkv", "flv",
+                                    "mp3", "flac", "wav", "mv4",
+                                    "txt","xml", "bin", "dat", "csv", "mdb", "log",
+                                    "doc", "xls", "ppt", "odp", "ods", "odt",
+                                    "zip","7z", "rar", "tar",
+                                    "msi", "exe",
+                                    "pdf",
+                                    "html", "htm", "php"};
+
         /// <summary>
         /// asyncronously downloads a list of files
         /// </summary>

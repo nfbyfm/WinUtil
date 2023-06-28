@@ -16,6 +16,7 @@ A short overview of the functions:
 
 | function    | description |
 | -------- | ------- |
+| [auto download] | monitors the clipboard and downloads files automatically |
 | [batch download files](#batch-download)  | downloads a list of files from the internet  |
 | [rename files](#rename-files) | renmames a list of files at once     |
 | [move files](#move-files)    | moves a list of files into a single directory |
@@ -24,7 +25,16 @@ A short overview of the functions:
 | [video to audio](#video-to-audio) | converts (a section) of a video into a audio file |
 | [video edit](#video-edit) | cuts and or rotates a given video file |
 
-The last two functions require for you to have a copy of ffmpeg.exe ([download here](https://ffmpeg.org/download.html)) and have set the path to the executable file in the settings of WinUtil.
+The last two functions require for you to have a copy of ffmpeg ([download here](https://ffmpeg.org/download.html)) and have set the path to the executable file in the settings of WinUtil.
+
+ ### auto download
+
+ The 'auto download' function allows you to automatically download files, whose links you've copied into the clipboard.
+ 
+ ![printscreen auto download](doc/AutoDownload.jpg)
+
+ First activate / click once on the 'monitor clipboard' button. After that - using your web browser for example-, you simply copy the url of whatever you wish to download into your clipboard. 
+ The program, runing in the backgroud, will automatically  create a directory named after the url host name in your downloads folder and save the file into it.
 
  ### batch download
 

@@ -1,6 +1,4 @@
 ﻿using Serilog;
-using System.ComponentModel;
-using System.Data.SqlTypes;
 using System.Runtime.InteropServices;
 using WinUtil.Extensions;
 using WinUtil.Model;
