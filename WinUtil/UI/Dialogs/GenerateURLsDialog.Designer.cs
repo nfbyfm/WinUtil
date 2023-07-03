@@ -110,7 +110,7 @@
             // nUD_StartNumber
             // 
             nUD_StartNumber.Location = new Point(118, 35);
-            nUD_StartNumber.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            nUD_StartNumber.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             nUD_StartNumber.Name = "nUD_StartNumber";
             nUD_StartNumber.Size = new Size(120, 21);
             nUD_StartNumber.TabIndex = 6;
@@ -137,7 +137,7 @@
             // nUD_EndNumber
             // 
             nUD_EndNumber.Location = new Point(118, 62);
-            nUD_EndNumber.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            nUD_EndNumber.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             nUD_EndNumber.Name = "nUD_EndNumber";
             nUD_EndNumber.Size = new Size(120, 21);
             nUD_EndNumber.TabIndex = 7;

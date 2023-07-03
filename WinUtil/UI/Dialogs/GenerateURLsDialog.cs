@@ -1,4 +1,5 @@
-﻿using YACUF.Extensions;
+﻿using Serilog;
+using YACUF.Extensions;
 
 namespace WinUtil.UI.Dialogs
 {
@@ -10,38 +11,44 @@ namespace WinUtil.UI.Dialogs
         public GenerateURLsDialog()
         {
             InitializeComponent();
-
-            //check if there is text in the clipboard that might be used as prefix / suffix string
-            if (Clipboard.ContainsText())
+            try
             {
-                string clipboardText = Clipboard.GetText();
-
-                if(clipboardText.IsValidString())
+                //check if there is text in the clipboard that might be used as prefix / suffix string
+                if (Clipboard.ContainsText())
                 {
-                    string prefixString = clipboardText;
-                    string suffixString = "";
+                    string clipboardText = Clipboard.GetText();
 
-                    if(clipboardText.Contains('.'))
+                    if (clipboardText.IsValidString())
                     {
-                        int dotIndex = clipboardText.LastIndexOf('.');
+                        string prefixString = clipboardText;
+                        string suffixString = "";
 
-                        prefixString = clipboardText.Remove(dotIndex);
-                        suffixString = clipboardText.Remove(0, dotIndex);
-
-                        if(prefixString.GetTrailingNumber(out int number, out int lastDigitIndex))
+                        if (clipboardText.Contains('.'))
                         {
-                            prefixString = prefixString.Remove(lastDigitIndex);
-                            nUD_StartNumber.Value = number;
-                            nUD_EndNumber.Value = number + 1;
-                        }
-                    }
+                            int dotIndex = clipboardText.LastIndexOf('.');
 
-                    tB_UrlPrefix.Text = prefixString;
-                    TB_UrlSuffix.Text = suffixString;
+                            prefixString = clipboardText.Remove(dotIndex);
+                            suffixString = clipboardText.Remove(0, dotIndex);
+
+                            if (prefixString.GetTrailingNumber(out int number, out int lastDigitIndex))
+                            {
+                                prefixString = prefixString.Remove(lastDigitIndex);
+                                nUD_StartNumber.Value = number;
+                                nUD_EndNumber.Value = number + 1;
+                            }
+                        }
+
+                        tB_UrlPrefix.Text = prefixString;
+                        TB_UrlSuffix.Text = suffixString;
+                    }
                 }
-            }                
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex.Message);
+            }            
         }
-        
+
         /// <summary>
         /// handles user click onto OK button
         /// </summary>
