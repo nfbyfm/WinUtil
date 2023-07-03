@@ -32,11 +32,8 @@ namespace WinUtil
 
             Log.Information("Application started.");
 
-
             //parse the optional arguments
             ParseStartupArguments(args);
-
-
         }
 
         #region startup parameter functions
@@ -308,6 +305,9 @@ namespace WinUtil
                 if (!mainTabControl.TabPages.Contains(tabPageVideoEdit))
                     mainTabControl.TabPages.Add(tabPageVideoEdit);
             }
+
+            uC_AutoDownload.SettingsHaveChanged();
+            uC_Batchdownload.SettingsHaveChanged();
         }
         #endregion
     }

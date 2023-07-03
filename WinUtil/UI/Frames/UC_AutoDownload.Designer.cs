@@ -31,11 +31,11 @@
             tableLayoutPanel2 = new TableLayoutPanel();
             groupBox1 = new GroupBox();
             tableLayoutPanel3 = new TableLayoutPanel();
-            rB_SameFileNames = new RadioButton();
-            rB_CreateNewFileNames = new RadioButton();
             cB_OverWriteExistingFiles = new CheckBox();
             l_Suffix = new Label();
+            rB_CreateNewFileNames = new RadioButton();
             l_Prefix = new Label();
+            rB_SameFileNames = new RadioButton();
             tB_Suffix = new TextBox();
             tB_Prefix = new TextBox();
             groupBox2 = new GroupBox();
@@ -116,34 +116,6 @@
             tableLayoutPanel3.Size = new Size(487, 139);
             tableLayoutPanel3.TabIndex = 0;
             // 
-            // rB_SameFileNames
-            // 
-            rB_SameFileNames.AutoSize = true;
-            rB_SameFileNames.Checked = true;
-            tableLayoutPanel3.SetColumnSpan(rB_SameFileNames, 3);
-            rB_SameFileNames.Dock = DockStyle.Fill;
-            rB_SameFileNames.Location = new Point(3, 3);
-            rB_SameFileNames.Name = "rB_SameFileNames";
-            rB_SameFileNames.Size = new Size(481, 21);
-            rB_SameFileNames.TabIndex = 5;
-            rB_SameFileNames.TabStop = true;
-            rB_SameFileNames.Text = "use same file names";
-            rB_SameFileNames.UseVisualStyleBackColor = true;
-            rB_SameFileNames.CheckedChanged += FileNameOptionsChanged;
-            // 
-            // rB_CreateNewFileNames
-            // 
-            rB_CreateNewFileNames.AutoSize = true;
-            tableLayoutPanel3.SetColumnSpan(rB_CreateNewFileNames, 3);
-            rB_CreateNewFileNames.Dock = DockStyle.Fill;
-            rB_CreateNewFileNames.Location = new Point(3, 30);
-            rB_CreateNewFileNames.Name = "rB_CreateNewFileNames";
-            rB_CreateNewFileNames.Size = new Size(481, 21);
-            rB_CreateNewFileNames.TabIndex = 6;
-            rB_CreateNewFileNames.Text = "create new filenames";
-            rB_CreateNewFileNames.UseVisualStyleBackColor = true;
-            rB_CreateNewFileNames.CheckedChanged += FileNameOptionsChanged;
-            // 
             // cB_OverWriteExistingFiles
             // 
             cB_OverWriteExistingFiles.AutoSize = true;
@@ -167,6 +139,19 @@
             l_Suffix.Text = "suffix:";
             l_Suffix.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // rB_CreateNewFileNames
+            // 
+            rB_CreateNewFileNames.AutoSize = true;
+            tableLayoutPanel3.SetColumnSpan(rB_CreateNewFileNames, 3);
+            rB_CreateNewFileNames.Dock = DockStyle.Fill;
+            rB_CreateNewFileNames.Location = new Point(3, 30);
+            rB_CreateNewFileNames.Name = "rB_CreateNewFileNames";
+            rB_CreateNewFileNames.Size = new Size(481, 21);
+            rB_CreateNewFileNames.TabIndex = 6;
+            rB_CreateNewFileNames.Text = "create new filenames";
+            rB_CreateNewFileNames.UseVisualStyleBackColor = true;
+            rB_CreateNewFileNames.CheckedChanged += FileNameOptionsChanged;
+            // 
             // l_Prefix
             // 
             l_Prefix.AutoSize = true;
@@ -177,6 +162,21 @@
             l_Prefix.TabIndex = 7;
             l_Prefix.Text = "prefix:";
             l_Prefix.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // rB_SameFileNames
+            // 
+            rB_SameFileNames.AutoSize = true;
+            rB_SameFileNames.Checked = true;
+            tableLayoutPanel3.SetColumnSpan(rB_SameFileNames, 3);
+            rB_SameFileNames.Dock = DockStyle.Fill;
+            rB_SameFileNames.Location = new Point(3, 3);
+            rB_SameFileNames.Name = "rB_SameFileNames";
+            rB_SameFileNames.Size = new Size(481, 21);
+            rB_SameFileNames.TabIndex = 5;
+            rB_SameFileNames.TabStop = true;
+            rB_SameFileNames.Text = "use same file names";
+            rB_SameFileNames.UseVisualStyleBackColor = true;
+            rB_SameFileNames.CheckedChanged += FileNameOptionsChanged;
             // 
             // tB_Suffix
             // 
@@ -239,6 +239,7 @@
             // 
             // tB_DownloadDirectory
             // 
+            tB_DownloadDirectory.Dock = DockStyle.Fill;
             tB_DownloadDirectory.Location = new Point(143, 3);
             tB_DownloadDirectory.Name = "tB_DownloadDirectory";
             tB_DownloadDirectory.Size = new Size(256, 21);
@@ -252,7 +253,7 @@
             b_Select.TabIndex = 3;
             b_Select.Text = "select";
             b_Select.UseVisualStyleBackColor = true;
-            b_Select.Click += b_Select_Click;
+            b_Select.Click += Select_Click;
             // 
             // rB_URLBasedDirectory
             // 
@@ -298,7 +299,7 @@
             b_Start.TabIndex = 4;
             b_Start.Text = "monitor clipboard";
             b_Start.UseVisualStyleBackColor = true;
-            b_Start.Click += b_Start_Click;
+            b_Start.Click += Start_Click;
             // 
             // UC_AutoDownload
             // 

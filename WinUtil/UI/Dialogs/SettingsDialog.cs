@@ -1,4 +1,6 @@
-﻿namespace WinUtil.UI.Dialogs
+﻿using YACUF.Extensions;
+
+namespace WinUtil.UI.Dialogs
 {
     /// <summary>
     /// dialog for setting the application settings
@@ -32,6 +34,22 @@
                 tB_FFmpegPath.Text = oDi.FileName;
         }
 
+        /// <summary>
+        /// lets the user select the downlaod directory path
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SelectDownloadDirectory_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog oDi = new()
+            {
+                ShowNewFolderButton = true
+            };
+
+            if (oDi.ShowDialog() == DialogResult.OK)
+                tB_DownloadDirectory.Text = oDi.SelectedPath;
+        }
+
         private void Save_Click(object sender, EventArgs e)
         {
             SetSettingsFromUI();
@@ -56,6 +74,16 @@
         private void LoadFromSettings()
         {
             tB_FFmpegPath.Text = Properties.Settings.Default.ffmpegFilePath;
+            string downloadDirectory = Properties.Settings.Default.downloadDirectroyPath;
+
+            if (!downloadDirectory.IsValidString())
+            {
+                downloadDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                Properties.Settings.Default.downloadDirectroyPath = downloadDirectory;
+                Properties.Settings.Default.Save();
+            }
+
+            tB_DownloadDirectory.Text = downloadDirectory;
         }
 
         /// <summary>
@@ -64,6 +92,7 @@
         private void SetSettingsFromUI()
         {
             Properties.Settings.Default.ffmpegFilePath = tB_FFmpegPath.Text;
+            Properties.Settings.Default.downloadDirectroyPath = tB_DownloadDirectory.Text;
         }
 
         #endregion

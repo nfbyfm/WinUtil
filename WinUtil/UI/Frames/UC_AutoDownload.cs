@@ -18,6 +18,7 @@ namespace WinUtil.UI.Frames
 {
     public partial class UC_AutoDownload : UserControl
     {
+        #region private variables
         private bool muteRBFileName = false;
         private bool muteRBDirectoryPath = false;
         private bool clipboardSurveillanceActive = false;
@@ -30,6 +31,8 @@ namespace WinUtil.UI.Frames
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool RemoveClipboardFormatListener(IntPtr hwnd);
 
+        #endregion
+
         public UC_AutoDownload()
         {
             InitializeComponent();
@@ -38,6 +41,7 @@ namespace WinUtil.UI.Frames
             DownloadDirectoryOptionsChanged(this, EventArgs.Empty);
         }
 
+        #region ui event listener functions
         private void FileNameOptionsChanged(object sender, EventArgs e)
         {
             if (!muteRBFileName)
@@ -60,7 +64,7 @@ namespace WinUtil.UI.Frames
             }
         }
 
-        private void b_Select_Click(object sender, EventArgs e)
+        private void Select_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fDi = new()
             {
@@ -72,7 +76,7 @@ namespace WinUtil.UI.Frames
                 tB_DownloadDirectory.Text = fDi.SelectedPath;
         }
 
-        private void b_Start_Click(object sender, EventArgs e)
+        private void Start_Click(object sender, EventArgs e)
         {
             clipboardSurveillanceActive = !clipboardSurveillanceActive;
 
@@ -116,15 +120,7 @@ namespace WinUtil.UI.Frames
             }
         }
 
-        private string GetDefaultDownloadDirectoryPath()
-        {
-            string directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
-
-            if (!Directory.Exists(directoryPath))
-                directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-
-            return directoryPath;
-        }
+        #endregion
 
         #region clipboard monitoring functions
         private bool _clipboardSurveillanceActive = false;
@@ -198,6 +194,29 @@ namespace WinUtil.UI.Frames
 
         #endregion
 
+        #region settings functions
+        /// <summary>
+        /// reacts to changes in the application settings
+        /// </summary>
+        internal void SettingsHaveChanged()
+        {
+            tB_DownloadDirectory.Text = Properties.Settings.Default.downloadDirectroyPath;
+        }
+        #endregion
+
+        #region download functions
+        /// <summary>
+        /// generates the needed download file info object for the download
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="createDirectoryFromURL"></param>
+        /// <param name="directoryPath"></param>
+        /// <param name="createNewFileName"></param>
+        /// <param name="prefix"></param>
+        /// <param name="suffix"></param>
+        /// <param name="overWriteExistingFile"></param>
+        /// <param name="info"></param>
+        /// <returns></returns>
         private bool GenerateDownloadFileInfo(string url, bool createDirectoryFromURL, string directoryPath, bool createNewFileName, string prefix, string suffix, bool overWriteExistingFile, out DownloadFileInfo info)
         {
             bool success = false;
@@ -343,5 +362,16 @@ namespace WinUtil.UI.Frames
 
             return result;
         }
+
+        private string GetDefaultDownloadDirectoryPath()
+        {
+            string directoryPath = Properties.Settings.Default.downloadDirectroyPath;
+
+            if (!Directory.Exists(directoryPath))
+                directoryPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+            return directoryPath;
+        }
+        #endregion
     }
 }

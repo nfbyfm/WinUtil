@@ -40,6 +40,7 @@
             splitContainer1 = new SplitContainer();
             mainTabControl = new TabControl();
             tabPageAutoDownload = new TabPage();
+            uC_AutoDownload = new UI.Frames.UC_AutoDownload();
             tabPageBatchDownload = new TabPage();
             uC_Batchdownload = new UI.Frames.UC_Batchdownload();
             tabPageRename = new TabPage();
@@ -56,7 +57,6 @@
             uC_VideoCut = new UI.Frames.UC_VideoCut();
             groupBox1 = new GroupBox();
             outputRichTextBox = new RichTextBox();
-            uC_AutoDownload = new UI.Frames.UC_AutoDownload();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -109,19 +109,19 @@
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             aboutToolStripMenuItem.ShortcutKeys = Keys.F1;
-            aboutToolStripMenuItem.Size = new Size(112, 22);
+            aboutToolStripMenuItem.Size = new Size(180, 22);
             aboutToolStripMenuItem.Text = "&About";
             aboutToolStripMenuItem.Click += AboutToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(109, 6);
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
             // settingsToolStripMenuItem
             // 
             settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(112, 22);
+            settingsToolStripMenuItem.Size = new Size(180, 22);
             settingsToolStripMenuItem.Text = "&Settings";
             settingsToolStripMenuItem.Click += SettingsToolStripMenuItem_Click;
             // 
@@ -180,13 +180,21 @@
             tabPageAutoDownload.Text = "auto download";
             tabPageAutoDownload.UseVisualStyleBackColor = true;
             // 
+            // uC_AutoDownload
+            // 
+            uC_AutoDownload.Dock = DockStyle.Fill;
+            uC_AutoDownload.Location = new Point(3, 3);
+            uC_AutoDownload.Name = "uC_AutoDownload";
+            uC_AutoDownload.Size = new Size(682, 389);
+            uC_AutoDownload.TabIndex = 0;
+            // 
             // tabPageBatchDownload
             // 
             tabPageBatchDownload.Controls.Add(uC_Batchdownload);
             tabPageBatchDownload.Location = new Point(4, 21);
             tabPageBatchDownload.Name = "tabPageBatchDownload";
             tabPageBatchDownload.Padding = new Padding(3);
-            tabPageBatchDownload.Size = new Size(192, 75);
+            tabPageBatchDownload.Size = new Size(688, 395);
             tabPageBatchDownload.TabIndex = 3;
             tabPageBatchDownload.Text = "batch download files";
             tabPageBatchDownload.UseVisualStyleBackColor = true;
@@ -196,7 +204,7 @@
             uC_Batchdownload.Dock = DockStyle.Fill;
             uC_Batchdownload.Location = new Point(3, 3);
             uC_Batchdownload.Name = "uC_Batchdownload";
-            uC_Batchdownload.Size = new Size(186, 69);
+            uC_Batchdownload.Size = new Size(682, 389);
             uC_Batchdownload.TabIndex = 0;
             // 
             // tabPageRename
@@ -332,14 +340,6 @@
             outputRichTextBox.Size = new Size(690, 194);
             outputRichTextBox.TabIndex = 0;
             outputRichTextBox.Text = "";
-            // 
-            // uC_AutoDownload
-            // 
-            uC_AutoDownload.Dock = DockStyle.Fill;
-            uC_AutoDownload.Location = new Point(3, 3);
-            uC_AutoDownload.Name = "uC_AutoDownload";
-            uC_AutoDownload.Size = new Size(682, 389);
-            uC_AutoDownload.TabIndex = 0;
             // 
             // MainWindow
             // 

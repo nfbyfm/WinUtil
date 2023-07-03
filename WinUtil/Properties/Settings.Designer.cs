@@ -34,5 +34,17 @@ namespace WinUtil.Properties {
                 this["ffmpegFilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string downloadDirectroyPath {
+            get {
+                return ((string)(this["downloadDirectroyPath"]));
+            }
+            set {
+                this["downloadDirectroyPath"] = value;
+            }
+        }
     }
 }

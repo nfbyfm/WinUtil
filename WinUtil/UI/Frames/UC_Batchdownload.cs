@@ -29,6 +29,7 @@ namespace WinUtil.UI.Frames
             rTB_Urls.AllowDrop = true;
 
             NamingSettingsChanged(this, EventArgs.Empty);
+            SettingsHaveChanged();
         }
 
         #region internal setter functions
@@ -345,6 +346,16 @@ namespace WinUtil.UI.Frames
             }
         }
 
+        #endregion
+
+        #region settings functions
+        /// <summary>
+        /// reacts to changes in the application settings
+        /// </summary>
+        internal void SettingsHaveChanged()
+        {
+            tB_DownloadDirectory.Text = Properties.Settings.Default.downloadDirectroyPath;
+        }
         #endregion
 
         #region clipboard monitoring functions
