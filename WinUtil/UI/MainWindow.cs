@@ -11,6 +11,19 @@ namespace WinUtil
     /// </summary>
     public partial class MainWindow : Form
     {
+        #region private variables
+
+        private const int autoDownloadTabIndex = 0;
+        private const int batchDownloadTabIndex = 1;
+        private const int renameTabIndex = 2;
+        private const int moveFilesTabIndex = 3;
+        private const int mp3EditTabIndex = 4;
+        private const int directoryInfoTabIndex = 5;
+        private const int videoToAutdioTabIndex = 6;
+        private const int videoEditTabIndex = 7;
+
+        #endregion
+
         /// <summary>
         /// constructor of the main window of the application
         /// </summary>
@@ -67,7 +80,7 @@ namespace WinUtil
                 Log.Error($"Failed to process startup parameters: {ex.Message}");
             }
         }
-
+        
         /// <summary>
         /// handles single startup argument
         /// </summary>
@@ -77,7 +90,7 @@ namespace WinUtil
             if (argument.IsURL())
             {
                 uC_Batchdownload.AddURL(argument);
-                mainTabControl.SelectedIndex = 0;
+                mainTabControl.SelectedIndex = batchDownloadTabIndex;
             }
             else if (Directory.Exists(argument))
             {
@@ -86,7 +99,7 @@ namespace WinUtil
                 uC_Batchdownload.SetTargetDirectory(argument);
                 uC_MoveFiles.SetTargetDirectory(argument);
 
-                mainTabControl.SelectedIndex = 4;
+                mainTabControl.SelectedIndex = directoryInfoTabIndex;
             }
             else if (File.Exists(argument))
             {
@@ -96,7 +109,7 @@ namespace WinUtil
                         //load the first line of the text file -> then decide what to do with it
                         string firstLine;
 
-                        using (StreamReader reader = new StreamReader(argument))
+                        using (StreamReader reader = new(argument))
                         {
                             firstLine = reader.ReadLine() ?? "";
                         }
@@ -110,25 +123,25 @@ namespace WinUtil
                             else if (firstLine.EndsWith(".mp3"))
                             {
                                 uC_mP3TagEditor.LoadFromFile(argument);
-                                mainTabControl.SelectedIndex = 3;
+                                mainTabControl.SelectedIndex = mp3EditTabIndex;
                             }
                             else
                             {
                                 uC_MoveFiles.LoadFromFile(argument);
-                                mainTabControl.SelectedIndex = 2;
+                                mainTabControl.SelectedIndex = moveFilesTabIndex;
                             }
                         }
                         else
                         {
                             uC_MoveFiles.AddFilePath(argument);
-                            mainTabControl.SelectedIndex = 2;
+                            mainTabControl.SelectedIndex = moveFilesTabIndex;
                         }
                         break;
 
                     case YACUF.Models.BasicFileType.MP3:
 
                         uC_mP3TagEditor.AddFilePath(argument);
-                        mainTabControl.SelectedIndex = 3;
+                        mainTabControl.SelectedIndex = mp3EditTabIndex;
                         break;
 
                     case YACUF.Models.BasicFileType.Video:
@@ -138,26 +151,27 @@ namespace WinUtil
                             //add to video convert and video edit usercontrols
                             uC_VideoToAudio.SetSourceFile(argument);
                             uC_VideoCut.SetSourceFile(argument);
-                            mainTabControl.SelectedIndex = 5;
+                            mainTabControl.SelectedIndex = videoToAutdioTabIndex;
                         }
                         else
                         {
                             //add to move 
                             uC_MoveFiles.AddFilePath(argument);
-                            mainTabControl.SelectedIndex = 2;
+                            mainTabControl.SelectedIndex = moveFilesTabIndex;
                         }
                         break;
                     default:
 
                         //unknown -> add to move
                         uC_MoveFiles.AddFilePath(argument);
-                        mainTabControl.SelectedIndex = 2;
+                        mainTabControl.SelectedIndex = moveFilesTabIndex;
                         break;
                 }
             }
             else
             {
                 Log.Debug($"Got startup parameter ({argument}) but can't find any use for it.");
+                mainTabControl.SelectedIndex = autoDownloadTabIndex;
             }
         }
 
