@@ -224,6 +224,14 @@ namespace WinUtil.UI.Frames
                     List<DownloadFileInfo> dataList = new();
                     int maxDigits = elemCount.Digits();
 
+                    int startIndex = -1;
+                    if (createNewFileName)
+                    {
+                        startIndex = FileHandlingUtil.GetFileNumberStartIndex(targetDirectory, prefix, suffix);
+                        maxDigits = (elemCount + startIndex).Digits();
+                    }
+
+
                     for (int i = 0; i < elemCount; i++)
                     {
                         string filePath = urls[i].Remove(0, urls[i].LastIndexOf(@"/") + 1);
@@ -246,9 +254,9 @@ namespace WinUtil.UI.Frames
                                     "pdf",
                                     "html", "htm", "php"};
 
-                                foreach(string ext in extensionList)
+                                foreach (string ext in extensionList)
                                 {
-                                    if(filePath.Contains(ext))
+                                    if (filePath.Contains(ext))
                                     {
                                         fileExtension = "." + ext;
                                         break;
@@ -256,7 +264,8 @@ namespace WinUtil.UI.Frames
                                 }
                             }
 
-                            filePath = prefix + i.ToString("D" + maxDigits.ToString()) + suffix + fileExtension;
+                            filePath = prefix + (startIndex+i).ToString("D" + maxDigits.ToString()) + suffix + fileExtension;
+
                         }
 
                         filePath = Path.Combine(targetDirectory, filePath);

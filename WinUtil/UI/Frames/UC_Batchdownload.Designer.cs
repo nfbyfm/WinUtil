@@ -221,7 +221,7 @@
             rB_CreateNewFileNames.Name = "rB_CreateNewFileNames";
             rB_CreateNewFileNames.Size = new Size(437, 21);
             rB_CreateNewFileNames.TabIndex = 6;
-            rB_CreateNewFileNames.Text = "create new filenames";
+            rB_CreateNewFileNames.Text = "create new file names";
             rB_CreateNewFileNames.UseVisualStyleBackColor = true;
             rB_CreateNewFileNames.CheckedChanged += NamingSettingsChanged;
             // 

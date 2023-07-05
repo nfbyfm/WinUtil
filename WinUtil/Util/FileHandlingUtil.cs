@@ -234,5 +234,68 @@ namespace WinUtil.Util
         }
 
         #endregion
+
+        /// <summary>
+        /// searches through a directory, checks for files whose names begin and end with specified string and then searches for the maximum number occuring in the found filenames
+        /// </summary>
+        /// <param name="fileOrDirectoryPath">path of the directory or file path whose directory to search through</param>
+        /// <param name="fileNamePrefix">the start of the file names</param>
+        /// <param name="fileNameSuffix">the end of the file names</param>
+        /// <returns>maximum number found in file names plus one</returns>
+        public static int GetFileNumberStartIndex(string? fileOrDirectoryPath, string fileNamePrefix, string fileNameSuffix)
+        {
+            int startIndex = 0;
+
+            if (fileOrDirectoryPath.IsValidString())
+            {
+                string? directoryPath = null;
+
+                if (File.Exists(fileOrDirectoryPath))
+                {
+                    directoryPath = Path.GetDirectoryName(fileOrDirectoryPath);
+
+                    if (directoryPath == null)
+                    {
+                        Log.Error($"Failed to get directory path from file path '{fileOrDirectoryPath}'.");
+                        return 0;
+                    }
+                }
+                else if (Directory.Exists(fileOrDirectoryPath))
+                    directoryPath = fileOrDirectoryPath;
+
+                if (directoryPath.IsValidString())
+                {
+                    List<string> existingFiles = Directory.GetFiles(directoryPath).ToList();
+
+                    if (existingFiles.Count > 0)
+                    {
+                        int foundIndex = -1;
+
+                        foreach (string filePath in existingFiles)
+                        {
+                            string fileName = Path.GetFileNameWithoutExtension(filePath);
+                            if (fileName.StartsWith(fileNamePrefix) && fileName.EndsWith(fileNameSuffix))
+                            {
+                                string possibleFileIndex = fileName;
+
+                                if (fileNamePrefix.IsValidString())
+                                    possibleFileIndex = possibleFileIndex.Replace(fileNamePrefix, "");
+
+                                if (fileNameSuffix.IsValidString())
+                                    possibleFileIndex = possibleFileIndex.Replace(fileNameSuffix, "");
+
+                                if (int.TryParse(possibleFileIndex, out int number))
+                                {
+                                    foundIndex = Math.Max(foundIndex, number);
+                                }
+                            }
+                        }
+
+                        startIndex = foundIndex + 1;
+                    }
+                }
+            }
+            return startIndex;
+        }
     }
 }

@@ -123,7 +123,6 @@ namespace WinUtil.UI.Frames
         #endregion
 
         #region clipboard monitoring functions
-        private bool _clipboardSurveillanceActive = false;
         private string prevClipboardString = "";
         private const int WM_CLIPBOARDUPDATE = 0x031D;
 
@@ -175,7 +174,12 @@ namespace WinUtil.UI.Frames
             foreach (string singleUrl in urlList)
             {
                 if (GenerateDownloadFileInfo(singleUrl, createDirectoryFromURL, directoryPath, createNewFileName, prefix, suffix, overWriteExistingFile, out DownloadFileInfo info))
+                {
                     dataList.Add(info);
+                    Log.Information($"Added '{info.URL}' to download list.");
+                }
+                else
+                    Log.Information($"Couldn't create download information for '{singleUrl}'.");
             }
 
             if (dataList.Count > 0)
@@ -183,6 +187,7 @@ namespace WinUtil.UI.Frames
                 //acutally download files
                 try
                 {
+                    Log.Debug($"Starting download of {dataList.Count} file(-s).");
                     Task.Run(async () => await DownloadUtil.DownloadUrlsAsync(dataList, parallelDownloads));
                 }
                 catch (Exception ex)
@@ -220,6 +225,9 @@ namespace WinUtil.UI.Frames
         private bool GenerateDownloadFileInfo(string url, bool createDirectoryFromURL, string directoryPath, bool createNewFileName, string prefix, string suffix, bool overWriteExistingFile, out DownloadFileInfo info)
         {
             bool success = false;
+            if (url.Contains('?'))
+                url = url.Remove(url.LastIndexOf('?'));
+
             info = new(url, "");
 
             //check / create download directory
@@ -296,6 +304,9 @@ namespace WinUtil.UI.Frames
             {
                 //check / create file path
                 string filePath = url.Remove(0, url.LastIndexOf(@"/") + 1);
+
+                if(filePath.Contains('?'))
+                    filePath = filePath.Remove(filePath.IndexOf('?'));                
 
                 if (createNewFileName)
                 {

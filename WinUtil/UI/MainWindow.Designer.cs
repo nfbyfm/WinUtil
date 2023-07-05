@@ -1,4 +1,6 @@
-﻿namespace WinUtil
+﻿using WinUtil.UI.Frames;
+
+namespace WinUtil
 {
     partial class MainWindow
     {
@@ -55,6 +57,8 @@
             uC_VideoToAudio = new UI.Frames.UC_VideoToAudio();
             tabPageVideoEdit = new TabPage();
             uC_VideoCut = new UI.Frames.UC_VideoCut();
+            tabPageWebPConvert = new TabPage();
+            uC_WebPConvert = new UI.Frames.UC_WebPConvert();
             groupBox1 = new GroupBox();
             outputRichTextBox = new RichTextBox();
             menuStrip1.SuspendLayout();
@@ -71,6 +75,7 @@
             tabPageDirectoryInfo.SuspendLayout();
             tabPageVideoAudioConvert.SuspendLayout();
             tabPageVideoEdit.SuspendLayout();
+            tabPageWebPConvert.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -161,6 +166,7 @@
             mainTabControl.Controls.Add(tabPageDirectoryInfo);
             mainTabControl.Controls.Add(tabPageVideoAudioConvert);
             mainTabControl.Controls.Add(tabPageVideoEdit);
+            mainTabControl.Controls.Add(tabPageWebPConvert);
             mainTabControl.Dock = DockStyle.Fill;
             mainTabControl.Location = new Point(0, 0);
             mainTabControl.Multiline = true;
@@ -313,6 +319,17 @@
             tabPageVideoEdit.Text = "video edit";
             tabPageVideoEdit.UseVisualStyleBackColor = true;
             // 
+            // tabPageWebPConvert
+            // 
+            tabPageWebPConvert.Controls.Add(uC_WebPConvert);
+            tabPageWebPConvert.Location = new Point(4, 72);
+            tabPageWebPConvert.Name = "tabPageWebPConvert";
+            tabPageWebPConvert.Padding = new Padding(3);
+            tabPageWebPConvert.Size = new Size(192, 24);
+            tabPageWebPConvert.TabIndex = 2;
+            tabPageWebPConvert.Text = "WebP convert";
+            tabPageWebPConvert.UseVisualStyleBackColor = true;
+            // 
             // uC_VideoCut
             // 
             uC_VideoCut.Dock = DockStyle.Fill;
@@ -320,6 +337,14 @@
             uC_VideoCut.Name = "uC_VideoCut";
             uC_VideoCut.Size = new Size(186, 18);
             uC_VideoCut.TabIndex = 0;
+            // 
+            // uC_WebPConvert
+            // 
+            uC_WebPConvert.Dock = DockStyle.Fill;
+            uC_WebPConvert.Location = new Point(3, 3);
+            uC_WebPConvert.Name = "uC_WebPConvert";
+            uC_WebPConvert.Size = new Size(186, 18);
+            uC_WebPConvert.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -368,6 +393,7 @@
             tabPageDirectoryInfo.ResumeLayout(false);
             tabPageVideoAudioConvert.ResumeLayout(false);
             tabPageVideoEdit.ResumeLayout(false);
+            tabPageWebPConvert.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -388,6 +414,7 @@
         private TabPage tabPageMP3Tag;
         private TabPage tabPageVideoAudioConvert;
         private TabPage tabPageVideoEdit;
+        private TabPage tabPageWebPConvert;
         private UI.Frames.UC_Batchdownload uC_Batchdownload;
         private UI.Frames.UC_Rename uC_RenameFiles;
         private TabPage tabPageDirectoryInfo;
@@ -403,5 +430,6 @@
         private UI.Frames.UC_VideoToAudio uC_VideoToAudio;
         private UI.Frames.UC_VideoCut uC_VideoCut;
         private UI.Frames.UC_AutoDownload uC_AutoDownload;
+        private UI.Frames.UC_WebPConvert uC_WebPConvert;
     }
 }

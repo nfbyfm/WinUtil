@@ -21,6 +21,7 @@ namespace WinUtil
         private const int directoryInfoTabIndex = 5;
         private const int videoToAutdioTabIndex = 6;
         private const int videoEditTabIndex = 7;
+        private const int webPConvertTabIndex = 8;
 
         #endregion
 
@@ -310,6 +311,7 @@ namespace WinUtil
             {
                 mainTabControl.TabPages.Remove(tabPageVideoAudioConvert);
                 mainTabControl.TabPages.Remove(tabPageVideoEdit);
+                mainTabControl.TabPages.Remove(tabPageWebPConvert);
             }
             else
             {
@@ -318,6 +320,9 @@ namespace WinUtil
 
                 if (!mainTabControl.TabPages.Contains(tabPageVideoEdit))
                     mainTabControl.TabPages.Add(tabPageVideoEdit);
+
+                if(!mainTabControl.TabPages.Contains(tabPageWebPConvert))
+                    mainTabControl.TabPages.Add(tabPageWebPConvert);
             }
 
             uC_AutoDownload.SettingsHaveChanged();

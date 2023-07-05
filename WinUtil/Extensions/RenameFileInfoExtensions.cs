@@ -1,4 +1,5 @@
 ﻿using WinUtil.Model;
+using WinUtil.Util;
 using YACUF.Extensions;
 
 namespace WinUtil.Extensions
@@ -38,7 +39,7 @@ namespace WinUtil.Extensions
         {
             bool searchTextFound = false;
 
-            if (dataList != null && dataList.HasElements(out int elemCount) && searchText.IsValidString() && replacementText!=null)
+            if (dataList.HasElements(out int elemCount) && searchText.IsValidString() && replacementText!=null)
             {
                 for (int i = 0; i < elemCount; i++)
                 {
@@ -66,6 +67,52 @@ namespace WinUtil.Extensions
             }
 
             return searchTextFound;
+        }
+
+        /// <summary>
+        /// creates new file names for the current list of files
+        /// </summary>
+        /// <param name="dataList"></param>
+        /// <param name="prefix"></param>
+        /// <param name="suffix"></param>
+        /// <param name="sortCriteria"></param>
+        public static void CreateNewFileNames(this List<RenameFileInfo>? dataList, string prefix, string suffix,  OrderFileListByCriteria sortCriteria)
+        {
+            if(dataList.HasElements(out int fileCount))
+            {
+                List<string> filePaths = dataList.Select(x => x.SourecFilePath).ToList();
+
+                switch (sortCriteria)
+                {
+                    case OrderFileListByCriteria.CreationDate:
+                        filePaths = filePaths.OrderBy(x => (new FileInfo(x)).CreationTime).ToList();
+                        break;
+                    case OrderFileListByCriteria.ChangeDate:
+                        filePaths = filePaths.OrderBy(x => (new FileInfo(x)).LastWriteTime).ToList();
+                        break;
+                    case OrderFileListByCriteria.FileName:
+                    default:
+                        filePaths = filePaths.OrderBy(x => x).ToList();
+                        break;
+                }
+
+                dataList.Clear();
+
+                int startIndex = FileHandlingUtil.GetFileNumberStartIndex(filePaths[0], prefix, suffix);
+                int maxDigits = (filePaths.Count + startIndex).Digits();
+
+                for (int i=0;i< filePaths.Count; i++)
+                {                    
+                    string? directory = Path.GetDirectoryName(filePaths[i]);
+                    string extension = Path.GetExtension(filePaths[i]);
+
+                    if(directory.IsValidString())
+                    {
+                        string targetFilePath = Path.Combine(directory, prefix + (startIndex + i).ToString("D" + maxDigits.ToString()) + suffix + extension);
+                        dataList.Add(new(filePaths[i], targetFilePath));
+                    }                    
+                }
+            }
         }
     }
 }

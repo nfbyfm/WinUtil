@@ -24,6 +24,7 @@ A short overview of the functions:
 | [directory info](#directory-info) | shows size and structure of a given directory |
 | [video to audio](#video-to-audio) | converts (a section) of a video into a audio file |
 | [video edit](#video-edit) | cuts and or rotates a given video file |
+| [WebP convert](#webp-convert) | converts webp files into another format}|
 
 The last two functions require for you to have a copy of ffmpeg ([download here](https://ffmpeg.org/download.html)) and have set the path to the executable file in the settings of WinUtil.
 
@@ -87,3 +88,11 @@ The last two functions require for you to have a copy of ffmpeg ([download here]
   ![printscreen edit video](doc/EditVideo.jpg)
   
   Just like the 'video to audio', this a very simple front end for only a tiny part of the functionality of ffmpeg.
+
+  ## WebP convert
+
+  This allows you to convert multiple WebP files into another (image) format.
+
+  ![printscreen web convert](doc/WebPConvert.jpg)
+
+  This requires the path to the ffmpeg executable to be set in the settings.

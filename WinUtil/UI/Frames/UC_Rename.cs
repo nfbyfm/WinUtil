@@ -10,6 +10,11 @@ namespace WinUtil.UI.Frames
     public partial class UC_Rename : UserControl
     {
         /// <summary>
+        /// helper variable for muting 
+        /// </summary>
+        private bool muteOptionsChange = false;
+
+        /// <summary>
         /// Constructor for usercontrol for renaming many files in a directory
         /// </summary>
         public UC_Rename()
@@ -17,6 +22,7 @@ namespace WinUtil.UI.Frames
             InitializeComponent();
 
             OperationOptionsChanged(this, EventArgs.Empty);
+            cB_OrderByRenaming.SelectedIndex = 0;
         }
 
         #region internal setter functions
@@ -91,19 +97,48 @@ namespace WinUtil.UI.Frames
         /// <param name="e"></param>
         private void OperationOptionsChanged(object sender, EventArgs e)
         {
-            bool removeText = cB_RemoveText.Checked;
+            if (!muteOptionsChange)
+            {
+                muteOptionsChange = true;
 
-            l_RemoveText.Enabled = removeText;
-            tB_RemovalText.Enabled = removeText;
+                if (sender == cB_RemoveText || sender == cB_ReplaceText)
+                {
+                    if ((cB_ReplaceText.Checked || cB_RemoveText.Checked) && cB_CreateNewFileNames.Checked)
+                        cB_CreateNewFileNames.Checked = false;
+                }
+                else if (sender == cB_CreateNewFileNames)
+                {
+                    if ((cB_ReplaceText.Checked || cB_RemoveText.Checked) && cB_CreateNewFileNames.Checked)
+                    {
+                        cB_ReplaceText.Checked = false;
+                        cB_RemoveText.Checked = false;
+                    }
+                }
 
-            bool replaceText = cB_ReplaceText.Checked;
+                bool createNewFileNames = cB_CreateNewFileNames.Checked;
+                bool removeText = cB_RemoveText.Checked;
 
-            l_ReplaceReplacement.Enabled = replaceText;
-            l_ReplaceSearchText.Enabled = replaceText;
-            tB_ReplaceSearchText.Enabled = replaceText;
-            tB_ReplaceReplacementText.Enabled = replaceText;
+                l_RemoveText.Enabled = removeText;
+                tB_RemovalText.Enabled = removeText;
 
-            b_Start.Enabled = (removeText || replaceText);
+                bool replaceText = cB_ReplaceText.Checked;
+
+                l_ReplaceReplacement.Enabled = replaceText;
+                l_ReplaceSearchText.Enabled = replaceText;
+                tB_ReplaceSearchText.Enabled = replaceText;
+                tB_ReplaceReplacementText.Enabled = replaceText;
+
+                b_Start.Enabled = (removeText || replaceText || createNewFileNames);
+
+                l_Prefix.Enabled = createNewFileNames;
+                l_Suffix.Enabled = createNewFileNames;
+                l_OrderBy.Enabled = createNewFileNames;
+                cB_OrderByRenaming.Enabled = createNewFileNames;
+                tB_Prefix.Enabled = createNewFileNames;
+                tB_Suffix.Enabled = createNewFileNames;
+
+                muteOptionsChange = false;
+            }
         }
 
         /// <summary>
@@ -130,6 +165,27 @@ namespace WinUtil.UI.Frames
                 if (cB_ReplaceText.Checked)
                     if (dataList.ReplaceText(tB_ReplaceSearchText.Text, tB_ReplaceReplacementText.Text))
                         neededChangeDetected = true;
+
+                //create new file names
+                if (cB_CreateNewFileNames.Checked)
+                {
+                    neededChangeDetected = true;
+                    OrderFileListByCriteria sortCriteria;
+                    switch (cB_OrderByRenaming.SelectedIndex)
+                    {
+                        case 1:
+                            sortCriteria = OrderFileListByCriteria.CreationDate;
+                            break;
+                        case 2:
+                            sortCriteria = OrderFileListByCriteria.ChangeDate;
+                            break;
+                        default:
+                            sortCriteria = OrderFileListByCriteria.FileName;
+                            break;
+                    }
+
+                    dataList.CreateNewFileNames(tB_Prefix.Text, tB_Suffix.Text, sortCriteria);
+                }
 
                 if (neededChangeDetected)
                 {
