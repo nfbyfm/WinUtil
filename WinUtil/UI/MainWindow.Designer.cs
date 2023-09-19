@@ -42,23 +42,25 @@ namespace WinUtil
             splitContainer1 = new SplitContainer();
             mainTabControl = new TabControl();
             tabPageAutoDownload = new TabPage();
-            uC_AutoDownload = new UI.Frames.UC_AutoDownload();
+            uC_AutoDownload = new UC_AutoDownload();
             tabPageBatchDownload = new TabPage();
-            uC_Batchdownload = new UI.Frames.UC_Batchdownload();
+            uC_Batchdownload = new UC_Batchdownload();
             tabPageRename = new TabPage();
-            uC_RenameFiles = new UI.Frames.UC_Rename();
+            uC_RenameFiles = new UC_Rename();
             tabPageMove = new TabPage();
-            uC_MoveFiles = new UI.Frames.UC_Move();
+            uC_MoveFiles = new UC_Move();
             tabPageMP3Tag = new TabPage();
-            uC_mP3TagEditor = new UI.Frames.UC_MP3TagEditor();
+            uC_mP3TagEditor = new UC_MP3TagEditor();
             tabPageDirectoryInfo = new TabPage();
-            uC_DirectoryInfo = new UI.Frames.UC_DirectoryInfo();
+            uC_DirectoryInfo = new UC_DirectoryInfo();
             tabPageVideoAudioConvert = new TabPage();
-            uC_VideoToAudio = new UI.Frames.UC_VideoToAudio();
+            uC_VideoToAudio = new UC_VideoToAudio();
             tabPageVideoEdit = new TabPage();
-            uC_VideoCut = new UI.Frames.UC_VideoCut();
+            uC_VideoCut = new UC_VideoCut();
             tabPageWebPConvert = new TabPage();
-            uC_WebPConvert = new UI.Frames.UC_WebPConvert();
+            uC_WebPConvert = new UC_WebPConvert();
+            tabPageImageResize = new TabPage();
+            uC_ImageResize = new UC_ImageResize();
             groupBox1 = new GroupBox();
             outputRichTextBox = new RichTextBox();
             menuStrip1.SuspendLayout();
@@ -76,6 +78,7 @@ namespace WinUtil
             tabPageVideoAudioConvert.SuspendLayout();
             tabPageVideoEdit.SuspendLayout();
             tabPageWebPConvert.SuspendLayout();
+            tabPageImageResize.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -84,7 +87,7 @@ namespace WinUtil
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, extrasToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(696, 24);
+            menuStrip1.Size = new Size(803, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -114,19 +117,19 @@ namespace WinUtil
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             aboutToolStripMenuItem.ShortcutKeys = Keys.F1;
-            aboutToolStripMenuItem.Size = new Size(180, 22);
+            aboutToolStripMenuItem.Size = new Size(112, 22);
             aboutToolStripMenuItem.Text = "&About";
             aboutToolStripMenuItem.Click += AboutToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(109, 6);
             // 
             // settingsToolStripMenuItem
             // 
             settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(180, 22);
+            settingsToolStripMenuItem.Size = new Size(112, 22);
             settingsToolStripMenuItem.Text = "&Settings";
             settingsToolStripMenuItem.Click += SettingsToolStripMenuItem_Click;
             // 
@@ -134,7 +137,7 @@ namespace WinUtil
             // 
             statusStrip1.Location = new Point(0, 662);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(696, 22);
+            statusStrip1.Size = new Size(803, 22);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -152,7 +155,7 @@ namespace WinUtil
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(groupBox1);
-            splitContainer1.Size = new Size(696, 638);
+            splitContainer1.Size = new Size(803, 638);
             splitContainer1.SplitterDistance = 420;
             splitContainer1.TabIndex = 2;
             // 
@@ -167,21 +170,22 @@ namespace WinUtil
             mainTabControl.Controls.Add(tabPageVideoAudioConvert);
             mainTabControl.Controls.Add(tabPageVideoEdit);
             mainTabControl.Controls.Add(tabPageWebPConvert);
+            mainTabControl.Controls.Add(tabPageImageResize);
             mainTabControl.Dock = DockStyle.Fill;
             mainTabControl.Location = new Point(0, 0);
             mainTabControl.Multiline = true;
             mainTabControl.Name = "mainTabControl";
             mainTabControl.SelectedIndex = 0;
-            mainTabControl.Size = new Size(696, 420);
+            mainTabControl.Size = new Size(803, 420);
             mainTabControl.TabIndex = 0;
             // 
             // tabPageAutoDownload
             // 
             tabPageAutoDownload.Controls.Add(uC_AutoDownload);
-            tabPageAutoDownload.Location = new Point(4, 21);
+            tabPageAutoDownload.Location = new Point(4, 38);
             tabPageAutoDownload.Name = "tabPageAutoDownload";
             tabPageAutoDownload.Padding = new Padding(3);
-            tabPageAutoDownload.Size = new Size(688, 395);
+            tabPageAutoDownload.Size = new Size(688, 378);
             tabPageAutoDownload.TabIndex = 3;
             tabPageAutoDownload.Text = "auto download";
             tabPageAutoDownload.UseVisualStyleBackColor = true;
@@ -191,7 +195,7 @@ namespace WinUtil
             uC_AutoDownload.Dock = DockStyle.Fill;
             uC_AutoDownload.Location = new Point(3, 3);
             uC_AutoDownload.Name = "uC_AutoDownload";
-            uC_AutoDownload.Size = new Size(682, 389);
+            uC_AutoDownload.Size = new Size(682, 372);
             uC_AutoDownload.TabIndex = 0;
             // 
             // tabPageBatchDownload
@@ -200,7 +204,7 @@ namespace WinUtil
             tabPageBatchDownload.Location = new Point(4, 21);
             tabPageBatchDownload.Name = "tabPageBatchDownload";
             tabPageBatchDownload.Padding = new Padding(3);
-            tabPageBatchDownload.Size = new Size(688, 395);
+            tabPageBatchDownload.Size = new Size(192, 75);
             tabPageBatchDownload.TabIndex = 3;
             tabPageBatchDownload.Text = "batch download files";
             tabPageBatchDownload.UseVisualStyleBackColor = true;
@@ -210,7 +214,7 @@ namespace WinUtil
             uC_Batchdownload.Dock = DockStyle.Fill;
             uC_Batchdownload.Location = new Point(3, 3);
             uC_Batchdownload.Name = "uC_Batchdownload";
-            uC_Batchdownload.Size = new Size(682, 389);
+            uC_Batchdownload.Size = new Size(186, 69);
             uC_Batchdownload.TabIndex = 0;
             // 
             // tabPageRename
@@ -319,6 +323,14 @@ namespace WinUtil
             tabPageVideoEdit.Text = "video edit";
             tabPageVideoEdit.UseVisualStyleBackColor = true;
             // 
+            // uC_VideoCut
+            // 
+            uC_VideoCut.Dock = DockStyle.Fill;
+            uC_VideoCut.Location = new Point(3, 3);
+            uC_VideoCut.Name = "uC_VideoCut";
+            uC_VideoCut.Size = new Size(186, 18);
+            uC_VideoCut.TabIndex = 0;
+            // 
             // tabPageWebPConvert
             // 
             tabPageWebPConvert.Controls.Add(uC_WebPConvert);
@@ -330,14 +342,6 @@ namespace WinUtil
             tabPageWebPConvert.Text = "WebP convert";
             tabPageWebPConvert.UseVisualStyleBackColor = true;
             // 
-            // uC_VideoCut
-            // 
-            uC_VideoCut.Dock = DockStyle.Fill;
-            uC_VideoCut.Location = new Point(3, 3);
-            uC_VideoCut.Name = "uC_VideoCut";
-            uC_VideoCut.Size = new Size(186, 18);
-            uC_VideoCut.TabIndex = 0;
-            // 
             // uC_WebPConvert
             // 
             uC_WebPConvert.Dock = DockStyle.Fill;
@@ -346,13 +350,32 @@ namespace WinUtil
             uC_WebPConvert.Size = new Size(186, 18);
             uC_WebPConvert.TabIndex = 0;
             // 
+            // tabPageImageResize
+            // 
+            tabPageImageResize.Controls.Add(uC_ImageResize);
+            tabPageImageResize.Location = new Point(4, 21);
+            tabPageImageResize.Name = "tabPageImageResize";
+            tabPageImageResize.Padding = new Padding(3);
+            tabPageImageResize.Size = new Size(795, 395);
+            tabPageImageResize.TabIndex = 2;
+            tabPageImageResize.Text = "image resize";
+            tabPageImageResize.UseVisualStyleBackColor = true;
+            // 
+            // uC_ImageResize
+            // 
+            uC_ImageResize.Dock = DockStyle.Fill;
+            uC_ImageResize.Location = new Point(3, 3);
+            uC_ImageResize.Name = "uC_ImageResize";
+            uC_ImageResize.Size = new Size(789, 389);
+            uC_ImageResize.TabIndex = 0;
+            // 
             // groupBox1
             // 
             groupBox1.Controls.Add(outputRichTextBox);
             groupBox1.Dock = DockStyle.Fill;
             groupBox1.Location = new Point(0, 0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(696, 214);
+            groupBox1.Size = new Size(803, 214);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Ouput";
@@ -362,7 +385,7 @@ namespace WinUtil
             outputRichTextBox.Dock = DockStyle.Fill;
             outputRichTextBox.Location = new Point(3, 17);
             outputRichTextBox.Name = "outputRichTextBox";
-            outputRichTextBox.Size = new Size(690, 194);
+            outputRichTextBox.Size = new Size(797, 194);
             outputRichTextBox.TabIndex = 0;
             outputRichTextBox.Text = "";
             // 
@@ -370,7 +393,7 @@ namespace WinUtil
             // 
             AutoScaleDimensions = new SizeF(6F, 12F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(696, 684);
+            ClientSize = new Size(803, 684);
             Controls.Add(splitContainer1);
             Controls.Add(statusStrip1);
             Controls.Add(menuStrip1);
@@ -394,6 +417,7 @@ namespace WinUtil
             tabPageVideoAudioConvert.ResumeLayout(false);
             tabPageVideoEdit.ResumeLayout(false);
             tabPageWebPConvert.ResumeLayout(false);
+            tabPageImageResize.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -415,6 +439,7 @@ namespace WinUtil
         private TabPage tabPageVideoAudioConvert;
         private TabPage tabPageVideoEdit;
         private TabPage tabPageWebPConvert;
+        private TabPage tabPageImageResize;
         private UI.Frames.UC_Batchdownload uC_Batchdownload;
         private UI.Frames.UC_Rename uC_RenameFiles;
         private TabPage tabPageDirectoryInfo;
@@ -431,5 +456,6 @@ namespace WinUtil
         private UI.Frames.UC_VideoCut uC_VideoCut;
         private UI.Frames.UC_AutoDownload uC_AutoDownload;
         private UI.Frames.UC_WebPConvert uC_WebPConvert;
+        private UI.Frames.UC_ImageResize uC_ImageResize;
     }
 }

@@ -32,7 +32,7 @@ namespace WinUtil.UI.Frames
 
         private void FilesFromDialog_Click(object sender, EventArgs e)
         {
-            rTB_FileList.SetFileListViaFileDialog("Select webp files", "webp file|*.webp");
+            rTB_FileList.SetFileListViaFileDialog("Select webp files", "webp file|*.webp|avif files|*.avif");
         }
 
         private void FilesFromDirectory_Click(object sender, EventArgs e)

@@ -81,7 +81,7 @@ namespace WinUtil
                 Log.Error($"Failed to process startup parameters: {ex.Message}");
             }
         }
-        
+
         /// <summary>
         /// handles single startup argument
         /// </summary>
@@ -321,7 +321,7 @@ namespace WinUtil
                 if (!mainTabControl.TabPages.Contains(tabPageVideoEdit))
                     mainTabControl.TabPages.Add(tabPageVideoEdit);
 
-                if(!mainTabControl.TabPages.Contains(tabPageWebPConvert))
+                if (!mainTabControl.TabPages.Contains(tabPageWebPConvert))
                     mainTabControl.TabPages.Add(tabPageWebPConvert);
             }
 
