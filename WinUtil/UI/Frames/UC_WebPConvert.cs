@@ -37,7 +37,7 @@ namespace WinUtil.UI.Frames
 
         private void FilesFromDirectory_Click(object sender, EventArgs e)
         {
-            rTB_FileList.SetFileListFromDirectorySimple("*.webp");
+            rTB_FileList.SetFileListFromDirectorySimple("*.webp;*.avif");
         }
 
         private void FilesFromClipboard_Click(object sender, EventArgs e)

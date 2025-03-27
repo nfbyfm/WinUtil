@@ -210,7 +210,7 @@ namespace WinUtil.UI.Frames
         {
             OpenFileDialog oDi = new()
             {
-                Filter = "video file|*.mp4;*.mpeg;*.mpg;*.webm;*.avi",
+                Filter = "video file|*.mp4;*.mpeg;*.mpg;*.webm;*.avi;*.mkv|any file |*.*",
                 Multiselect = false,
                 RestoreDirectory = true,
                 Title = "Select video file for conversion"

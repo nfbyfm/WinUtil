@@ -7,7 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>Icons\WinUtil.ico</ApplicationIcon>
-    <Version>1.5.0</Version>
+    <Version>1.6.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,11 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Serilog" Version="3.0.0-dev-01998" />
-    <PackageReference Include="Serilog.Sinks.RichTextBox.WinForms.Colored" Version="1.1.2" />
+    <PackageReference Include="Serilog" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.RichTextBox.WinForms.Colored" Version="2.0.0" />
     <PackageReference Include="TagLibSharp" Version="2.3.0" />
-    <PackageReference Include="WinForms.DataVisualization" Version="1.8.0" />
-    <PackageReference Include="YACUF" Version="1.0.1.2" />
+    <PackageReference Include="WinForms.DataVisualization" Version="1.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\YACUF\YACUF.csproj" />
   </ItemGroup>
 
   <ItemGroup>

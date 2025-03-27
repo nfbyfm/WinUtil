@@ -30,397 +30,456 @@ namespace WinUtil
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            menuStrip1 = new MenuStrip();
-            fileToolStripMenuItem = new ToolStripMenuItem();
-            quitToolStripMenuItem = new ToolStripMenuItem();
-            extrasToolStripMenuItem = new ToolStripMenuItem();
-            aboutToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator1 = new ToolStripSeparator();
-            settingsToolStripMenuItem = new ToolStripMenuItem();
-            statusStrip1 = new StatusStrip();
-            splitContainer1 = new SplitContainer();
-            mainTabControl = new TabControl();
-            tabPageAutoDownload = new TabPage();
-            uC_AutoDownload = new UC_AutoDownload();
-            tabPageBatchDownload = new TabPage();
-            uC_Batchdownload = new UC_Batchdownload();
-            tabPageRename = new TabPage();
-            uC_RenameFiles = new UC_Rename();
-            tabPageMove = new TabPage();
-            uC_MoveFiles = new UC_Move();
-            tabPageMP3Tag = new TabPage();
-            uC_mP3TagEditor = new UC_MP3TagEditor();
-            tabPageDirectoryInfo = new TabPage();
-            uC_DirectoryInfo = new UC_DirectoryInfo();
-            tabPageVideoAudioConvert = new TabPage();
-            uC_VideoToAudio = new UC_VideoToAudio();
-            tabPageVideoEdit = new TabPage();
-            uC_VideoCut = new UC_VideoCut();
-            tabPageWebPConvert = new TabPage();
-            uC_WebPConvert = new UC_WebPConvert();
-            tabPageImageResize = new TabPage();
-            uC_ImageResize = new UC_ImageResize();
-            groupBox1 = new GroupBox();
-            outputRichTextBox = new RichTextBox();
-            menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
-            splitContainer1.Panel1.SuspendLayout();
-            splitContainer1.Panel2.SuspendLayout();
-            splitContainer1.SuspendLayout();
-            mainTabControl.SuspendLayout();
-            tabPageAutoDownload.SuspendLayout();
-            tabPageBatchDownload.SuspendLayout();
-            tabPageRename.SuspendLayout();
-            tabPageMove.SuspendLayout();
-            tabPageMP3Tag.SuspendLayout();
-            tabPageDirectoryInfo.SuspendLayout();
-            tabPageVideoAudioConvert.SuspendLayout();
-            tabPageVideoEdit.SuspendLayout();
-            tabPageWebPConvert.SuspendLayout();
-            tabPageImageResize.SuspendLayout();
-            groupBox1.SuspendLayout();
-            SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, extrasToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(803, 24);
-            menuStrip1.TabIndex = 0;
-            menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { quitToolStripMenuItem });
-            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(31, 20);
-            fileToolStripMenuItem.Text = "&File";
-            // 
-            // quitToolStripMenuItem
-            // 
-            quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            quitToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Q;
-            quitToolStripMenuItem.Size = new Size(126, 22);
-            quitToolStripMenuItem.Text = "&Quit";
-            quitToolStripMenuItem.Click += QuitToolStripMenuItem_Click;
-            // 
-            // extrasToolStripMenuItem
-            // 
-            extrasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem, toolStripSeparator1, settingsToolStripMenuItem });
-            extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
-            extrasToolStripMenuItem.Size = new Size(42, 20);
-            extrasToolStripMenuItem.Text = "&Extras";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.ShortcutKeys = Keys.F1;
-            aboutToolStripMenuItem.Size = new Size(112, 22);
-            aboutToolStripMenuItem.Text = "&About";
-            aboutToolStripMenuItem.Click += AboutToolStripMenuItem_Click;
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(109, 6);
-            // 
-            // settingsToolStripMenuItem
-            // 
-            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(112, 22);
-            settingsToolStripMenuItem.Text = "&Settings";
-            settingsToolStripMenuItem.Click += SettingsToolStripMenuItem_Click;
-            // 
-            // statusStrip1
-            // 
-            statusStrip1.Location = new Point(0, 662);
-            statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(803, 22);
-            statusStrip1.TabIndex = 1;
-            statusStrip1.Text = "statusStrip1";
-            // 
-            // splitContainer1
-            // 
-            splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(0, 24);
-            splitContainer1.Name = "splitContainer1";
-            splitContainer1.Orientation = Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            splitContainer1.Panel1.Controls.Add(mainTabControl);
-            // 
-            // splitContainer1.Panel2
-            // 
-            splitContainer1.Panel2.Controls.Add(groupBox1);
-            splitContainer1.Size = new Size(803, 638);
-            splitContainer1.SplitterDistance = 420;
-            splitContainer1.TabIndex = 2;
-            // 
-            // mainTabControl
-            // 
-            mainTabControl.Controls.Add(tabPageAutoDownload);
-            mainTabControl.Controls.Add(tabPageBatchDownload);
-            mainTabControl.Controls.Add(tabPageRename);
-            mainTabControl.Controls.Add(tabPageMove);
-            mainTabControl.Controls.Add(tabPageMP3Tag);
-            mainTabControl.Controls.Add(tabPageDirectoryInfo);
-            mainTabControl.Controls.Add(tabPageVideoAudioConvert);
-            mainTabControl.Controls.Add(tabPageVideoEdit);
-            mainTabControl.Controls.Add(tabPageWebPConvert);
-            mainTabControl.Controls.Add(tabPageImageResize);
-            mainTabControl.Dock = DockStyle.Fill;
-            mainTabControl.Location = new Point(0, 0);
-            mainTabControl.Multiline = true;
-            mainTabControl.Name = "mainTabControl";
-            mainTabControl.SelectedIndex = 0;
-            mainTabControl.Size = new Size(803, 420);
-            mainTabControl.TabIndex = 0;
-            // 
-            // tabPageAutoDownload
-            // 
-            tabPageAutoDownload.Controls.Add(uC_AutoDownload);
-            tabPageAutoDownload.Location = new Point(4, 38);
-            tabPageAutoDownload.Name = "tabPageAutoDownload";
-            tabPageAutoDownload.Padding = new Padding(3);
-            tabPageAutoDownload.Size = new Size(688, 378);
-            tabPageAutoDownload.TabIndex = 3;
-            tabPageAutoDownload.Text = "auto download";
-            tabPageAutoDownload.UseVisualStyleBackColor = true;
-            // 
-            // uC_AutoDownload
-            // 
-            uC_AutoDownload.Dock = DockStyle.Fill;
-            uC_AutoDownload.Location = new Point(3, 3);
-            uC_AutoDownload.Name = "uC_AutoDownload";
-            uC_AutoDownload.Size = new Size(682, 372);
-            uC_AutoDownload.TabIndex = 0;
-            // 
-            // tabPageBatchDownload
-            // 
-            tabPageBatchDownload.Controls.Add(uC_Batchdownload);
-            tabPageBatchDownload.Location = new Point(4, 21);
-            tabPageBatchDownload.Name = "tabPageBatchDownload";
-            tabPageBatchDownload.Padding = new Padding(3);
-            tabPageBatchDownload.Size = new Size(192, 75);
-            tabPageBatchDownload.TabIndex = 3;
-            tabPageBatchDownload.Text = "batch download files";
-            tabPageBatchDownload.UseVisualStyleBackColor = true;
-            // 
-            // uC_Batchdownload
-            // 
-            uC_Batchdownload.Dock = DockStyle.Fill;
-            uC_Batchdownload.Location = new Point(3, 3);
-            uC_Batchdownload.Name = "uC_Batchdownload";
-            uC_Batchdownload.Size = new Size(186, 69);
-            uC_Batchdownload.TabIndex = 0;
-            // 
-            // tabPageRename
-            // 
-            tabPageRename.Controls.Add(uC_RenameFiles);
-            tabPageRename.Location = new Point(4, 38);
-            tabPageRename.Name = "tabPageRename";
-            tabPageRename.Padding = new Padding(3);
-            tabPageRename.Size = new Size(192, 58);
-            tabPageRename.TabIndex = 1;
-            tabPageRename.Text = "rename files";
-            tabPageRename.UseVisualStyleBackColor = true;
-            // 
-            // uC_RenameFiles
-            // 
-            uC_RenameFiles.Dock = DockStyle.Fill;
-            uC_RenameFiles.Location = new Point(3, 3);
-            uC_RenameFiles.Name = "uC_RenameFiles";
-            uC_RenameFiles.Size = new Size(186, 52);
-            uC_RenameFiles.TabIndex = 0;
-            // 
-            // tabPageMove
-            // 
-            tabPageMove.Controls.Add(uC_MoveFiles);
-            tabPageMove.Location = new Point(4, 38);
-            tabPageMove.Name = "tabPageMove";
-            tabPageMove.Padding = new Padding(3);
-            tabPageMove.Size = new Size(192, 58);
-            tabPageMove.TabIndex = 2;
-            tabPageMove.Text = "move files";
-            tabPageMove.UseVisualStyleBackColor = true;
-            // 
-            // uC_MoveFiles
-            // 
-            uC_MoveFiles.Dock = DockStyle.Fill;
-            uC_MoveFiles.Location = new Point(3, 3);
-            uC_MoveFiles.Name = "uC_MoveFiles";
-            uC_MoveFiles.Size = new Size(186, 52);
-            uC_MoveFiles.TabIndex = 0;
-            // 
-            // tabPageMP3Tag
-            // 
-            tabPageMP3Tag.Controls.Add(uC_mP3TagEditor);
-            tabPageMP3Tag.Location = new Point(4, 38);
-            tabPageMP3Tag.Name = "tabPageMP3Tag";
-            tabPageMP3Tag.Padding = new Padding(3);
-            tabPageMP3Tag.Size = new Size(192, 58);
-            tabPageMP3Tag.TabIndex = 4;
-            tabPageMP3Tag.Text = "edit mp3 tags";
-            tabPageMP3Tag.UseVisualStyleBackColor = true;
-            // 
-            // uC_mP3TagEditor
-            // 
-            uC_mP3TagEditor.Dock = DockStyle.Fill;
-            uC_mP3TagEditor.Location = new Point(3, 3);
-            uC_mP3TagEditor.Name = "uC_mP3TagEditor";
-            uC_mP3TagEditor.Size = new Size(186, 52);
-            uC_mP3TagEditor.TabIndex = 0;
-            // 
-            // tabPageDirectoryInfo
-            // 
-            tabPageDirectoryInfo.Controls.Add(uC_DirectoryInfo);
-            tabPageDirectoryInfo.Location = new Point(4, 55);
-            tabPageDirectoryInfo.Name = "tabPageDirectoryInfo";
-            tabPageDirectoryInfo.Padding = new Padding(3);
-            tabPageDirectoryInfo.Size = new Size(192, 41);
-            tabPageDirectoryInfo.TabIndex = 5;
-            tabPageDirectoryInfo.Text = "directory info";
-            tabPageDirectoryInfo.UseVisualStyleBackColor = true;
-            // 
-            // uC_DirectoryInfo
-            // 
-            uC_DirectoryInfo.Dock = DockStyle.Fill;
-            uC_DirectoryInfo.Location = new Point(3, 3);
-            uC_DirectoryInfo.Name = "uC_DirectoryInfo";
-            uC_DirectoryInfo.Size = new Size(186, 35);
-            uC_DirectoryInfo.TabIndex = 0;
-            // 
-            // tabPageVideoAudioConvert
-            // 
-            tabPageVideoAudioConvert.Controls.Add(uC_VideoToAudio);
-            tabPageVideoAudioConvert.Location = new Point(4, 55);
-            tabPageVideoAudioConvert.Name = "tabPageVideoAudioConvert";
-            tabPageVideoAudioConvert.Padding = new Padding(3);
-            tabPageVideoAudioConvert.Size = new Size(192, 41);
-            tabPageVideoAudioConvert.TabIndex = 2;
-            tabPageVideoAudioConvert.Text = "video to audio convert";
-            tabPageVideoAudioConvert.UseVisualStyleBackColor = true;
-            // 
-            // uC_VideoToAudio
-            // 
-            uC_VideoToAudio.Dock = DockStyle.Fill;
-            uC_VideoToAudio.Location = new Point(3, 3);
-            uC_VideoToAudio.Name = "uC_VideoToAudio";
-            uC_VideoToAudio.Size = new Size(186, 35);
-            uC_VideoToAudio.TabIndex = 0;
-            // 
-            // tabPageVideoEdit
-            // 
-            tabPageVideoEdit.Controls.Add(uC_VideoCut);
-            tabPageVideoEdit.Location = new Point(4, 72);
-            tabPageVideoEdit.Name = "tabPageVideoEdit";
-            tabPageVideoEdit.Padding = new Padding(3);
-            tabPageVideoEdit.Size = new Size(192, 24);
-            tabPageVideoEdit.TabIndex = 2;
-            tabPageVideoEdit.Text = "video edit";
-            tabPageVideoEdit.UseVisualStyleBackColor = true;
-            // 
-            // uC_VideoCut
-            // 
-            uC_VideoCut.Dock = DockStyle.Fill;
-            uC_VideoCut.Location = new Point(3, 3);
-            uC_VideoCut.Name = "uC_VideoCut";
-            uC_VideoCut.Size = new Size(186, 18);
-            uC_VideoCut.TabIndex = 0;
-            // 
-            // tabPageWebPConvert
-            // 
-            tabPageWebPConvert.Controls.Add(uC_WebPConvert);
-            tabPageWebPConvert.Location = new Point(4, 72);
-            tabPageWebPConvert.Name = "tabPageWebPConvert";
-            tabPageWebPConvert.Padding = new Padding(3);
-            tabPageWebPConvert.Size = new Size(192, 24);
-            tabPageWebPConvert.TabIndex = 2;
-            tabPageWebPConvert.Text = "WebP convert";
-            tabPageWebPConvert.UseVisualStyleBackColor = true;
-            // 
-            // uC_WebPConvert
-            // 
-            uC_WebPConvert.Dock = DockStyle.Fill;
-            uC_WebPConvert.Location = new Point(3, 3);
-            uC_WebPConvert.Name = "uC_WebPConvert";
-            uC_WebPConvert.Size = new Size(186, 18);
-            uC_WebPConvert.TabIndex = 0;
-            // 
-            // tabPageImageResize
-            // 
-            tabPageImageResize.Controls.Add(uC_ImageResize);
-            tabPageImageResize.Location = new Point(4, 21);
-            tabPageImageResize.Name = "tabPageImageResize";
-            tabPageImageResize.Padding = new Padding(3);
-            tabPageImageResize.Size = new Size(795, 395);
-            tabPageImageResize.TabIndex = 2;
-            tabPageImageResize.Text = "image resize";
-            tabPageImageResize.UseVisualStyleBackColor = true;
-            // 
-            // uC_ImageResize
-            // 
-            uC_ImageResize.Dock = DockStyle.Fill;
-            uC_ImageResize.Location = new Point(3, 3);
-            uC_ImageResize.Name = "uC_ImageResize";
-            uC_ImageResize.Size = new Size(789, 389);
-            uC_ImageResize.TabIndex = 0;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(outputRichTextBox);
-            groupBox1.Dock = DockStyle.Fill;
-            groupBox1.Location = new Point(0, 0);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(803, 214);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Ouput";
-            // 
-            // outputRichTextBox
-            // 
-            outputRichTextBox.Dock = DockStyle.Fill;
-            outputRichTextBox.Location = new Point(3, 17);
-            outputRichTextBox.Name = "outputRichTextBox";
-            outputRichTextBox.Size = new Size(797, 194);
-            outputRichTextBox.TabIndex = 0;
-            outputRichTextBox.Text = "";
-            // 
-            // MainWindow
-            // 
-            AutoScaleDimensions = new SizeF(6F, 12F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(803, 684);
-            Controls.Add(splitContainer1);
-            Controls.Add(statusStrip1);
-            Controls.Add(menuStrip1);
-            Icon = (Icon)resources.GetObject("$this.Icon");
-            MainMenuStrip = menuStrip1;
-            Name = "MainWindow";
-            Text = "Windows Utility Tool";
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
-            splitContainer1.Panel1.ResumeLayout(false);
-            splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
-            splitContainer1.ResumeLayout(false);
-            mainTabControl.ResumeLayout(false);
-            tabPageAutoDownload.ResumeLayout(false);
-            tabPageBatchDownload.ResumeLayout(false);
-            tabPageRename.ResumeLayout(false);
-            tabPageMove.ResumeLayout(false);
-            tabPageMP3Tag.ResumeLayout(false);
-            tabPageDirectoryInfo.ResumeLayout(false);
-            tabPageVideoAudioConvert.ResumeLayout(false);
-            tabPageVideoEdit.ResumeLayout(false);
-            tabPageWebPConvert.ResumeLayout(false);
-            tabPageImageResize.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            ResumeLayout(false);
-            PerformLayout();
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
+      this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+      this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+      this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+      this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+      this.mainTabControl = new System.Windows.Forms.TabControl();
+      this.tabPageAutoDownload = new System.Windows.Forms.TabPage();
+      this.uC_AutoDownload = new WinUtil.UI.Frames.UC_AutoDownload();
+      this.tabPageBatchDownload = new System.Windows.Forms.TabPage();
+      this.uC_Batchdownload = new WinUtil.UI.Frames.UC_Batchdownload();
+      this.tabPageRename = new System.Windows.Forms.TabPage();
+      this.uC_RenameFiles = new WinUtil.UI.Frames.UC_Rename();
+      this.tabPageMove = new System.Windows.Forms.TabPage();
+      this.uC_MoveFiles = new WinUtil.UI.Frames.UC_Move();
+      this.tabPageMP3Tag = new System.Windows.Forms.TabPage();
+      this.uC_mP3TagEditor = new WinUtil.UI.Frames.UC_MP3TagEditor();
+      this.tabPageDirectoryInfo = new System.Windows.Forms.TabPage();
+      this.uC_DirectoryInfo = new WinUtil.UI.Frames.UC_DirectoryInfo();
+      this.tabPageVideoAudioConvert = new System.Windows.Forms.TabPage();
+      this.uC_VideoToAudio = new WinUtil.UI.Frames.UC_VideoToAudio();
+      this.tabPageVideoEdit = new System.Windows.Forms.TabPage();
+      this.uC_VideoCut = new WinUtil.UI.Frames.UC_VideoCut();
+      this.tabPageWebPConvert = new System.Windows.Forms.TabPage();
+      this.uC_WebPConvert = new WinUtil.UI.Frames.UC_WebPConvert();
+      this.tabPageImageResize = new System.Windows.Forms.TabPage();
+      this.uC_ImageResize = new WinUtil.UI.Frames.UC_ImageResize();
+      this.tabPageConvertToMp3 = new System.Windows.Forms.TabPage();
+      this.uC_ConvertToMp3 = new WinUtil.UI.Frames.UC_ConvertToMp3();
+      this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.outputRichTextBox = new System.Windows.Forms.RichTextBox();
+      this.menuStrip1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+      this.splitContainer1.Panel1.SuspendLayout();
+      this.splitContainer1.Panel2.SuspendLayout();
+      this.splitContainer1.SuspendLayout();
+      this.mainTabControl.SuspendLayout();
+      this.tabPageAutoDownload.SuspendLayout();
+      this.tabPageBatchDownload.SuspendLayout();
+      this.tabPageRename.SuspendLayout();
+      this.tabPageMove.SuspendLayout();
+      this.tabPageMP3Tag.SuspendLayout();
+      this.tabPageDirectoryInfo.SuspendLayout();
+      this.tabPageVideoAudioConvert.SuspendLayout();
+      this.tabPageVideoEdit.SuspendLayout();
+      this.tabPageWebPConvert.SuspendLayout();
+      this.tabPageImageResize.SuspendLayout();
+      this.tabPageConvertToMp3.SuspendLayout();
+      this.groupBox1.SuspendLayout();
+      this.SuspendLayout();
+      // 
+      // menuStrip1
+      // 
+      this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.extrasToolStripMenuItem});
+      this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+      this.menuStrip1.Name = "menuStrip1";
+      this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+      this.menuStrip1.Size = new System.Drawing.Size(937, 24);
+      this.menuStrip1.TabIndex = 0;
+      this.menuStrip1.Text = "menuStrip1";
+      // 
+      // fileToolStripMenuItem
+      // 
+      this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.quitToolStripMenuItem});
+      this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+      this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+      this.fileToolStripMenuItem.Text = "&File";
+      // 
+      // quitToolStripMenuItem
+      // 
+      this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+      this.quitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+      this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.quitToolStripMenuItem.Text = "&Quit";
+      this.quitToolStripMenuItem.Click += new System.EventHandler(this.QuitToolStripMenuItem_Click);
+      // 
+      // extrasToolStripMenuItem
+      // 
+      this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.settingsToolStripMenuItem});
+      this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
+      this.extrasToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+      this.extrasToolStripMenuItem.Text = "&Extras";
+      // 
+      // aboutToolStripMenuItem
+      // 
+      this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+      this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
+      this.aboutToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+      this.aboutToolStripMenuItem.Text = "&About";
+      this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
+      // 
+      // toolStripSeparator1
+      // 
+      this.toolStripSeparator1.Name = "toolStripSeparator1";
+      this.toolStripSeparator1.Size = new System.Drawing.Size(123, 6);
+      // 
+      // settingsToolStripMenuItem
+      // 
+      this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+      this.settingsToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+      this.settingsToolStripMenuItem.Text = "&Settings";
+      this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
+      // 
+      // statusStrip1
+      // 
+      this.statusStrip1.Location = new System.Drawing.Point(0, 833);
+      this.statusStrip1.Name = "statusStrip1";
+      this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+      this.statusStrip1.Size = new System.Drawing.Size(937, 22);
+      this.statusStrip1.TabIndex = 1;
+      this.statusStrip1.Text = "statusStrip1";
+      // 
+      // splitContainer1
+      // 
+      this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+      this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
+      this.splitContainer1.Name = "splitContainer1";
+      this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+      // 
+      // splitContainer1.Panel1
+      // 
+      this.splitContainer1.Panel1.Controls.Add(this.mainTabControl);
+      // 
+      // splitContainer1.Panel2
+      // 
+      this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+      this.splitContainer1.Size = new System.Drawing.Size(937, 809);
+      this.splitContainer1.SplitterDistance = 532;
+      this.splitContainer1.SplitterWidth = 5;
+      this.splitContainer1.TabIndex = 2;
+      // 
+      // mainTabControl
+      // 
+      this.mainTabControl.Controls.Add(this.tabPageAutoDownload);
+      this.mainTabControl.Controls.Add(this.tabPageBatchDownload);
+      this.mainTabControl.Controls.Add(this.tabPageRename);
+      this.mainTabControl.Controls.Add(this.tabPageMove);
+      this.mainTabControl.Controls.Add(this.tabPageMP3Tag);
+      this.mainTabControl.Controls.Add(this.tabPageDirectoryInfo);
+      this.mainTabControl.Controls.Add(this.tabPageVideoAudioConvert);
+      this.mainTabControl.Controls.Add(this.tabPageVideoEdit);
+      this.mainTabControl.Controls.Add(this.tabPageWebPConvert);
+      this.mainTabControl.Controls.Add(this.tabPageImageResize);
+      this.mainTabControl.Controls.Add(this.tabPageConvertToMp3);
+      this.mainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.mainTabControl.Location = new System.Drawing.Point(0, 0);
+      this.mainTabControl.Margin = new System.Windows.Forms.Padding(4);
+      this.mainTabControl.Multiline = true;
+      this.mainTabControl.Name = "mainTabControl";
+      this.mainTabControl.SelectedIndex = 0;
+      this.mainTabControl.Size = new System.Drawing.Size(937, 532);
+      this.mainTabControl.TabIndex = 0;
+      // 
+      // tabPageAutoDownload
+      // 
+      this.tabPageAutoDownload.Controls.Add(this.uC_AutoDownload);
+      this.tabPageAutoDownload.Location = new System.Drawing.Point(4, 44);
+      this.tabPageAutoDownload.Margin = new System.Windows.Forms.Padding(4);
+      this.tabPageAutoDownload.Name = "tabPageAutoDownload";
+      this.tabPageAutoDownload.Padding = new System.Windows.Forms.Padding(4);
+      this.tabPageAutoDownload.Size = new System.Drawing.Size(929, 484);
+      this.tabPageAutoDownload.TabIndex = 3;
+      this.tabPageAutoDownload.Text = "auto download";
+      this.tabPageAutoDownload.UseVisualStyleBackColor = true;
+      // 
+      // uC_AutoDownload
+      // 
+      this.uC_AutoDownload.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_AutoDownload.Location = new System.Drawing.Point(4, 4);
+      this.uC_AutoDownload.Margin = new System.Windows.Forms.Padding(5);
+      this.uC_AutoDownload.Name = "uC_AutoDownload";
+      this.uC_AutoDownload.Size = new System.Drawing.Size(921, 476);
+      this.uC_AutoDownload.TabIndex = 0;
+      // 
+      // tabPageBatchDownload
+      // 
+      this.tabPageBatchDownload.Controls.Add(this.uC_Batchdownload);
+      this.tabPageBatchDownload.Location = new System.Drawing.Point(4, 44);
+      this.tabPageBatchDownload.Margin = new System.Windows.Forms.Padding(4);
+      this.tabPageBatchDownload.Name = "tabPageBatchDownload";
+      this.tabPageBatchDownload.Padding = new System.Windows.Forms.Padding(4);
+      this.tabPageBatchDownload.Size = new System.Drawing.Size(192, 52);
+      this.tabPageBatchDownload.TabIndex = 3;
+      this.tabPageBatchDownload.Text = "batch download files";
+      this.tabPageBatchDownload.UseVisualStyleBackColor = true;
+      // 
+      // uC_Batchdownload
+      // 
+      this.uC_Batchdownload.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_Batchdownload.Location = new System.Drawing.Point(4, 4);
+      this.uC_Batchdownload.Margin = new System.Windows.Forms.Padding(5);
+      this.uC_Batchdownload.Name = "uC_Batchdownload";
+      this.uC_Batchdownload.Size = new System.Drawing.Size(184, 44);
+      this.uC_Batchdownload.TabIndex = 0;
+      // 
+      // tabPageRename
+      // 
+      this.tabPageRename.Controls.Add(this.uC_RenameFiles);
+      this.tabPageRename.Location = new System.Drawing.Point(4, 64);
+      this.tabPageRename.Margin = new System.Windows.Forms.Padding(4);
+      this.tabPageRename.Name = "tabPageRename";
+      this.tabPageRename.Padding = new System.Windows.Forms.Padding(4);
+      this.tabPageRename.Size = new System.Drawing.Size(192, 32);
+      this.tabPageRename.TabIndex = 1;
+      this.tabPageRename.Text = "rename files";
+      this.tabPageRename.UseVisualStyleBackColor = true;
+      // 
+      // uC_RenameFiles
+      // 
+      this.uC_RenameFiles.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_RenameFiles.Location = new System.Drawing.Point(4, 4);
+      this.uC_RenameFiles.Margin = new System.Windows.Forms.Padding(5);
+      this.uC_RenameFiles.Name = "uC_RenameFiles";
+      this.uC_RenameFiles.Size = new System.Drawing.Size(184, 24);
+      this.uC_RenameFiles.TabIndex = 0;
+      // 
+      // tabPageMove
+      // 
+      this.tabPageMove.Controls.Add(this.uC_MoveFiles);
+      this.tabPageMove.Location = new System.Drawing.Point(4, 64);
+      this.tabPageMove.Margin = new System.Windows.Forms.Padding(4);
+      this.tabPageMove.Name = "tabPageMove";
+      this.tabPageMove.Padding = new System.Windows.Forms.Padding(4);
+      this.tabPageMove.Size = new System.Drawing.Size(192, 32);
+      this.tabPageMove.TabIndex = 2;
+      this.tabPageMove.Text = "move files";
+      this.tabPageMove.UseVisualStyleBackColor = true;
+      // 
+      // uC_MoveFiles
+      // 
+      this.uC_MoveFiles.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_MoveFiles.Location = new System.Drawing.Point(4, 4);
+      this.uC_MoveFiles.Margin = new System.Windows.Forms.Padding(5);
+      this.uC_MoveFiles.Name = "uC_MoveFiles";
+      this.uC_MoveFiles.Size = new System.Drawing.Size(184, 24);
+      this.uC_MoveFiles.TabIndex = 0;
+      // 
+      // tabPageMP3Tag
+      // 
+      this.tabPageMP3Tag.Controls.Add(this.uC_mP3TagEditor);
+      this.tabPageMP3Tag.Location = new System.Drawing.Point(4, 84);
+      this.tabPageMP3Tag.Margin = new System.Windows.Forms.Padding(4);
+      this.tabPageMP3Tag.Name = "tabPageMP3Tag";
+      this.tabPageMP3Tag.Padding = new System.Windows.Forms.Padding(4);
+      this.tabPageMP3Tag.Size = new System.Drawing.Size(192, 12);
+      this.tabPageMP3Tag.TabIndex = 4;
+      this.tabPageMP3Tag.Text = "edit mp3 tags";
+      this.tabPageMP3Tag.UseVisualStyleBackColor = true;
+      // 
+      // uC_mP3TagEditor
+      // 
+      this.uC_mP3TagEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_mP3TagEditor.Location = new System.Drawing.Point(4, 4);
+      this.uC_mP3TagEditor.Margin = new System.Windows.Forms.Padding(5);
+      this.uC_mP3TagEditor.Name = "uC_mP3TagEditor";
+      this.uC_mP3TagEditor.Size = new System.Drawing.Size(184, 4);
+      this.uC_mP3TagEditor.TabIndex = 0;
+      // 
+      // tabPageDirectoryInfo
+      // 
+      this.tabPageDirectoryInfo.Controls.Add(this.uC_DirectoryInfo);
+      this.tabPageDirectoryInfo.Location = new System.Drawing.Point(4, 84);
+      this.tabPageDirectoryInfo.Margin = new System.Windows.Forms.Padding(4);
+      this.tabPageDirectoryInfo.Name = "tabPageDirectoryInfo";
+      this.tabPageDirectoryInfo.Padding = new System.Windows.Forms.Padding(4);
+      this.tabPageDirectoryInfo.Size = new System.Drawing.Size(192, 12);
+      this.tabPageDirectoryInfo.TabIndex = 5;
+      this.tabPageDirectoryInfo.Text = "directory info";
+      this.tabPageDirectoryInfo.UseVisualStyleBackColor = true;
+      // 
+      // uC_DirectoryInfo
+      // 
+      this.uC_DirectoryInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_DirectoryInfo.Location = new System.Drawing.Point(4, 4);
+      this.uC_DirectoryInfo.Margin = new System.Windows.Forms.Padding(5);
+      this.uC_DirectoryInfo.Name = "uC_DirectoryInfo";
+      this.uC_DirectoryInfo.Size = new System.Drawing.Size(184, 4);
+      this.uC_DirectoryInfo.TabIndex = 0;
+      // 
+      // tabPageVideoAudioConvert
+      // 
+      this.tabPageVideoAudioConvert.Controls.Add(this.uC_VideoToAudio);
+      this.tabPageVideoAudioConvert.Location = new System.Drawing.Point(4, 104);
+      this.tabPageVideoAudioConvert.Margin = new System.Windows.Forms.Padding(4);
+      this.tabPageVideoAudioConvert.Name = "tabPageVideoAudioConvert";
+      this.tabPageVideoAudioConvert.Padding = new System.Windows.Forms.Padding(4);
+      this.tabPageVideoAudioConvert.Size = new System.Drawing.Size(192, 0);
+      this.tabPageVideoAudioConvert.TabIndex = 2;
+      this.tabPageVideoAudioConvert.Text = "video to audio convert";
+      this.tabPageVideoAudioConvert.UseVisualStyleBackColor = true;
+      // 
+      // uC_VideoToAudio
+      // 
+      this.uC_VideoToAudio.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_VideoToAudio.Location = new System.Drawing.Point(4, 4);
+      this.uC_VideoToAudio.Margin = new System.Windows.Forms.Padding(5);
+      this.uC_VideoToAudio.Name = "uC_VideoToAudio";
+      this.uC_VideoToAudio.Size = new System.Drawing.Size(184, 0);
+      this.uC_VideoToAudio.TabIndex = 0;
+      // 
+      // tabPageVideoEdit
+      // 
+      this.tabPageVideoEdit.Controls.Add(this.uC_VideoCut);
+      this.tabPageVideoEdit.Location = new System.Drawing.Point(4, 104);
+      this.tabPageVideoEdit.Margin = new System.Windows.Forms.Padding(4);
+      this.tabPageVideoEdit.Name = "tabPageVideoEdit";
+      this.tabPageVideoEdit.Padding = new System.Windows.Forms.Padding(4);
+      this.tabPageVideoEdit.Size = new System.Drawing.Size(192, 0);
+      this.tabPageVideoEdit.TabIndex = 2;
+      this.tabPageVideoEdit.Text = "video edit";
+      this.tabPageVideoEdit.UseVisualStyleBackColor = true;
+      // 
+      // uC_VideoCut
+      // 
+      this.uC_VideoCut.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_VideoCut.Location = new System.Drawing.Point(4, 4);
+      this.uC_VideoCut.Margin = new System.Windows.Forms.Padding(5);
+      this.uC_VideoCut.Name = "uC_VideoCut";
+      this.uC_VideoCut.Size = new System.Drawing.Size(184, 0);
+      this.uC_VideoCut.TabIndex = 0;
+      // 
+      // tabPageWebPConvert
+      // 
+      this.tabPageWebPConvert.Controls.Add(this.uC_WebPConvert);
+      this.tabPageWebPConvert.Location = new System.Drawing.Point(4, 124);
+      this.tabPageWebPConvert.Margin = new System.Windows.Forms.Padding(4);
+      this.tabPageWebPConvert.Name = "tabPageWebPConvert";
+      this.tabPageWebPConvert.Padding = new System.Windows.Forms.Padding(4);
+      this.tabPageWebPConvert.Size = new System.Drawing.Size(192, 0);
+      this.tabPageWebPConvert.TabIndex = 2;
+      this.tabPageWebPConvert.Text = "WebP convert";
+      this.tabPageWebPConvert.UseVisualStyleBackColor = true;
+      // 
+      // uC_WebPConvert
+      // 
+      this.uC_WebPConvert.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_WebPConvert.Location = new System.Drawing.Point(4, 4);
+      this.uC_WebPConvert.Margin = new System.Windows.Forms.Padding(5);
+      this.uC_WebPConvert.Name = "uC_WebPConvert";
+      this.uC_WebPConvert.Size = new System.Drawing.Size(184, 0);
+      this.uC_WebPConvert.TabIndex = 0;
+      // 
+      // tabPageImageResize
+      // 
+      this.tabPageImageResize.Controls.Add(this.uC_ImageResize);
+      this.tabPageImageResize.Location = new System.Drawing.Point(4, 124);
+      this.tabPageImageResize.Margin = new System.Windows.Forms.Padding(4);
+      this.tabPageImageResize.Name = "tabPageImageResize";
+      this.tabPageImageResize.Padding = new System.Windows.Forms.Padding(4);
+      this.tabPageImageResize.Size = new System.Drawing.Size(192, 0);
+      this.tabPageImageResize.TabIndex = 2;
+      this.tabPageImageResize.Text = "image resize";
+      this.tabPageImageResize.UseVisualStyleBackColor = true;
+      // 
+      // uC_ImageResize
+      // 
+      this.uC_ImageResize.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_ImageResize.Location = new System.Drawing.Point(4, 4);
+      this.uC_ImageResize.Margin = new System.Windows.Forms.Padding(5);
+      this.uC_ImageResize.Name = "uC_ImageResize";
+      this.uC_ImageResize.Size = new System.Drawing.Size(184, 0);
+      this.uC_ImageResize.TabIndex = 0;
+      // 
+      // tabPageConvertToMp3
+      // 
+      this.tabPageConvertToMp3.Controls.Add(this.uC_ConvertToMp3);
+      this.tabPageConvertToMp3.Location = new System.Drawing.Point(4, 144);
+      this.tabPageConvertToMp3.Name = "tabPageConvertToMp3";
+      this.tabPageConvertToMp3.Size = new System.Drawing.Size(192, 0);
+      this.tabPageConvertToMp3.TabIndex = 6;
+      this.tabPageConvertToMp3.Text = "convert to mp3";
+      this.tabPageConvertToMp3.UseVisualStyleBackColor = true;
+      // 
+      // uC_ConvertToMp3
+      // 
+      this.uC_ConvertToMp3.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_ConvertToMp3.Location = new System.Drawing.Point(0, 0);
+      this.uC_ConvertToMp3.Name = "uC_ConvertToMp3";
+      this.uC_ConvertToMp3.Size = new System.Drawing.Size(192, 0);
+      this.uC_ConvertToMp3.TabIndex = 0;
+      // 
+      // groupBox1
+      // 
+      this.groupBox1.Controls.Add(this.outputRichTextBox);
+      this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.groupBox1.Location = new System.Drawing.Point(0, 0);
+      this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+      this.groupBox1.Name = "groupBox1";
+      this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+      this.groupBox1.Size = new System.Drawing.Size(937, 272);
+      this.groupBox1.TabIndex = 0;
+      this.groupBox1.TabStop = false;
+      this.groupBox1.Text = "Ouput";
+      // 
+      // outputRichTextBox
+      // 
+      this.outputRichTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.outputRichTextBox.Location = new System.Drawing.Point(4, 20);
+      this.outputRichTextBox.Margin = new System.Windows.Forms.Padding(4);
+      this.outputRichTextBox.Name = "outputRichTextBox";
+      this.outputRichTextBox.Size = new System.Drawing.Size(929, 248);
+      this.outputRichTextBox.TabIndex = 0;
+      this.outputRichTextBox.Text = "";
+      // 
+      // MainWindow
+      // 
+      this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+      this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.ClientSize = new System.Drawing.Size(937, 855);
+      this.Controls.Add(this.splitContainer1);
+      this.Controls.Add(this.statusStrip1);
+      this.Controls.Add(this.menuStrip1);
+      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+      this.MainMenuStrip = this.menuStrip1;
+      this.Margin = new System.Windows.Forms.Padding(4);
+      this.Name = "MainWindow";
+      this.Text = "Windows Utility Tool";
+      this.menuStrip1.ResumeLayout(false);
+      this.menuStrip1.PerformLayout();
+      this.splitContainer1.Panel1.ResumeLayout(false);
+      this.splitContainer1.Panel2.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+      this.splitContainer1.ResumeLayout(false);
+      this.mainTabControl.ResumeLayout(false);
+      this.tabPageAutoDownload.ResumeLayout(false);
+      this.tabPageBatchDownload.ResumeLayout(false);
+      this.tabPageRename.ResumeLayout(false);
+      this.tabPageMove.ResumeLayout(false);
+      this.tabPageMP3Tag.ResumeLayout(false);
+      this.tabPageDirectoryInfo.ResumeLayout(false);
+      this.tabPageVideoAudioConvert.ResumeLayout(false);
+      this.tabPageVideoEdit.ResumeLayout(false);
+      this.tabPageWebPConvert.ResumeLayout(false);
+      this.tabPageImageResize.ResumeLayout(false);
+      this.tabPageConvertToMp3.ResumeLayout(false);
+      this.groupBox1.ResumeLayout(false);
+      this.ResumeLayout(false);
+      this.PerformLayout();
+
         }
 
         #endregion
@@ -457,5 +516,7 @@ namespace WinUtil
         private UI.Frames.UC_AutoDownload uC_AutoDownload;
         private UI.Frames.UC_WebPConvert uC_WebPConvert;
         private UI.Frames.UC_ImageResize uC_ImageResize;
+        private TabPage tabPageConvertToMp3;
+        private UC_ConvertToMp3 uC_ConvertToMp3;
     }
 }
