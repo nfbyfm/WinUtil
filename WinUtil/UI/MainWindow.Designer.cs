@@ -63,6 +63,8 @@ namespace WinUtil
       this.uC_ImageResize = new WinUtil.UI.Frames.UC_ImageResize();
       this.tabPageConvertToMp3 = new System.Windows.Forms.TabPage();
       this.uC_ConvertToMp3 = new WinUtil.UI.Frames.UC_ConvertToMp3();
+      this.tabPageBskySort = new System.Windows.Forms.TabPage();
+      this.uC_BskySort = new WinUtil.UI.Frames.UC_BskySort();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.outputRichTextBox = new System.Windows.Forms.RichTextBox();
       this.menuStrip1.SuspendLayout();
@@ -82,6 +84,7 @@ namespace WinUtil
       this.tabPageWebPConvert.SuspendLayout();
       this.tabPageImageResize.SuspendLayout();
       this.tabPageConvertToMp3.SuspendLayout();
+      this.tabPageBskySort.SuspendLayout();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -109,7 +112,7 @@ namespace WinUtil
       // 
       this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
       this.quitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-      this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.quitToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
       this.quitToolStripMenuItem.Text = "&Quit";
       this.quitToolStripMenuItem.Click += new System.EventHandler(this.QuitToolStripMenuItem_Click);
       // 
@@ -185,6 +188,7 @@ namespace WinUtil
       this.mainTabControl.Controls.Add(this.tabPageWebPConvert);
       this.mainTabControl.Controls.Add(this.tabPageImageResize);
       this.mainTabControl.Controls.Add(this.tabPageConvertToMp3);
+      this.mainTabControl.Controls.Add(this.tabPageBskySort);
       this.mainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
       this.mainTabControl.Location = new System.Drawing.Point(0, 0);
       this.mainTabControl.Margin = new System.Windows.Forms.Padding(4);
@@ -422,6 +426,24 @@ namespace WinUtil
       this.uC_ConvertToMp3.Size = new System.Drawing.Size(192, 0);
       this.uC_ConvertToMp3.TabIndex = 0;
       // 
+      // tabPageBskySort
+      // 
+      this.tabPageBskySort.Controls.Add(this.uC_BskySort);
+      this.tabPageBskySort.Location = new System.Drawing.Point(4, 44);
+      this.tabPageBskySort.Name = "tabPageBskySort";
+      this.tabPageBskySort.Size = new System.Drawing.Size(929, 484);
+      this.tabPageBskySort.TabIndex = 7;
+      this.tabPageBskySort.Text = "bluesky sort";
+      this.tabPageBskySort.UseVisualStyleBackColor = true;
+      // 
+      // uC_BskySort
+      // 
+      this.uC_BskySort.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.uC_BskySort.Location = new System.Drawing.Point(0, 0);
+      this.uC_BskySort.Name = "uC_BskySort";
+      this.uC_BskySort.Size = new System.Drawing.Size(929, 484);
+      this.uC_BskySort.TabIndex = 0;
+      // 
       // groupBox1
       // 
       this.groupBox1.Controls.Add(this.outputRichTextBox);
@@ -476,6 +498,7 @@ namespace WinUtil
       this.tabPageWebPConvert.ResumeLayout(false);
       this.tabPageImageResize.ResumeLayout(false);
       this.tabPageConvertToMp3.ResumeLayout(false);
+      this.tabPageBskySort.ResumeLayout(false);
       this.groupBox1.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
@@ -518,5 +541,7 @@ namespace WinUtil
         private UI.Frames.UC_ImageResize uC_ImageResize;
         private TabPage tabPageConvertToMp3;
         private UC_ConvertToMp3 uC_ConvertToMp3;
+        private TabPage tabPageBskySort;
+        private UC_BskySort uC_BskySort;
     }
 }
